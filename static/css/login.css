@@ -1,0 +1,42 @@
+.nav {
+    width: 100%;
+    background-color: #4B93FF;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.box {
+    margin-top: 250px;
+    text-align: center;
+}
+
+#login {
+    width: 500px;
+    height: 60px;
+    color: white;
+    background: #4B93FF;
+    box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.25);
+    margin-top: 30px;
+    font-size: 15px;
+}
+
+.account {
+    width: 700px;
+    height: 60px;
+    background: #EEF5FF;
+    border-color: transparent;
+    border-radius: 20px;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+input {
+    font-size: 18px;
+}
+
+button {
+    cursor: pointer;
+}
