@@ -87,6 +87,21 @@
         background-color: rgb(208, 208, 208);
         color:white;
     }
+    .article_write_button{
+        width: 15%;
+        height: 25px;
+        border-radius: 10px;
+        outline: 0;
+        border: 0;
+        background-color: rgb(169, 169, 169);
+        color:white;
+        font-size: 13px;
+    }
+    .article_header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 </style>
 
 <body>
@@ -98,7 +113,10 @@
     <!-- right side article-->
     <div class="wrap_right_side">
         <div class="right_side">
-            <h2>자유게시판</h2>
+            <div class="article_header">
+                <h2>자유게시판</h2>
+                <button class="article_write_button">글 작성하기</button>
+            </div>
             <hr>
             <div class="article_writearea">
                 <div>제목</div>
