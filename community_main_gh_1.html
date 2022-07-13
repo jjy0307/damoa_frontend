@@ -24,9 +24,32 @@
     }
 
     tr:hover {background-color: rgb(216, 243, 255);}
-      
+
+    .all_wrap{
+        display: flex;
+    }
+    .left_side{
+        display: flex;
+        width: 30%;
+    }
+    .right_side{
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        padding: 30px;
+        background: #EEF5FF;
+        box-shadow: 3px 0px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 15px;
+    }  
 </style>
 <body>
+<div class="all_wrap">
+    <div class="left_side">
+        사이드바 들어갈자리<br>
+        게시판 만들기
+    </div>
+    <div class="right_side">
+        <h2>자유게시판</h2>
     <table> 
         <tr>
             <th>번호</th>
@@ -57,5 +80,7 @@
             <td>3</td>
         </tr>
     </table>
+    </div>
+</div>
 </body>
 </html>
