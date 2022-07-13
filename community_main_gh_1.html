@@ -7,6 +7,32 @@
     <title>Document</title>
 </head>
 <style>
+    .community-menu {
+        width: 200px;
+        height: 300px;
+        color: white;
+        text-align: center;
+        background: #4B93FF;
+        box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+        margin: 0px 12% 0 2%;
+    }
+
+    .community-title {
+        padding-top: 10px;
+        font-size: 20px;
+    }
+
+    .community-sub {
+        margin-top: 40px;
+        font-size: 15px;
+    }
+    
+    .community-create {
+        margin: 60px 20px 20px 20px;
+        border-top: 1px solid white;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;
@@ -44,9 +70,18 @@
 </style>
 <body>
 <div class="all_wrap">
-    <div class="left_side">
-        사이드바 들어갈자리<br>
-        게시판 만들기
+    <div class="community-menu">
+        <div class="community-title">
+            <p>커뮤니티 게시판</p>
+            <div class="community-sub">
+                <p>자유 게시판 | 1,100개</p>
+                <p>질문 게시판 | 153개</p>
+                <p>익명 게시판 | 93개</p>
+                <div class="community-create">
+                    <p>게시판 만들기</p>
+                </div>
+            </div>   
+        </div>
     </div>
     <div class="right_side">
         <h2>자유게시판</h2>
