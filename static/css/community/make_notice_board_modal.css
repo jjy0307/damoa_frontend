@@ -1,44 +1,4 @@
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 2px solid #ddd;
-    border-top: 2px solid #ddd;
-}
-
-td {
-    padding: 10px;
-}
-
-tr:hover {
-    background-color: rgb(216, 243, 255);
-}
-
-.all_wrap {
-    display: flex;
-    padding: 30px;
-    margin-top: 50px;
-}
-.left_side {
-    display: flex;
-    flex-direction: column;
-    margin: 50px;
-    width: 30%;
-}
-.right_side {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    padding: 30px;
-    background: #eef5ff;
-    box-shadow: 3px 0px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-}
-
+/*Modal CSS*/
 .modal_header {
     display: flex;
     flex-direction: row;

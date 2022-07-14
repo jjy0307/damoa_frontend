@@ -1,0 +1,20 @@
+/*article list table*/
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+tr:hover {
+    background-color: rgb(216, 243, 255);
+}
+
+th {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    border-top: 2px solid #ddd;
+}
+
+td {
+    padding: 10px;
+}

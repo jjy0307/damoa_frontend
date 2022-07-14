@@ -1,0 +1,16 @@
+/*community_main_gh_common*/
+.all_wrap {
+    display: flex;
+    padding: 30px;
+    margin-top: 50px;
+}
+.right_side {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 30px;
+    background: #eef5ff;
+    box-shadow: 3px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    margin-bottom: 50px;
+}

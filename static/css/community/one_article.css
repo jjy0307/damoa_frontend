@@ -1,0 +1,40 @@
+/*article*/
+hr {
+    border: none;
+    border-top: 2px solid rgb(189, 203, 223);
+    width: 100%;
+}
+.article_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.article_write_button {
+    min-width: 100px;
+    width: 15%;
+    height: 25px;
+    border-radius: 10px;
+    outline: 0;
+    border: 0;
+    background-color: rgb(169, 169, 169);
+    color: white;
+    font-size: 13px;
+}
+.article_writearea {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.article_font_color {
+    color: rgb(118, 118, 118);
+}
+.article_wrapimage {
+    display: flex;
+    margin-top: 10px;
+    overflow-x: scroll;
+}
+.article_show_image {
+    padding: 5px;
+    width: 200px;
+    height: 200px;
+}
