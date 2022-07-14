@@ -9,6 +9,7 @@
     margin: 0px 12% 0 2%;
     min-width: 200px;
     min-height: 300px;
+    position: fixed;
 }
 
 .community-title {

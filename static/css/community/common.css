@@ -7,10 +7,16 @@
 .right_side {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 75%;
     padding: 30px;
     background: #eef5ff;
     box-shadow: 3px 0px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     margin-bottom: 50px;
+}
+
+.left_side {
+    display: flex;
+    width: 45%;
+    max-width: 310px;
 }
