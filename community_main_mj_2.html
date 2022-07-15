@@ -4,169 +4,120 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- import css files -->
     <link rel="stylesheet" type="text/css" href="static/css/navigation.css" />
     <link rel="stylesheet" type="text/css" href="static/css/community/common.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/community/make_notice_board_modal.css" />
     <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/community/one_article.css" />
     <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css" />
     <title>커뮤니티 게시판</title>
 </head>
 <body>
-<div class="all_wrap">    
-    <div class="community-menu">
-        <div class="community-title">
-            <p>커뮤니티 게시판</p>
-            <div class="community-sub">
-                <p>자유 게시판 | 1,100개</p>
-                <p>질문 게시판 | 153개</p>
-                <p>익명 게시판 | 93개</p>
-                <div class="community-create">
-                    <p>게시판 만들기</p>
-                </div>
-            </div>   
+    <div class="all_wrap">
+        <!-- navigation bar -->
+        <div class="navigation-bar">
+            <span class="navigation-bar__footprint">damoa.com</span>
+            <div class="navigation-bar__button">
+                <div class="navigation-bar__button__signup">회원가입</div>
+                |
+                <div class="navigation-bar__button__signin">로그인</div>
+            </div>
         </div>
+        <!-- left side notice board-->
+        <div class="left_side">
+            <div class="community-menu">
+                <div class="community-title">
+                    <p>커뮤니티 게시판</p>
+                    <div class="community-sub">
+                        <p>자유 게시판 | 1,100개</p>
+                        <p>질문 게시판 | 153개</p>
+                        <p>익명 게시판 | 93개</p>
+                        <div class="community-create">
+                            <button id="modal_show">게시판 만들기</button>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+        <!-- right side article list-->
+        <div class="right_side_column">
+        <div class="right_side">
+            <div class="article_header">
+                <h2>자유게시판</h2>
+                <button class="article_write_button">글 작성하기</button>
+            </div>  
+        <table> 
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>안녕하세요</td>
+                <td>김민재</td>
+                <td>07-07</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>안녕하세요</td>
+                <td>김민재</td>
+                <td>07-07</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>안녕하세요</td>
+                <td>김민재</td>
+                <td>07-07</td>
+                <td>3</td>
+            </tr>
+        </table>
     </div>
-    <div class="right_side_column">
     <div class="right_side">
-            <p>글 생성하기</p>
+        <div class="article_header">
             <h2>자유게시판</h2>
-    <table> 
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>안녕하세요!!</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>7</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>안녕하세요!!</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>9</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>안녕하세요!!</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>2</td>
-        </tr>
-    </table>
+            <button class="article_write_button">글 작성하기</button>
+        </div>
+        <table> 
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>안녕하세요</td>
+                <td>김민재</td>
+                <td>07-07</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>안녕하세요</td>
+                <td>김민재</td>
+                <td>07-07</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>안녕하세요</td>
+                <td>김민재</td>
+                <td>07-07</td>
+                <td>3</td>
+            </tr>
+        </table>
     </div>
     <div class="right_side">
-        <p>글 생성하기</p>
-        <h2>자유게시판</h2>
-    <table> 
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-    </table>
-    </div>
-    <div class="right_side">
-        <p>글 생성하기</p>
-        <h2>정보공유게시판</h2>
-    <table> 
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-    </table>
-    </div>
-    <div class="right_side">
-        <p>글 생성하기</p>
-        <h2>질문게시판</h2>
-    <table> 
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>안녕하세요</td>
-            <td>김민재</td>
-            <td>07-07</td>
-            <td>3</td>
-        </tr>
-    </table>
-    </div>
-    <div class="right_side">
-        <p>글 생성하기</p>
-        <h2>익명게시판</h2>
+        <div class="article_header">
+            <h2>자유게시판</h2>
+            <button class="article_write_button">글 작성하기</button>
+        </div>
     <table> 
         <tr>
             <th>번호</th>
@@ -199,8 +150,26 @@
     </table>
     </div>
     </div>
-</div>
-<!-- import script files -->
-<script type="text/javascript" src="static/js/community/make_notice_board_modal.js"></script>
+    </div>
+    <!-- modal -->
+    <div class="modal_background">
+    <div class="modal_window">
+        <div class="modal_popup">
+            <div class="modal_header">
+                <p>게시판 생성</p>
+                <button id="modal_close">X</button>
+            </div>
+            <form action="url" method="GET">
+                <div class="modal_body">
+                    <p>게시판 이름</p>
+                    <input type="text" name="notice_board_name" />
+                </div>
+                <input class="modal_submit" type="submit" value="생성"/>
+            </form>​
+        </div>
+    <div> 
+    <div>
+    <!-- import script files -->
+    <script type="text/javascript" src="static/js/community/make_notice_board_modal.js"></script>
 </body>
 </html>
