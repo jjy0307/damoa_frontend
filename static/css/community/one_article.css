@@ -22,7 +22,7 @@ hr {
 }
 .article_writearea {
     display: flex;
-    justify-content: space-between;
+    
     padding: 5px;
 }
 .article_font_color {
@@ -37,4 +37,19 @@ hr {
     padding: 5px;
     width: 200px;
     height: 200px;
+}
+
+.article_title {
+    width: 1096px;
+    height: 20px;
+    margin-left: 5px;
+    background-color: #EEF5FF;
+    border: none;
+}
+
+.article_content {
+    width: 100%;
+    resize: none;
+    border: none;
+    background-color: #EEF5FF;
 }
