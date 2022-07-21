@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- import css files -->
-    <link rel="stylesheet" type="text/css" href="static/css/navigation.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/community/common.css"/>
-    <link rel="stylesheet" type="text/css" href="static/css/community/make_notice_board_modal.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css" />
-    <title>Document</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- import css files -->
+        <link rel="stylesheet" type="text/css" href="static/css/navigation.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/common.css"/>
+        <link rel="stylesheet" type="text/css" href="static/css/community/make_notice_board_modal.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css" />
+        <title>Document</title>
 </head>
 <body>
     <div class="all_wrap">
@@ -28,14 +28,14 @@
             <div class="community-menu">
                 <div class="community-title">
                     <p>커뮤니티 게시판</p>
-                    <div class="community-sub">
+                    <div id="noticeboard_name" class="community-sub">
                         <p>자유 게시판 | 1,100개</p>
                         <p>질문 게시판 | 153개</p>
                         <p>익명 게시판 | 93개</p>
-                        <div class="community-create">
-                            <button id="modal_show">게시판 만들기</button>
-                        </div>
                     </div>   
+                    <div class="community-create">
+                        <button id="modal_show">게시판 만들기</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,12 +122,14 @@
                         <p>게시판 이름</p>
                         <input type="text" name="notice_board_name" />
                     </div>
-                    <input class="modal_submit" type="submit" value="생성"/>
+                    <input class="modal_submit" type="button" value="생성" onclick="new_noticeboard()"/>
                 </form>​
             </div>
         <div> 
     <div>
     <!-- import script files -->
     <script type="text/javascript" src="static/js/community/make_notice_board_modal.js"></script>
+    <script type="text/javascript" src="static/js/community/show_article_list.js"></script>
+    <script type="text/javascript" src="static/js/community/show_noticeboard_list.js"></script>
 </body>
 </html>
