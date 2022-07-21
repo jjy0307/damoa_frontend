@@ -3,12 +3,9 @@ fetch('http://127.0.0.1:8000/noticeboard/create/')
     .then((response) => response.json())
     .then((json) => {
         let noticeboard = [];
-        console.log(json);
         for (i = 0; i < json.length; i++) {
-            console.log(json[i]['name']);
             noticeboard.push(json[i]['name']);
         }
-        console.log(noticeboard);
 
         let tag_area = document.getElementById('noticeboard_name');
 
