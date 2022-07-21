@@ -1,26 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="static/css/login.css"/>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="static/css/login.css" />
+  </head>
+  <body>
     <nav class="nav">
-        <p style="color: white; font-size: 20px; margin-left: 20px; font-weight: bold;">damoa.life</p>
+      <p
+        style="
+          color: white;
+          font-size: 20px;
+          margin-left: 20px;
+          font-weight: bold;
+        "
+      >
+        damoa.life
+      </p>
     </nav>
     <div class="box">
-        <div>
-            <p style="font-size: 24px; font-weight: bold;">아이디</p>
-            <input type="text" placeholder="아이디를 입력해주세요." id="user_id" class="account">
-            <p style="font-size: 24px; font-weight: bold;">비밀번호</p>
-            <input type="password" placeholder="비밀번호를 입력해주세요." id="password" class="account">
-        </div>
-        <div>
-            <p style="color: #B7B7B7; margin-top: 100px;">아이디가 없으신가요? <a href="/signin.html"><span style="color: #4B93FF;">회원가입</span></a>
-                하러가기</p>
-            <button id="login" class="account">로그인</button>
-        </div>
+      <div>
+        <p style="font-size: 24px; font-weight: bold">아이디</p>
+        <input
+          type="text"
+          placeholder="아이디를 입력해주세요."
+          id="user_id"
+          class="account"
+        />
+        <p style="font-size: 24px; font-weight: bold">비밀번호</p>
+        <input
+          type="password"
+          placeholder="비밀번호를 입력해주세요."
+          id="password"
+          class="account"
+        />
+      </div>
+      <div>
+        <p style="color: #b7b7b7; margin-top: 100px">
+          아이디가 없으신가요?
+          <a href="/signin.html"
+            ><span style="color: #4b93ff">회원가입</span></a
+          >
+          하러가기
+        </p>
+        <button id="login" class="account" onclick="login()">로그인</button>
+      </div>
     </div>
-</body>
+  </body>
+  <script type="text/javascript" src="static/js/login.js"></script>
 </html>
