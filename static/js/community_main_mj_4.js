@@ -1,26 +1,19 @@
-var backend_base_url = "http://127.0.0.1:8000"
-var frontend_base_url = "http://127.0.0.1:5500"
-
-
 async function postArticle(){
     const title = document.getElementById("article_title").value
     const content = document.getElementById("article_content").value
-    const created_date = document.getElementById("article_time_data").value
-    const file = document.getElementById("article_file").value
-    const images = document.getElementById("article_images").files[0]
-
+    const noticeboard = document.getElementById("noticeboard").value
+    // const file = document.getElementById("article_file").value
+    const image = document.getElementById("article_image").files[0]
 
     const formdata = new FormData();
 
     formdata.append('title', title)
     formdata.append('content', content)
-    formdata.append('created_date', created_date)
-    formdata.append('file', file)
-    formdata.append('images', images)
+    // formdata.append('file', file)
+    formdata.append('image', image)
+    formdata.append('noticeboard', noticeboard)
 
-    console.con
-
-    const response = await fetch("http://127.0.0.1:8000/article/",{
+    const response = await fetch("http://127.0.0.1:8000/article/write/",{
         method:'POST',
         body: formdata
     }
@@ -36,6 +29,6 @@ async function postArticle(){
     }
 
 
-
-
 }
+
+
