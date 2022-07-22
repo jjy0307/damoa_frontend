@@ -10,8 +10,9 @@ fetch('http://127.0.0.1:8000/noticeboard/create/')
         let tag_area = document.getElementById('noticeboard_name');
 
         for (i = 0; i < noticeboard.length; i++) {
-            let make_noticeboard = document.createElement('p');
-            make_noticeboard.setAttribute('class', 'noticeboard_name');
+            let make_noticeboard = document.createElement('button');
+            make_noticeboard.setAttribute('id', `noticeboard_name${i}`);
+            make_noticeboard.setAttribute('onclick', `location.href="https://github.com/soiyo"`);
             make_noticeboard.innerHTML = noticeboard[i];
             tag_area.appendChild(make_noticeboard);
         }
