@@ -183,3 +183,7 @@
 .main-ranking__community:last-child {
     margin-bottom: 20px;
 }
+
+#by_joined {
+    display:none
+}
