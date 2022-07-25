@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css" />
     <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css" />
     <link rel="stylesheet" type="text/css" href="static/css/community/text.css" />
+    
     <title>글 작성</title>
 </head>
 <body>
@@ -40,26 +41,28 @@
     <div class="right_side_column">
     <div class="right_side">
         <div class="article_header">
-            <h2>자유게시판</h2>
-            <button class="article_write_button">작성 완료</button>
+            <h2 id="noticeboard">자유게시판</h2>
+            <button type="button" onclick="postArticle()" class="article_write_button">작성</button>
         </div>    
     <hr />    
     <div class="article_writearea">
         <div>제목</div>
-        <div>2022.07.07 17:30</div>
+        <input class="article_title" type="text" name="title" id="article_title" placeholder="제목을 입력해 주세요."></input>
+        <div class="article_time_data" name="time_data" id="article_time_data">2022.07.07 | 17:30</div>
     </div>
     <hr />
     <div class="text">
         <div>
-            내용을 입력해주세요.
+            <textarea rows="38" cols="178" class="article_content" type="text" name="content" id="article_content" placeholder="내용을 입력해 주세요."></textarea>
         </div>
     </div>
     <div class="file">
-        <button>파일 첨부</button>
-        <button>이미지 첨부</button>
+        <input type="file" name="file" id="article_file"></input>
+        <input type="file" name="image" id="article_image"></input>
     </div>
     </div>
     </div>
 </div>
 </body>
+    <script src="static/js/community_main_mj_4.js"></script>
 </html>
