@@ -20,7 +20,6 @@ async function login() {
           localStorage.setItem("access", response_json.access)
           localStorage.setItem("refresh", response_json.refresh)
           
-          console.log(response_json.access)
           const base64Url = response_json.access.split('.')[1];
           const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
           const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
