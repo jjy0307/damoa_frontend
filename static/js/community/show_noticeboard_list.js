@@ -1,3 +1,4 @@
+community_num = 1;
 // get noticeboard
 fetch('http://127.0.0.1:8000/noticeboard/create/')
     .then((response) => response.json())
@@ -20,12 +21,12 @@ fetch('http://127.0.0.1:8000/noticeboard/create/')
 
 // post noticeboard
 function new_noticeboard() {
-    let noticeboard_form_data = document.querySelector('input[type="text"]').value;
+    let noticeboard_form_data = document.getElementById('modal_input_text').value;
 
     fetch('http://127.0.0.1:8000/noticeboard/create/', {
         method: 'POST',
         body: JSON.stringify({
-            community: '1',
+            community: community_num,
             name: noticeboard_form_data,
         }),
         headers: {
