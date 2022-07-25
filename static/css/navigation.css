@@ -38,3 +38,8 @@
 .navigation-bar__button__signup {
     margin-right: 5px;
 }
+
+#nav_logout_btn {
+    display: none;
+    margin-right: 20px;
+}
