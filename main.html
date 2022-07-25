@@ -8,11 +8,22 @@
   </head>
   <body>
     <div class="navigation-bar">
-      <span class="navigation-bar__footprint">damoa.com</span>
-      <div class="navigation-bar__button" id="nav_bar">
-        <div class="navigation-bar__button__signup">회원가입</div>
+      <span class="navigation-bar__footprint" onclick="handleMain()"
+        >damoa.life</span
+      >
+      <div class="navigation-bar__button" id="nav_login_btn">
+        <div class="navigation-bar__button__signup" onclick="handleSignUp()">
+          회원가입
+        </div>
         |
-        <div class="navigation-bar__button__signin">로그인</div>
+        <div class="navigation-bar__button__signin" onclick="handleLogin()">
+          로그인
+        </div>
+      </div>
+      <div class="navigation-bar__button" id="nav_logout_btn">
+        <div class="navigation-bar__button__logout" onclick="handleLogout()">
+          로그아웃
+        </div>
       </div>
     </div>
     <div class="main-navigation-bar">
@@ -22,8 +33,17 @@
       />
       <div class="main-navigation-bar__bottom">
         <div class="main-navigation-bar__bottom__filter">
-          <div class="main-navigation-bar__bottom__filter__byCommunity">
+          <div
+            class="main-navigation-bar__bottom__filter__byCommunity"
+            id="by_recommendation"
+          >
             개설된 커뮤니티 보기
+          </div>
+          <div
+            class="main-navigation-bar__bottom__filter__byCommunity"
+            id="by_joined"
+          >
+            가입된 커뮤니티 보기
           </div>
           |
           <div class="main-navigation-bar__bottom__filter__byCategory">
@@ -107,4 +127,5 @@
     </div>
   </body>
   <script type="text/javascript" src="static/js/main.js"></script>
+  <script type="text/javascript" src="static/js/navbar.js"></script>
 </html>
