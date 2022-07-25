@@ -22,8 +22,21 @@ hr {
 }
 .article_writearea {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     padding: 5px;
+}
+.article_writearea_child {
+    display: flex;
+    width: 50%;
+}
+.article_writearea_child_right {
+    display: flex;
+    width: 50%;
+    justify-content: flex-end;
+}
+#article_author_area {
+    display: flex;
+    justify-content: space-between;
 }
 .article_font_color {
     color: rgb(118, 118, 118);
