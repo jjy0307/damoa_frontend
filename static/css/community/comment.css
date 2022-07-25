@@ -2,11 +2,10 @@
 .right_side_comment {
     background: #f4f4f4ed;
 }
-.comment_show {
+.comment_all_show {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
-    margin-bottom: 20px;
+    padding: 10px;
 }
 .comment_write {
     display: flex;
