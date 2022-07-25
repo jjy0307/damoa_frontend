@@ -25,12 +25,16 @@ async function submit() {
         .then((result) => {
             if (result.user_id) {
                 alert(result.user_id)
+                throw new Error('wrong userid')
             }
             if (result.username) {
                 alert(result.username)
+                throw new Error('wrong username')
             }
             alert('회원 가입이 완료 되었습니다')
             window.location.href = 'http://127.0.0.1:5500/login.html'
+        })
+        .catch((err)=>{console.log(err)
         })
     }
 
