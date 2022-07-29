@@ -40,7 +40,6 @@
 }
 
 .text {
-<<<<<<< HEAD
         height: 600px;
         margin: 20px 0px 0px 10px;
     }
@@ -58,7 +57,7 @@
     margin-left: 18%;
     border: none;
     background: #D3E4FE;
-=======
+
     height: 600px;
     margin: 20px 0px 0px 10px;
 }
@@ -76,5 +75,8 @@
     margin-left: 30px;
     border: none;
     background: #d3e4fe;
->>>>>>> 18aace71013669166857a3e7ea22aa134c06426b
+}
+
+.article_null {
+    margin-top: 10px;
 }
