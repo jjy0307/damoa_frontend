@@ -18,7 +18,6 @@ async function if_login() {
         .then((result) => {
             const category = result;
             const container = document.getElementById("main-container");
-            let tags = "";
             for (i=0; i<category.length; i++) {
                 const contanier_div = document.createElement('div');
                 contanier_div.classList.add("main-communtiy")
@@ -33,8 +32,7 @@ async function if_login() {
                     <div class="main-community__info__discription">
                         ${category[i].community_info.introduction}
                     </div>
-                    <div class="main-community__info__tags">
-                        <div class="main-community__info__tag"># ${category[i].community_info.tag}</div>
+                    <div class="main-community__info__tags" id="tag_${category[i].community}">
                     </div>
                     <div class="main-community__info__else">
                         <div class="main-community__info__public">공개커뮤니티</div>
@@ -43,10 +41,18 @@ async function if_login() {
                     </div>
                     </div>
                 `
+
                 container.append(contanier_div);
+
+                for (j=0; j<category[i].community_info.tag.length; j++) {
+                    const tag_id = document.getElementById("tag_"+category[i].community)
+                    const tag_div = document.createElement('div');
+                    tag_div.classList.add("main-community__info__tag");
+                    tag_div.append('# '+category[i].community_info.tag[j].name);
+                    tag_id.append(tag_div);
+                }
             }
         })
-
 };
 
 window.onload = ()=>{
