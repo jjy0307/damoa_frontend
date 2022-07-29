@@ -15,16 +15,37 @@ async function if_login() {
         },
       })
         .then((response) => response.json())
-        // .then((result) => {
-        //     if (result.user_id) {
-        //         alert(result.user_id)
-        //     }
-        //     if (result.username) {
-        //         alert(result.username)
-        //     }
-        //     alert('회원 가입이 완료 되었습니다')
-        //     window.location.href = 'http://127.0.0.1:5500/login.html'
-        // })
+        .then((result) => {
+            const category = result;
+            const container = document.getElementById("main-container");
+            let tags = "";
+            for (i=0; i<category.length; i++) {
+                const contanier_div = document.createElement('div');
+                contanier_div.classList.add("main-communtiy")
+                contanier_div.innerHTML =   
+                `
+                    <img
+                    class="main-community-thumbnail"
+                    src="${category[i].community_info.image}"
+                    />
+                    <div class="main-community__info">
+                    <div class="main-community__info__name">${category[i].community_info.name}</div>
+                    <div class="main-community__info__discription">
+                        ${category[i].community_info.introduction}
+                    </div>
+                    <div class="main-community__info__tags">
+                        <div class="main-community__info__tag"># ${category[i].community_info.tag}</div>
+                    </div>
+                    <div class="main-community__info__else">
+                        <div class="main-community__info__public">공개커뮤니티</div>
+                        |
+                        <div class="main-community__info__number">회원 수 1,100</div>
+                    </div>
+                    </div>
+                `
+                container.append(contanier_div);
+            }
+        })
 
 };
 
