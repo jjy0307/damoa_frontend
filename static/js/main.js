@@ -1,3 +1,52 @@
+async function if_logout() {
+    let make_community_btn = document.getElementById("make_community");
+    make_community_btn.remove();
+    fetch("http://127.0.0.1:8000/community/main/", {
+        },
+      )
+      .then((response)=>(response.json()))
+      .then((result)=>{
+        const category = result;
+        const container = document.getElementById("main-container");
+        for (i=0; i<category.length; i++) {
+            const contanier_div = document.createElement('div');
+            contanier_div.classList.add("main-communtiy")
+            contanier_div.innerHTML =   
+            `
+                <img
+                class="main-community-thumbnail"
+                src="${category[i].image}"
+                />
+                <div class="main-community__info">
+                <div class="main-community__info__name">${category[i].name}</div>
+                <div class="main-community__info__discription">
+                    ${category[i].introduction}
+                </div>
+                <div class="main-community__info__tags" id="tag_${category[i].name}">
+                </div>
+                <div class="main-community__info__else">
+                    <div class="main-community__info__public">공개 커뮤니티</div>
+                    |
+                    <div class="main-community__info__number">회원 수 ${category[i].user_num}</div>
+                </div>
+                </div>
+            `
+
+            container.append(contanier_div);
+
+            for (j=0; j<category[i].tag.length; j++) {
+                const tag_id = document.getElementById("tag_"+category[i].name)
+                const tag_div = document.createElement('div');
+                tag_div.classList.add("main-community__info__tag");
+                tag_div.append('# '+category[i].tag[j].name);
+                tag_id.append(tag_div);
+            }
+        }
+      })
+}
+
+
+
 async function if_login() {
     let nav_bar_login = document.getElementById('nav_login_btn');
     let nav_bar_logout = document.getElementById('nav_logout_btn');
@@ -35,15 +84,19 @@ async function if_login() {
                     <div class="main-community__info__tags" id="tag_${category[i].community}">
                     </div>
                     <div class="main-community__info__else">
-                        <div class="main-community__info__public">공개커뮤니티</div>
+                        <div class="main-community__info__public" id="community_is_public_${category[i].community}">공개 커뮤니티</div>
                         |
-                        <div class="main-community__info__number">회원 수 1,100</div>
+                        <div class="main-community__info__number">회원 수 ${category[i].community_info.user_num}</div>
                     </div>
                     </div>
                 `
-
                 container.append(contanier_div);
-
+                
+                if (category[i].community_info.is_public === false) {
+                    const public_tag = document.getElementById("community_is_public_"+category[i].community);
+                    public_tag.textContent = "비공개 커뮤니티"
+                }
+                
                 for (j=0; j<category[i].community_info.tag.length; j++) {
                     const tag_id = document.getElementById("tag_"+category[i].community)
                     const tag_div = document.createElement('div');
@@ -55,7 +108,7 @@ async function if_login() {
         })
 };
 
-window.onload = ()=>{
+window.onload = ()=> {try {
     const payload = JSON.parse(localStorage.getItem("payload"));
     // 아직 access 토큰의 인가 유효시간이 남은 경우
     if (payload.exp > (Date.now() / 1000)){
@@ -83,4 +136,7 @@ window.onload = ()=>{
             if_login();
         });
     }
-};
+} catch (error) {
+    if_logout();
+    };
+}
