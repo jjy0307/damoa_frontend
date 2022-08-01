@@ -30,6 +30,7 @@
             </div>
 
             <!-- left side notice board-->
+
             <!-- <div class="left_side"> -->
             <div class="community-menu">
                 <div class="community-title">
@@ -42,9 +43,18 @@
                     <div class="community-create">
                         <button id="modal_show">게시판 만들기</button>
                     </div>
+
+                    <div class="admin_area">
+                        <hr />
+                        <p>관리자 항목</p>
+                        <div id="admin_items" class="admin_sub">
+                            <button id="report_articles" class="admin_item" onclick="admin_articles()">신고된 게시물 관리</button>
+                            <button id="report_comments" class="admin_item" onclick="admin_comments()">신고된 댓글 관리</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- </div> -->
+            <!-- left side notice board -end -->
 
             <!-- right side article & comment-->
             <div class="wrap_right_side" id="wrap_article_and_comment">
@@ -138,5 +148,6 @@
         <script type="text/javascript" src="static/js/navbar.js"></script>
         <script type="text/javascript" src="static/js/community/make_notice_board_modal.js"></script>
         <script type="text/javascript" src="static/js/community/show_community.js"></script>
+        <script type="text/javascript" src="static/js/community/admin.js"></script>
     </body>
 </html>
