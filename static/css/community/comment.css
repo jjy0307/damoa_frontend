@@ -7,6 +7,9 @@
     justify-content: space-between;
     padding: 10px;
 }
+.comment_one_show {
+    display: flex;
+}
 .comment_write {
     display: flex;
     justify-content: space-between;
