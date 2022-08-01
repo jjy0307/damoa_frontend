@@ -1,5 +1,12 @@
 let community_num = 1;
 
+/* storage에서 payload 값 모두 가져오는 부분 */
+let storage = localStorage.getItem('payload');
+// JSON 문자열을 객체, 배열로 변환
+const personObj = JSON.parse(storage);
+username = personObj['username'];
+user_id = personObj['user_id'];
+
 // 특정 게시판 클릭시 해당 게시판의 id 값 중 숫자만 불러오게 함
 function noticeboard_name(clicked_id) {
     let noticeboard_real_id = clicked_id.split('_', 3)[2];
@@ -34,6 +41,30 @@ function noticeboard_name(clicked_id) {
         });
 }
 
+/* 댓글 작성하는 부분 */
+function new_comment(clicked_id) {
+    article_num = clicked_id.split('_', 2)[1];
+    console.log(article_num);
+    let comment_form_data = document.getElementById('comment_input_area').value;
+    fetch('http://127.0.0.1:8000/article/comment/write/', {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+            'content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+            user: user_id,
+            article: article_num,
+            content: comment_form_data,
+        }),
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            alert('댓글을 작성했습니다.');
+            window.location.reload();
+        });
+}
+
 function article_id(clicked_id) {
     article_num = clicked_id.split('_', 2)[1];
     let article_show = document.getElementById('article_and_comment_display');
@@ -41,69 +72,50 @@ function article_id(clicked_id) {
     article_show.setAttribute('style', 'display:flex');
     article_hide.setAttribute('style', 'display:none');
 
-    /* 댓글 작성하는 부분 */
-    function new_comment() {
-        let comment_form_data = document.getElementById('comment_input_area').value;
-        fetch('http://127.0.0.1:8000/article/comment/write/', {
-            method: 'POST',
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('access'),
-                'content-type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify({
-                user: user_id,
-                article: article_num,
-                content: comment_form_data,
-            }),
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                alert('댓글을 작성했습니다.');
-                window.location.reload();
-            });
-    }
-
     /* 글의 디테일한 부분, 댓글 목록 가져오는 부분 */
     fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
         .then((response) => response.json())
         .then((json) => {
             // console.log(json);
-
-            let article_title = json.title;
-            let currrent_noticeboard = json.noticeboard_name;
-            let article_date = json.created_date.slice(2, 10);
-            let article_author = json.user_name;
-            let article_content = json.content;
-
-            // 데이터 보여줄 영역 지정
-            let title_area = document.getElementById('article_title_area');
-            let date_area = document.getElementById('article_date_area');
-            let author_area = document.getElementById('article_author_area');
-            let content_area = document.getElementById('article_content_area');
-            let currrent_noticeboard_area = document.getElementById('noticeboard_name_area');
-
-            // 게시판 데이터
-            currrent_noticeboard_area.innerHTML = currrent_noticeboard;
-
-            // 제목 데이터
-            let make_title = document.createElement('div');
-            make_title.setAttribute('id', 'article_title');
-            title_area.innerHTML = article_title;
-
-            // 날짜 데이터
-            let make_date = document.createElement('div');
-            make_date.setAttribute('id', 'article_date');
-            date_area.innerHTML = article_date;
-
-            // 작성자 데이터
-            let make_author = document.createElement('div');
-            make_author.setAttribute('id', 'article_author');
-            author_area.innerHTML = article_author;
-
-            // 내용 데이터
-            let make_content = document.createElement('div');
-            make_content.setAttribute('id', 'article_content');
-            content_area.innerHTML = article_content;
+            let article_detail = document.getElementById('article_and_comment_display');
+            article_detail.innerHTML = `
+        <div class="article_header">
+            <h2 id="noticeboard_name_area">${json.noticeboard_name}</h2>
+            <button class="article_write_button">글 수정하기</button>
+        </div>
+        <hr />
+        <!-- post 시 id 설정 -->
+        <div class="article_writearea">
+            <div id="article_title_area" class="article_writearea_child">${json.title}</div>
+            <div id="article_date_area" class="article_writearea_child_right">${json.created_date.slice(2, 10)}</div>
+        </div>
+        <hr />
+        <div id="article_author_area" class="article_writearea">
+            <div>${json.user_name}</div>
+            <div class="article_font_color">조회1 댓글1 url 복사</div>
+            <!-- 파일 다운로드 구현 -->
+        </div>
+        <div id="article_content_area" class="article_writearea article_font_color">${json.content}</div>
+            <div>
+            <p>파일이 존재합니다 : ${json.file.slice(62, 76)}...</p>
+            <a href=" ${json.file}" download>
+                파일 다운로드하기
+            </a>
+            </div>
+            <div id="article_image_area" class="article_wrapimage"><!-- 이미지가 들어가는 곳입니다. --></div>
+                <h2>댓글</h2>
+                <hr />
+                <!-- comment get -->
+                <div>
+                    <div id="comment_area"></div>
+                    <!-- comment post -->
+                    <div class="comment_write">
+                        <div id="current_user_name" class="comment_nickname">${username}</div>
+                        <input id="comment_input_area" class="comment_writearea" type="text" name="comment" placeholder="댓글이 작성되는 곳입니다." />
+                        <input class="comment_submit" type="submit" value="작성" onclick="new_comment()" />
+                    </div>
+                </div>    
+            </div>`;
 
             //get comment
             return fetch('http://127.0.0.1:8000/article/comment/write/');
@@ -117,8 +129,8 @@ function article_id(clicked_id) {
                 // console.log(json[i]['article']);
                 let current_article = json[i]['article'];
                 if (current_article == `${article_num}`) {
-                    // console.log(article_num);
                     let make_comment = document.createElement('div');
+                    // console.log(article_num);
                     make_comment.setAttribute('class', 'comment_all_show');
                     make_comment.innerHTML = `
                         <div>${json[i]['user_name']}</div>
