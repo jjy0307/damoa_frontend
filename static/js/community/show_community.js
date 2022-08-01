@@ -24,7 +24,7 @@ function noticeboard_name(clicked_id) {
             table.innerHTML = `<tr id = "article_list_tr" class="show_article_list">
             <th>번호</th>
             <th>제목</th>
-            <th>작성자</th>
+            <th>작성자</th> 
             <th>작성일</th>
             <th>조회</th>
         </tr>
@@ -32,7 +32,7 @@ function noticeboard_name(clicked_id) {
             for (i = 0; i < json.length; i++) {
                 let create_article_list = document.createElement('tr');
                 create_article_list.innerHTML = `<td>${i + 1}</td>
-                                                <td id="click_${json[i]['id']}" onclick="article_id(this.id)">${json[i]['title']}</td>
+                                                <td id="click_${json[i]['id']}" onclick="article_id(this.id); comment_id(this.id);">${json[i]['title']}</td>
                                                 <td>${json[i]['user_name']}</td>
                                                 <td>${json[i]['created_date'].slice(5, 10)}</td>
                                                 <td>조회수</td>`;
@@ -42,9 +42,7 @@ function noticeboard_name(clicked_id) {
 }
 
 /* 댓글 작성하는 부분 */
-function new_comment(clicked_id) {
-    article_num = clicked_id.split('_', 2)[1];
-    console.log(article_num);
+function new_comment() {
     let comment_form_data = document.getElementById('comment_input_area').value;
     fetch('http://127.0.0.1:8000/article/comment/write/', {
         method: 'POST',
@@ -175,6 +173,7 @@ fetch('http://127.0.0.1:8000/noticeboard/create/')
         for (i = 0; i < noticeboard.length; i++) {
             let make_noticeboard = document.createElement('button');
             make_noticeboard.setAttribute('id', `noticeboard_name_${json[i]['id']}`);
+            make_noticeboard.setAttribute('class', 'community_noticeboard_button');
             make_noticeboard.setAttribute('onclick', `noticeboard_name(this.id)`);
             make_noticeboard.innerHTML = noticeboard[i];
             tag_area.appendChild(make_noticeboard);
