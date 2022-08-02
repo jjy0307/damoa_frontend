@@ -13,7 +13,6 @@ fetch('http://127.0.0.1:8000/noticeboard/create/')
                 noticeboard_div.innerHTML = `
                             <div id="noticeboard_area_inner" class="article_header">
                                 <h2 id="noticeboard_title">${result[i]['name']}</h2>
-                                <button class="article_write_button">글 작성하기</button>
                             </div>  
                             <table id="noticeboard_list_${result[i]['name']}"> 
                                 <tr>

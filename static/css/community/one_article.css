@@ -4,6 +4,7 @@ hr {
     border-top: 2px solid rgb(189, 203, 223);
     width: 100%;
 }
+
 .article_header {
     display: flex;
     justify-content: space-between;

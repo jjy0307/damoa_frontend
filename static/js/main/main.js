@@ -19,3 +19,14 @@ function tag_filter_change(tag) {
         }
     }
 }
+
+function modal_show() {
+    document.querySelector('.main-community-modal__background').className = 'main-community-modal__background main-community-modal__show';
+}
+
+function modal_close() {
+    document.querySelector('.main-community-modal__background').className = 'main-community-modal__background';
+}
+
+document.querySelector('#make_community').addEventListener('click', modal_show);
+document.querySelector('#modal_close').addEventListener('click', modal_close);
