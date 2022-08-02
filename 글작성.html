@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="static/css/navigation.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/community/common.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/community/one_article.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/community/text.css" />
+    <title>글 작성</title>
+</head>
+<body>
+<div class="navigation-bar">
+    <span class="navigation-bar__footprint">damoa.com</span>
+    <div class="navigation-bar__button">
+        <div class="navigation-bar__button__signup">회원가입</div>
+        |
+        <div class="navigation-bar__button__signin">로그인</div>
+    </div>
+</div>       
+<div class="all_wrap">    
+    <div class="left_side"> 
+        <div class="community-menu">
+            <div class="community-title">
+                <p>커뮤니티 게시판</p>
+                <div class="community-sub">
+                    <p>자유 게시판 | 1,100개</p>
+                    <p>질문 게시판 | 153개</p>
+                    <p>익명 게시판 | 93개</p>
+                    <div class="community-create">
+                        <p>게시판 만들기</p>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>   
+    <div class="right_side_column">
+    <div class="right_side">
+        <div class="article_header">
+            <h2 id="noticeboard">자유게시판</h2>
+            <button type="button" onclick="postArticle()" class="article_write_button">작성</button>
+        </div>    
+    <hr />    
+    <div class="article_writearea">
+        <div>제목</div>
+        <input class="article_title" type="text" name="title" id="article_title" placeholder="제목을 입력해 주세요."></input>
+        <div class="article_time_data" name="time_data" id="article_time_data">2022.07.07 | 17:30</div>
+    </div>
+    <hr />
+    <div class="text">
+        <div>
+            <textarea rows="38" cols="178" class="article_content" type="text" name="content" id="article_content" placeholder="내용을 입력해 주세요."></textarea>
+        </div>
+    </div>
+    <div class="file">
+        <input type="file" name="file" id="article_file"></input>
+        <input type="file" name="image" id="article_image"></input>
+    </div>
+    </div>
+    </div>
+</div>
+</body>
+    <script src="static/js/community_main_mj_4.js"></script>
+</html>
