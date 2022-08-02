@@ -74,6 +74,20 @@ async function if_login() {
       })
         .then((response) => response.json())
         .then((result) => {
+            const all_tag = result.all_tag;
+            const all_tag_div = document.getElementsByClassName("main-community-modal__body__tags")[0]
+            for (i=0; i<all_tag.length; i++) {
+                const tag_span = document.createElement('span')
+                tag_span.innerHTML = `${all_tag[i]}`
+                const tag_div = document.createElement('input');
+                tag_div.classList.add("main-community-modal__body__tag");
+                tag_div.setAttribute("type", "checkbox");
+                tag_div.setAttribute("id", "make_community_tag_"+all_tag[i]);
+                tag_div.setAttribute('value', all_tag[i])
+                all_tag_div.append(tag_span)
+                all_tag_div.append(tag_div)
+            }
+
             const community = result.community;
             const container = document.getElementById("main-container");
             for (i=0; i<community.length; i++) {
@@ -157,3 +171,52 @@ window.onload = ()=> {try {
     if_logout();
     };
 }
+
+async function create_community() {
+    const community_name = document.getElementById('make_community_name').value
+    const community_discription = document.getElementById('make_community_discription').value
+    const community_image = document.getElementById('make_community_sumbnail').files[0]
+    const community_tags_div = document.getElementsByClassName('main-community-modal__body__tag');
+    const community_tags = []
+    for (i=0; i<community_tags_div.length; i++) {
+        if(community_tags_div[i].checked === true) {
+            community_tags.push(community_tags_div[i].value)
+        }
+    }
+    let community_isPublic = false
+    if (document.getElementById('make_community_isPublic').checked === true) {
+        community_isPublic = true;
+    }
+    const formdata = new FormData();
+    formdata.append("name", community_name)
+    formdata.append("introduction", community_discription)
+    formdata.append("image", community_image)
+    formdata.append("tags", community_tags)
+    formdata.append("is_public", community_isPublic)
+    formdata.append("user_id", localStorage.getItem("payload"))
+    fetch("http://127.0.0.1:8000/community/main/create", {
+        method: "POST",
+        body: formdata
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            if (result.message === 'name_none') {
+                throw new Error('커뮤니티 이름을 작성해주세요') 
+            }
+            if (result.message === 'name_exist') {
+                throw new Error('이미 존재하는 커뮤니티 이름입니다.') 
+            }
+            if (result.message === 'introduction') {
+                throw new Error('커뮤니티 설명을 작성해주세요')
+            }
+            if (result.message === 'image') {
+                throw new Error('썸내일은 필수 사항입니다. 추후에 수정할 수 있으니 업로드 해주세요.')
+            }
+            alert(result.message);
+            window.location.reload();
+            }
+        )
+        .catch((err)=>{
+            alert(err)
+        })
+};

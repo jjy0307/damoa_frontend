@@ -34,6 +34,10 @@ function noticeboard_name(clicked_id) {
             let show_display = document.getElementById('right_side_item');
             show_display.setAttribute('style', 'display:flex');
             let table = document.getElementById('article_list_table');
+
+            let h2 = document.getElementById('noticeboard_name_area_in_show_article_list');
+            h2.innerHTML = json[0]['noticeboard_name'];
+
             table.innerHTML = `<tr id = "article_list_tr" class="show_article_list">
             <th>번호</th>
             <th>제목</th>

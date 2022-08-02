@@ -187,3 +187,119 @@
 #by_joined {
     display:none
 }
+
+
+/*Modal CSS*/
+.main-community-modal__background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+
+    /* 숨기기 */
+    z-index: -1;
+    opacity: 0;
+}
+
+.main-community-modal__window {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.main-community-modal__popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+
+    /* 모달 크기 지정 */
+    width: 35%;
+    height: auto;
+
+    /* 초기에 약간 아래에 배치 */
+    transform: translate(-50%, -40%);
+}
+
+.main-community-modal__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#modal_close {
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+.main-community-modal__body {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.main-community-modal__body__name,
+.main-community-modal__body__discription {
+    background-color: #ddd;
+    height: 30px;
+    font-size: 15px;
+    outline: none;
+}
+
+.main-community-modal__body__tags {
+    display: inline-block;
+}
+
+.main-community-modal__body__tag {
+    margin-right: 15px;
+    height: 20px;
+}
+
+.main-community-modal__body__isPublic {
+    position: relative;
+    right:405px;
+    height: 15px;
+}
+
+.main-community-modal__message {
+    font-size: 8px;
+    color : red;
+    margin-left: 5px;
+}
+
+.main-community-modal__submit {
+    float: right;
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+    font-size: 15px;
+}
+
+#modal_show {
+    margin-top: 10px;
+    outline: 0;
+    border: 0;
+    color: white;
+    font-size: 15px;
+    background-color: transparent;
+}
+
+.main-community-modal__show {
+    opacity: 1;
+    z-index: 1000;
+    transition: all 0.5s;
+}
+
+
+.main-community-modal__show .main-community-modal__popup {
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s;
+}

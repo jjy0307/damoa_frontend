@@ -81,6 +81,75 @@
 
     <div class="main-community-container" id="main-container"></div>
 
+    <div class="main-community-modal__background">
+      <div class="main-community-modal__window">
+        <div class="main-community-modal__popup">
+          <div class="main-community-modal__header">
+            <p>커뮤니티 생성</p>
+            <button id="modal_close">X</button>
+          </div>
+          <div class="main-community-modal__body">
+            <p>
+              커뮤니티 이름<span class="main-community-modal__message"
+                >필수 입력 칸입니다.</span
+              >
+            </p>
+            <input
+              class="main-community-modal__body__name"
+              id="make_community_name"
+              type="text"
+              name="community_name"
+            />
+            <p>
+              커뮤니티 한줄 소개<span class="main-community-modal__message"
+                >필수 입력 칸입니다.</span
+              >
+            </p>
+            <input
+              class="main-community-modal__body__discription"
+              id="make_community_discription"
+              type="text"
+              name="community_discription"
+            />
+            <p>
+              커뮤니티 썸네일<span class="main-community-modal__message"
+                >필수 입력 칸입니다.</span
+              >
+            </p>
+            <input
+              class="main-community-modal__body__sumbnail"
+              id="make_community_sumbnail"
+              type="file"
+              accept="image/*"
+              name="community_sumbnail"
+            />
+            <p>커뮤니티 태그 선택</p>
+            <div
+              id="make_community_tag"
+              class="main-community-modal__body__tags"
+            ></div>
+            <p>
+              커뮤니티 공개 여부<span class="main-community-modal__message"
+                >공개할시 체크 해주세요</span
+              >
+            </p>
+            <input
+              class="main-community-modal__body__isPublic"
+              id="make_community_isPublic"
+              type="checkbox"
+              name="community_isPublic"
+            />
+          </div>
+          <input
+            class="main-community-modal__submit"
+            type="button"
+            value="생성"
+            onclick="create_community()"
+          />​
+        </div>
+      </div>
+    </div>
+
     <div class="main-ranking">
       <div class="main-ranking__title">사용자가 가장</div>
       <div class="main-ranking__title">많은 커뮤니티는?</div>
