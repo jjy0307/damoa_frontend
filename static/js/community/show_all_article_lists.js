@@ -1,6 +1,7 @@
 // 모든 게시판 보기 누를시 실행
 try {
-    fetch('http://127.0.0.1:8000/noticeboard/create/')
+    const community_num = window.location.href.split('?')[1].split('=')[1]
+    fetch(`http://127.0.0.1:8000/noticeboard/create/${community_num}/`)
         .then((response) => response.json())
         .then((json) => {
             let noticeboard_all = document.getElementById('noticeboard_all');
