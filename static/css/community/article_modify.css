@@ -1,0 +1,31 @@
+.article_input_content {
+    display: flex;
+    font-size: 15px;
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    border: none;
+}
+.article_input_title {
+    font-size: 15px;
+    width: 80%;
+    background-color: transparent;
+    border: none;
+}
+.article_input_date {
+    font-size: 15px;
+}
+.article_mod_writearea {
+    display: flex;
+    justify-content: space-between;
+}
+.article_mod_file_area {
+    display: flex;
+    justify-content: space-between;
+}
+.article_mod_image_wrap_area {
+    display: flex;
+}
+.article_mod_content {
+    margin-bottom: 100px;
+}
