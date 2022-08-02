@@ -144,7 +144,7 @@ function article_id(clicked_id) {
                 let article_head = document.getElementById('article_head');
                 article_head.innerHTML = `
                 <h2 id="noticeboard_name_area">${json.noticeboard_name}</h2>
-                <button id="mod_article_num_${json.id}" class="article_write_button" onclick="edit_post(this.id)">글 수정하기</button>`;
+                <button id="mod_article_num_${json.id}" class="article_write_button" onclick="edit_article(this.id)">글 수정하기</button>`;
             }
             //get comment
             return fetch('http://127.0.0.1:8000/article/comment/write/');
