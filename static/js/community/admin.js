@@ -5,6 +5,8 @@ function admin_articles() {
             .then((json) => {
                 let hide_display = document.getElementById('article_and_comment_display');
                 hide_display.setAttribute('style', 'display:none');
+                let hide_display_all_article = document.getElementById('noticeboard_all');
+                hide_display_all_article.setAttribute('style', 'display:none');
                 let show_display = document.getElementById('right_side_item');
                 show_display.setAttribute('style', 'display:flex');
                 let h2 = document.getElementById('noticeboard_name_area_in_show_article_list');
