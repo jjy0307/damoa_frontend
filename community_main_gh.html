@@ -1,173 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- import css files -->
-        <link rel="stylesheet" type="text/css" href="static/css/navigation.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/article_modify.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/common.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/make_notice_board_modal.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/manager_menu.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/one_article.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/text.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/comment.css" />
-        <title>Document</title>
-    </head>
-    <body>
-        <div class="all_wrap">
-            <!-- navigation bar -->
-            <div class="navigation-bar">
-                <span class="navigation-bar__footprint" onclick="handleMain()">damoa.life</span>
-                <div class="navigation-bar__button" id="nav_login_btn">
-                    <div class="navigation-bar__button__signup" onclick="handleSignUp()">회원가입</div>
-                    |
-                    <div class="navigation-bar__button__signin" onclick="handleLogin()">로그인</div>
-                </div>
-                <div class="navigation-bar__button" id="nav_logout_btn">
-                    <div class="navigation-bar__button__logout" onclick="handleLogout()">로그아웃</div>
-                </div>
-            </div>
-
-            <!-- left side notice board-->
-
-            <!-- <div class="left_side"> -->
-            <div class="community-menu">
-                <div class="community-title">
-                    <p class="">커뮤니티 게시판</p>
-                    <div id="noticeboard_name" class="community-sub">
-                        <button class="community_noticeboard_button" onclick="window.location.reload()">게시판 모두보기</button>
-                    </div>
-                    <div class="community-create">
-                        <button id="modal_show">게시판 만들기</button>
-                    </div>
-
-                    <div class="admin_area">
-                        <hr />
-                        <p>관리자 항목</p>
-                        <div id="admin_items" class="admin_sub">
-                            <button id="report_articles" class="admin_item" onclick="admin_articles()">신고된 게시물 관리</button>
-                            <button id="report_comments" class="admin_item" onclick="admin_comments()">신고된 댓글 관리</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- left side notice board -end -->
-
-            <!-- 게시판, 게시글 모두 보기 -->
-            <div id="noticeboard_all" class="right_side_column"></div>
-
-            <!-- right side article & comment-->
-            <div class="wrap_right_side" id="wrap_article_and_comment">
-                <div id="article_and_comment_display" style="display: none" class="right_side">
-                    <!-- <div class="right_side"> -->
-                    <div class="article_header">
-                        <h2 id="noticeboard_name_area"></h2>
-                        <button type="button" class="article_write_button">글 수정하기</button>
-                    </div>
-                    <hr />
-                    <!-- post 시 id 설정 -->
-                    <div class="article_writearea">
-                        <div id="article_title_area" class="article_writearea_child"><!-- 글 제목이 들어가는 곳입니다.--></div>
-                        <div id="article_date_area" class="article_writearea_child_right"><!-- 글이 작성된 일시가 들어가는 곳입니다. --></div>
-                    </div>
-                    <hr />
-                    <div id="article_author_area" class="article_writearea">
-                        <!-- 글 작성자가 들어가는 곳입니다.  -->
-                        <div class="article_font_color">조회1 댓글1 url 복사</div>
-                        <!-- 파일 다운로드 구현 -->
-                        <span>파일 이름 : /images/myw3schoolsimage.jpg</span>
-                        <a href="/images/myw3schoolsimage.jpg" download>
-                            <button>파일 다운로드하기</button>
-                        </a>
-                    </div>
-                    <div id="article_content_area" class="article_writearea article_font_color">
-                        <!-- 글 내용이 작성되는 곳 입니다. -->
-                    </div>
-                    <div id="article_image_area" class="article_wrapimage"><!-- 이미지가 들어가는 곳입니다. --></div>
-                    <!-- right side comment -->
-                    <!-- <div class="right_side right_side_comment"> -->
-                    <h2>댓글</h2>
-                    <hr />
-                    <!-- comment get -->
-                    <div>
-                        <div id="comment_area"></div>
-                        <!-- comment post -->
-                        <div class="comment_write">
-                            <div id="current_user_name" class="comment_nickname">닉네임</div>
-                            <input id="comment_input_area" class="comment_writearea" type="text" name="comment" placeholder="댓글이 작성되는 곳입니다." />
-                            <input class="comment_submit" type="submit" value="작성" onclick="new_comment()" />
-                        </div>
-                    </div>
-                    <!-- </div> -->
-                </div>
-            </div>
-            <!-- all wrap fin -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- import css files -->
+    <link rel="stylesheet" type="text/css" href="static/css/navigation.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/article_list_table.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/article_modify.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/common.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/left_side_bar.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/make_notice_board_modal.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/manager_menu.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/one_article.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/text.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/community/comment.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="all_wrap">
+      <!-- navigation bar -->
+      <div class="navigation-bar">
+        <span class="navigation-bar__footprint" onclick="handleMain()"
+          >damoa.life</span
+        >
+        <div class="navigation-bar__button" id="nav_login_btn">
+          <div class="navigation-bar__button__signup" onclick="handleSignUp()">
+            회원가입
+          </div>
+          |
+          <div class="navigation-bar__button__signin" onclick="handleLogin()">
+            로그인
+          </div>
         </div>
-
-        <!-- 글 수정하기 -->
-        <div class="right_side_column" id="article_mod_wrap_area" style="display: none">
-            <div class="right_side" id="article_mod_area">
-                <!-- 글 수정부분의 내용은 edit_post.js에서 확인하실 수 있습니다. -->
-            </div>
+        <div class="navigation-bar__button" id="nav_logout_btn">
+          <div class="navigation-bar__button__logout" onclick="handleLogout()">
+            로그아웃
+          </div>
         </div>
-        <!-- 글 수정하기 끝 -->
+      </div>
 
-        <!-- show article list -->
-        <div id="right_side_item" class="right_side" style="display: none">
-            <div id="noticeboard_area_inner" class="article_header">
-                <h2 id="noticeboard_name_area_in_show_article_list">자유게시판</h2>
-                <div id="article_write_button_area"></div>
-            </div>
-            <table id="article_list_table">
-                <tr id="article_list_tr" class="show_article_list">
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회</th>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>모든 게시판 데이터가 뜨는 공간</td>
-                    <td>김민재</td>
-                    <td>07-07</td>
-                    <td>3</td>
-                </tr>
-            </table>
-        </div>
+      <!-- left side notice board-->
 
-        <!-- modal -->
-        <div class="modal_background">
-            <div class="modal_window">
-                <div class="modal_popup">
-                    <div class="modal_header">
-                        <p>게시판 생성</p>
-                        <button id="modal_close">X</button>
-                    </div>
-                    <form action="url" method="GET">
-                        <div class="modal_body">
-                            <p>게시판 이름</p>
-                            <input id="modal_input_text" type="text" name="notice_board_name" />
-                        </div>
-                        <input class="modal_submit" type="button" value="생성" onclick="new_noticeboard()" />
-                    </form>
-                    ​
-                </div>
+      <!-- <div class="left_side"> -->
+      <div class="community-menu">
+        <div class="community-title">
+          <p class="">커뮤니티 게시판</p>
+          <div id="noticeboard_name" class="community-sub">
+            <button
+              class="community_noticeboard_button"
+              onclick="window.location.reload()"
+            >
+              게시판 모두보기
+            </button>
+          </div>
+          <div class="community-create">
+            <button id="modal_show">게시판 만들기</button>
+          </div>
+
+          <div class="admin_area">
+            <hr />
+            <p>관리자 항목</p>
+            <div id="admin_items" class="admin_sub">
+              <button
+                id="report_articles"
+                class="admin_item"
+                onclick="admin_articles()"
+              >
+                신고된 게시물 관리
+              </button>
+              <button
+                id="report_comments"
+                class="admin_item"
+                onclick="admin_comments()"
+              >
+                신고된 댓글 관리
+              </button>
             </div>
+          </div>
         </div>
-        <!-- import script files -->
-        <script type="text/javascript" src="static/js/navbar.js"></script>
-        <script type="text/javascript" src="static/js/community/admin.js"></script>
-        <script type="text/javascript" src="static/js/community/edit_article_post.js"></script>
-        <script type="text/javascript" src="static/js/community/edit_article.js"></script>
-        <script type="text/javascript" src="static/js/community/make_notice_board_modal.js"></script>
-        <script type="text/javascript" src="static/js/community/show_all_article_lists.js"></script>
-        <script type="text/javascript" src="static/js/community/show_detail_in_community.js"></script>
-        <script type="text/javascript" src="static/js/community/write_article.js"></script>
-        <script type="text/javascript" src="static/js/community/write_article_post.js"></script>
-    </body>
+      </div>
+      <!-- left side notice board -end -->
+
+      <!-- 게시판, 게시글 모두 보기 -->
+      <div id="noticeboard_all" class="right_side_column"></div>
+
+      <!-- right side article & comment-->
+      <div class="wrap_right_side" id="wrap_article_and_comment">
+        <div
+          id="article_and_comment_display"
+          style="display: none"
+          class="right_side"
+        >
+          <!-- <div class="right_side"> -->
+          <div class="article_header">
+            <h2 id="noticeboard_name_area"></h2>
+            <button type="button" class="article_write_button">
+              글 수정하기
+            </button>
+          </div>
+          <hr />
+          <!-- post 시 id 설정 -->
+          <div class="article_writearea">
+            <div id="article_title_area" class="article_writearea_child">
+              <!-- 글 제목이 들어가는 곳입니다.-->
+            </div>
+            <div id="article_date_area" class="article_writearea_child_right">
+              <!-- 글이 작성된 일시가 들어가는 곳입니다. -->
+            </div>
+          </div>
+          <hr />
+          <div id="article_author_area" class="article_writearea">
+            <!-- 글 작성자가 들어가는 곳입니다.  -->
+            <div class="article_font_color">조회1 댓글1 url 복사</div>
+            <!-- 파일 다운로드 구현 -->
+            <span>파일 이름 : /images/myw3schoolsimage.jpg</span>
+            <a href="/images/myw3schoolsimage.jpg" download>
+              <button>파일 다운로드하기</button>
+            </a>
+          </div>
+          <div
+            id="article_content_area"
+            class="article_writearea article_font_color"
+          >
+            <!-- 글 내용이 작성되는 곳 입니다. -->
+          </div>
+          <div id="article_image_area" class="article_wrapimage">
+            <!-- 이미지가 들어가는 곳입니다. -->
+          </div>
+          <!-- right side comment -->
+          <!-- <div class="right_side right_side_comment"> -->
+          <h2>댓글</h2>
+          <hr />
+          <!-- comment get -->
+          <div>
+            <div id="comment_area"></div>
+            <!-- comment post -->
+            <div class="comment_write">
+              <div id="current_user_name" class="comment_nickname">닉네임</div>
+              <input
+                id="comment_input_area"
+                class="comment_writearea"
+                type="text"
+                name="comment"
+                placeholder="댓글이 작성되는 곳입니다."
+              />
+              <input
+                class="comment_submit"
+                type="submit"
+                value="작성"
+                onclick="new_comment()"
+              />
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+      <!-- all wrap fin -->
+    </div>
+
+    <!-- 글 수정하기 -->
+    <div
+      class="right_side_column"
+      id="article_mod_wrap_area"
+      style="display: none"
+    >
+      <div class="right_side" id="article_mod_area">
+        <!-- 글 수정부분의 내용은 edit_post.js에서 확인하실 수 있습니다. -->
+      </div>
+    </div>
+    <!-- 글 수정하기 끝 -->
+
+    <!-- show article list -->
+    <div id="right_side_item" class="right_side" style="display: none">
+      <div id="noticeboard_area_inner" class="article_header">
+        <h2 id="noticeboard_name_area_in_show_article_list">자유게시판</h2>
+        <div id="article_write_button_area"></div>
+      </div>
+      <table id="article_list_table">
+        <tr id="article_list_tr" class="show_article_list">
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
+          <th>조회</th>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>모든 게시판 데이터가 뜨는 공간</td>
+          <td>김민재</td>
+          <td>07-07</td>
+          <td>3</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- modal -->
+    <div class="modal_background">
+      <div class="modal_window">
+        <div class="modal_popup">
+          <div class="modal_header">
+            <p>게시판 생성</p>
+            <button id="modal_close">X</button>
+          </div>
+          <form action="url" method="GET">
+            <div class="modal_body">
+              <p>게시판 이름</p>
+              <input
+                id="modal_input_text"
+                type="text"
+                name="notice_board_name"
+              />
+            </div>
+            <input
+              class="modal_submit"
+              type="button"
+              value="생성"
+              onclick="new_noticeboard()"
+            />
+          </form>
+          ​
+        </div>
+      </div>
+    </div>
+    <!-- import script files -->
+    <script type="text/javascript" src="static/js/navbar.js"></script>
+    <script type="text/javascript" src="static/js/community/admin.js"></script>
+    <script
+      type="text/javascript"
+      src="static/js/community/edit_article_post.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/community/edit_article.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/community/make_notice_board_modal.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/community/show_all_article_lists.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/community/show_detail_in_community.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/community/write_article.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/community/write_article_post.js"
+    ></script>
+  </body>
 </html>
