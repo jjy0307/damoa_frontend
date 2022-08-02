@@ -1,18 +1,20 @@
+// 게시글 작성하는 부분 띄우기
 function write_article(clicked_id) {
-    let write_article_num = clicked_id.split('_', 5)[3];
-    let write_article_name = clicked_id.split('_', 5)[4];
-    console.log(write_article_num, write_article_name);
-    let hide_display = document.getElementById('article_and_comment_display');
-    hide_display.setAttribute('style', 'display:none');
-    let hide_display_article = document.getElementById('right_side_item');
-    hide_display_article.setAttribute('style', 'display:none');
-    let show_display = document.getElementById('article_mod_wrap_area');
-    show_display.setAttribute('style', 'display:flex');
-    let hide_display_all_article = document.getElementById('noticeboard_all');
-    hide_display_all_article.setAttribute('style', 'display:none');
+    try {
+        let write_article_num = clicked_id.split('_', 5)[3];
+        let write_article_name = clicked_id.split('_', 5)[4];
+        console.log(write_article_num, write_article_name);
+        let hide_display = document.getElementById('article_and_comment_display');
+        hide_display.setAttribute('style', 'display:none');
+        let hide_display_article = document.getElementById('right_side_item');
+        hide_display_article.setAttribute('style', 'display:none');
+        let show_display = document.getElementById('article_mod_wrap_area');
+        show_display.setAttribute('style', 'display:flex');
+        let hide_display_all_article = document.getElementById('noticeboard_all');
+        hide_display_all_article.setAttribute('style', 'display:none');
 
-    let article_mod_area = document.getElementById('article_mod_area');
-    article_mod_area.innerHTML = `<div class="article_header">
+        let article_mod_area = document.getElementById('article_mod_area');
+        article_mod_area.innerHTML = `<div class="article_header">
     <h2 id="noticeboard">${write_article_name}</h2>
     <button type="button" onclick="postArticle()" class="article_write_button">작성</button>
     </div>
@@ -31,6 +33,10 @@ function write_article(clicked_id) {
     <input type="file" name="image" id="article_image"></input>
     </div>
 `;
+    } catch (error) {
+        console.error(error);
+        alert('게시글 작성하는 부분 띄우기에서 오류가 발생했습니다!');
+    }
 
     // // post noticeboard
     // function new_noticeboard() {

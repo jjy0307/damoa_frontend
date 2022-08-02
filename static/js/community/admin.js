@@ -1,3 +1,4 @@
+//admin 접근 가능, 신고된 게시글 보여주기
 function admin_articles() {
     try {
         fetch('http://127.0.0.1:8000/article/admin/')
@@ -38,6 +39,7 @@ function admin_articles() {
         alert('게시글을 불러오는 중 오류가 발생했습니다!');
     }
 }
+//admin 접근 가능, 신고된 댓글 보여주기
 function admin_comments() {
     try {
         fetch('http://127.0.0.1:8000/article/comment/admin/')
@@ -75,6 +77,7 @@ function admin_comments() {
         alert('댓글을 불러오는 중 오류가 발생했습니다!');
     }
 }
+//admin 접근 가능, 신고된 게시글 삭제
 function article_yes_delete(delete_id) {
     try {
         select_one = delete_id.id.split('_', 3)[2];
@@ -93,6 +96,7 @@ function article_yes_delete(delete_id) {
         alert('게시글 삭제 중 오류가 발생했습니다!');
     }
 }
+//admin 접근 가능, 신고된 게시글 미삭제
 function article_no_delete(delete_id) {
     try {
         select_one = delete_id.id.split('_', 4)[3];
@@ -120,6 +124,7 @@ function article_no_delete(delete_id) {
         alert('게시글 보류 중 오류가 발생했습니다!');
     }
 }
+//admin 접근 가능, 신고된 댓글 삭제
 function comment_yes_delete(delete_id) {
     try {
         select_one = delete_id.id.split('_', 3)[2];
@@ -139,7 +144,7 @@ function comment_yes_delete(delete_id) {
         alert('댓글 삭제 중 오류가 발생했습니다!');
     }
 }
-//http://127.0.0.1:8000/article/comment/7/write/put/
+//admin 접근 가능, 신고된 댓글 미삭제
 function comment_no_delete(delete_id) {
     try {
         select_one = delete_id.id.split('_', 4)[3];
