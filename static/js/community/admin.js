@@ -24,7 +24,8 @@ function admin_articles() {
             for (i = 0; i < json.length; i++) {
                 let create_article_list = document.createElement('tr');
                 create_article_list.innerHTML = `<td>${i + 1}</td>
-                                                <td id="click_${json[i]['id']}" onclick="article_id(this.id)">${json[i]['title']}</td>
+                                                <td id="article_click_${json[i]['id']}" onclick="article_id(this.id)">${json[i]['title']}</td>
+                                                <td id="article_click_2_${json[i]['id']}" style="display:none;">${json[i]['content']}</td>
                                                 <td>${json[i]['user_name']}</td>
                                                 <td>${json[i]['created_date'].slice(5, 10)}</td>
                                                 <button id="article_delete_${json[i]['id']}" onclick="article_yes_delete(this)">yes</button>
@@ -58,7 +59,8 @@ function admin_comments() {
             for (i = 0; i < json.length; i++) {
                 let create_article_list = document.createElement('tr');
                 create_article_list.innerHTML = `<td>${i + 1}</td>
-                                                <td id="click_${json[i]['id']}" onclick="article_id(this.id);">${json[i]['content']}</td>
+                                                <td id="comment_click_${json[i]['id']}" onclick="article_id(this.id);">${json[i]['content']}</td>
+                                                <td id="comment_click_2_${json[i]['id']}" style="display:none;">${json[i]['article']}</td>
                                                 <td>${json[i]['user_name']}</td>
                                                 <td>${json[i]['created_date'].slice(5, 10)}</td>
                                                 <button id="comment_delete_${json[i]['id']}" onclick="comment_yes_delete(this)">yes</button>
@@ -69,69 +71,81 @@ function admin_comments() {
 }
 //http://127.0.0.1:8000/article/1/write/delete/
 function article_yes_delete(delete_id) {
+    // try
     select_one = delete_id.id.split('_', 3)[2];
-    alert('게시글이 삭제되었습니다!');
     fetch(`http://127.0.0.1:8000/article/${select_one}/write/delete/`, {
         method: 'DELETE',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access'),
         },
-    });
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            alert('게시글이 삭제되었습니다!');
+        });
+    // //catch
+    // .catch((err) => {
+    //     alert('게시글 삭제 중 오류가 발생했습니다!');
+    // });
 }
 //http://127.0.0.1:8000/article/1/write/put/
 function article_no_delete(delete_id) {
     select_one = delete_id.id.split('_', 4)[3];
-    alert('게시글이 보류되었습니다!');
-    fetch(`http://127.0.0.1:8000/article/${select_one}/write/`)
+    let title_display = document.getElementById(`article_click_${select_one}`).innerHTML;
+    let content_display = document.getElementById(`article_click_2_${select_one}`).innerHTML;
+
+    fetch(`http://127.0.0.1:8000/article/${select_one}/write/put/`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            title: title_display,
+            content: content_display,
+            is_valid: false,
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+        },
+    })
         .then((response) => response.json())
         .then((json) => {
-            return fetch(`http://127.0.0.1:8000/article/${select_one}/write/put/`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    title: json.title,
-                    content: json.content,
-                    is_valid: false,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: 'Bearer ' + localStorage.getItem('access'),
-                },
-            });
-        })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
+            alert('게시글이 보류되었습니다!');
+        });
 }
 //http://127.0.0.1:8000/article/comment/7/write/delete/
 function comment_yes_delete(delete_id) {
     select_one = delete_id.id.split('_', 3)[2];
-    alert('게시글이 삭제되었습니다!');
+
     fetch(`http://127.0.0.1:8000/article/comment/${select_one}/write/delete/`, {
         method: 'DELETE',
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access'),
         },
-    });
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            alert('게시글이 삭제되었습니다!');
+        });
 }
 //http://127.0.0.1:8000/article/comment/7/write/put/
 function comment_no_delete(delete_id) {
     select_one = delete_id.id.split('_', 4)[3];
-    alert('게시글이 보류되었습니다!');
-    fetch(`http://127.0.0.1:8000/article/comment/${select_one}/write/`)
+    let content_display = document.getElementById(`comment_click_${select_one}`).innerHTML;
+    let article_display = document.getElementById(`comment_click_2_${select_one}`).innerHTML;
+
+    fetch(`http://127.0.0.1:8000/article/comment/${select_one}/write/put/`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            article: article_display,
+            content: content_display,
+            is_valid: false,
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+        },
+    })
         .then((response) => response.json())
         .then((json) => {
-            return fetch(`http://127.0.0.1:8000/article/comment/${select_one}/write/put/`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    article: json.article,
-                    content: json.content,
-                    is_valid: false,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: 'Bearer ' + localStorage.getItem('access'),
-                },
-            });
-        })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
+            alert('게시글이 보류되었습니다!');
+        });
 }
