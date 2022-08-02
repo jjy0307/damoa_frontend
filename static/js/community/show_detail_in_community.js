@@ -1,6 +1,8 @@
 // payload에서 필요한 정보 불러오기
 try {
-    community_num = 1;
+    // community_num = 3;
+    community_num = window.location.href.split('?')[1].split('=')[1]
+    
     let storage = localStorage.getItem('payload');
     const personObj = JSON.parse(storage);
     username = personObj['username'];
@@ -203,9 +205,10 @@ function article_id(clicked_id) {
 
 // 왼쪽 사이드바에 게시판 모두 불러오기
 try {
-    fetch('http://127.0.0.1:8000/noticeboard/create/')
+    fetch('http://127.0.0.1:8000/noticeboard/create/'+community_num+'/')
         .then((response) => response.json())
         .then((json) => {
+            console.log(json)
             let noticeboard = [];
             for (i = 0; i < json.length; i++) {
                 noticeboard.push(json[i]['name']);
