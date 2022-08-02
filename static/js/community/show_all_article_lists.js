@@ -33,13 +33,18 @@ try {
 
                     noticeboard_list.append(noticeboard_tr);
                 } else {
-                    for (j = 0; j < 5; j++) {
+                    if (json[i]['article_set'].length < 5) {
+                        len = json[i]['article_set'].length;
+                    } else {
+                        len = 5;
+                    }
+                    for (j = 0; j < len; j++) {
                         let noticeboard_tr = document.createElement('tr');
                         noticeboard_tr.innerHTML = `<td>${json[i]['article_set'][j]['id']}</td>
-                                                    <td>${json[i]['article_set'][j]['title']}</td>
-                                                    <td>${json[i]['article_set'][j]['user']}</td>
-                                                    <td>${json[i]['article_set'][j]['created_date'].slice(5, 10)}</td>
-                                                    <td>3</td>`;
+                                                        <td>${json[i]['article_set'][j]['title']}</td>
+                                                        <td>${json[i]['article_set'][j]['user']}</td>
+                                                        <td>${json[i]['article_set'][j]['created_date'].slice(5, 10)}</td>
+                                                        <td>3</td>`;
                         noticeboard_list.append(noticeboard_tr);
                     }
                 }
