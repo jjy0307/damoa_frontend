@@ -7,21 +7,14 @@ const personObj = JSON.parse(storage);
 username = personObj['username'];
 user_id = personObj['user_id'];
 
-
-// 글 수정 페이지로 이동
-function edit_post()  {
-    location.href = "community_main_mj_3.html";
-}
-
-
 // 글 작성 페이지로 이동
-function writing()  {
-    location.href = "community_main_mj_4.html";
-}  
+function writing() {
+    location.href = 'community_main_mj_4.html';
+}
 
 // 특정 게시판 클릭시 해당 게시판의 id 값 중 숫자만 불러오게 함
 function noticeboard_name(clicked_id) {
-    console.log(clicked_id)
+    // console.log(clicked_id);
     let noticeboard_real_id = clicked_id.split('_', 3)[2];
     // console.log(noticeboard_real_id);
 
@@ -30,7 +23,9 @@ function noticeboard_name(clicked_id) {
         .then((json) => {
             // console.log(json);
             let hide_display = document.getElementById('article_and_comment_display');
+            let hide_display_mod = document.getElementById('article_mod_wrap_area');
             hide_display.setAttribute('style', 'display:none');
+            hide_display_mod.setAttribute('style', 'display:none');
             let show_display = document.getElementById('right_side_item');
             show_display.setAttribute('style', 'display:flex');
             let table = document.getElementById('article_list_table');
@@ -77,18 +72,18 @@ function new_comment() {
     })
         .then((response) => response.json())
         .then((json) => {
-            console.log(json)
+            // console.log(json);
             alert('댓글을 작성했습니다.');
             let comment = document.createElement('div');
-                    // console.log(article_num);
-                    comment.setAttribute('class', 'comment_all_show');
-                    comment.innerHTML = `
+            // console.log(article_num);
+            comment.setAttribute('class', 'comment_all_show');
+            comment.innerHTML = `
                         <div>${json['user_name']}</div>
                         <div>${json['content']}</div>
                         <div>${json['created_date'].slice(5, 10)}</div>
                         `;
-            comment_area.append(comment)
-            // window.location.reload();     // 수정 할 부분 append로 바꿔서 보여주기 
+            comment_area.append(comment);
+            // window.location.reload();     // 수정 할 부분 append로 바꿔서 보여주기
         });
 }
 
@@ -96,6 +91,8 @@ function article_id(clicked_id) {
     article_num = clicked_id.split('_', 2)[1];
     let article_show = document.getElementById('article_and_comment_display');
     let article_hide = document.getElementById('right_side_item');
+    let hide_display_mod = document.getElementById('article_mod_wrap_area');
+    hide_display_mod.setAttribute('style', 'display:none');
     article_show.setAttribute('style', 'display:flex');
     article_hide.setAttribute('style', 'display:none');
 
@@ -106,9 +103,8 @@ function article_id(clicked_id) {
             // console.log(json);
             let article_detail = document.getElementById('article_and_comment_display');
             article_detail.innerHTML = `
-        <div class="article_header">
+        <div id = "article_head" class="article_header">
             <h2 id="noticeboard_name_area">${json.noticeboard_name}</h2>
-            <button class="article_write_button" onclick="edit_post()">글 수정하기</button>
         </div>
         <hr />
         <!-- post 시 id 설정 -->
@@ -144,6 +140,12 @@ function article_id(clicked_id) {
                 </div>    
             </div>`;
 
+            if (user_id == json.user) {
+                let article_head = document.getElementById('article_head');
+                article_head.innerHTML = `
+                <h2 id="noticeboard_name_area">${json.noticeboard_name}</h2>
+                <button id="mod_article_num_${json.id}" class="article_write_button" onclick="edit_post(this.id)">글 수정하기</button>`;
+            }
             //get comment
             return fetch('http://127.0.0.1:8000/article/comment/write/');
         })
@@ -230,6 +232,3 @@ function new_noticeboard() {
             location.reload();
         });
 }
-
-
-
