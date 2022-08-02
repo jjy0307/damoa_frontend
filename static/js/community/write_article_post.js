@@ -1,11 +1,11 @@
 async function postArticle() {
-    const title = document.getElementById('article_title').value;
-    const content = document.getElementById('article_content').value;
-    const noticeboard = document.getElementById('noticeboard').value;
-    // const file = document.getElementById("article_file").value
-    const image = document.getElementById('article_image').files[0];
+    let title = document.getElementById('article_title').value;
+    let content = document.getElementById('article_content').value;
+    let noticeboard = document.getElementById('noticeboard').value;
+    // let file = document.getElementById("article_file").value
+    let image = document.getElementById('article_image').files[0];
 
-    const formdata = new FormData();
+    let formdata = new FormData();
 
     formdata.append('title', title);
     formdata.append('content', content);
@@ -13,7 +13,7 @@ async function postArticle() {
     formdata.append('image', image);
     formdata.append('noticeboard', noticeboard);
 
-    const response = await fetch('http://127.0.0.1:8000/article/write/', {
+    let response = await fetch('http://127.0.0.1:8000/article/write/', {
         method: 'POST',
         body: formdata,
     });
