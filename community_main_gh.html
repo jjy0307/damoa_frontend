@@ -6,13 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- import css files -->
         <link rel="stylesheet" type="text/css" href="static/css/navigation.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/common.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/make_notice_board_modal.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/one_article.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/community/comment.css" />
         <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css" />
         <link rel="stylesheet" type="text/css" href="static/css/community/article_modify.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/common.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/make_notice_board_modal.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/manager_menu.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/one_article.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/text.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/comment.css" />
         <title>Document</title>
     </head>
     <body>
@@ -36,7 +38,9 @@
             <div class="community-menu">
                 <div class="community-title">
                     <p class="">커뮤니티 게시판</p>
-                    <div id="noticeboard_name" class="community-sub"></div>
+                    <div id="noticeboard_name" class="community-sub">
+                        <button class="community_noticeboard_button" onclick="window.location.reload()">게시판 모두보기</button>
+                    </div>
                     <div class="community-create">
                         <button id="modal_show">게시판 만들기</button>
                     </div>
@@ -52,6 +56,9 @@
                 </div>
             </div>
             <!-- left side notice board -end -->
+
+            <!-- 게시판, 게시글 모두 보기 -->
+            <div id="noticeboard_all" class="right_side_column"></div>
 
             <!-- right side article & comment-->
             <div class="wrap_right_side" id="wrap_article_and_comment">
@@ -110,10 +117,10 @@
         <!-- 글 수정하기 끝 -->
 
         <!-- show article list -->
-        <div id="right_side_item" class="right_side">
+        <div id="right_side_item" class="right_side" style="display: none">
             <div id="noticeboard_area_inner" class="article_header">
                 <h2 id="noticeboard_name_area_in_show_article_list">자유게시판</h2>
-                <button class="article_write_button" onclick="writing()">글 작성하기</button>
+                <div id="article_write_button_area"></div>
             </div>
             <table id="article_list_table">
                 <tr id="article_list_tr" class="show_article_list">
@@ -154,10 +161,13 @@
         </div>
         <!-- import script files -->
         <script type="text/javascript" src="static/js/navbar.js"></script>
-        <script type="text/javascript" src="static/js/community/make_notice_board_modal.js"></script>
-        <script type="text/javascript" src="static/js/community/show_community.js"></script>
         <script type="text/javascript" src="static/js/community/admin.js"></script>
-        <script type="text/javascript" src="static/js/community/edit_article.js"></script>
         <script type="text/javascript" src="static/js/community/edit_article_post.js"></script>
+        <script type="text/javascript" src="static/js/community/edit_article.js"></script>
+        <script type="text/javascript" src="static/js/community/make_notice_board_modal.js"></script>
+        <script type="text/javascript" src="static/js/community/show_all_article_lists.js"></script>
+        <script type="text/javascript" src="static/js/community/show_detail_in_community.js"></script>
+        <script type="text/javascript" src="static/js/community/write_article.js"></script>
+        <script type="text/javascript" src="static/js/community/write_article_post.js"></script>
     </body>
 </html>
