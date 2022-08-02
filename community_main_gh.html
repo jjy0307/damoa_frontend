@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="static/css/community/one_article.css" />
         <link rel="stylesheet" type="text/css" href="static/css/community/comment.css" />
         <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/community/article_modify.css" />
         <title>Document</title>
     </head>
     <body>
@@ -35,9 +36,7 @@
             <div class="community-menu">
                 <div class="community-title">
                     <p class="">커뮤니티 게시판</p>
-                    <div id="noticeboard_name" class="community-sub">
-    
-                    </div>
+                    <div id="noticeboard_name" class="community-sub"></div>
                     <div class="community-create">
                         <button id="modal_show">게시판 만들기</button>
                     </div>
@@ -102,12 +101,20 @@
             <!-- all wrap fin -->
         </div>
 
+        <!-- 글 수정하기 -->
+        <div class="right_side_column" id="article_mod_wrap_area" style="display: none">
+            <div class="right_side" id="article_mod_area">
+                <!-- 글 수정부분의 내용은 edit_post.js에서 확인하실 수 있습니다. -->
+            </div>
+        </div>
+        <!-- 글 수정하기 끝 -->
+
         <!-- show article list -->
         <div id="right_side_item" class="right_side">
-            <div id="noticeboard_area_inner" class="article_header" >
+            <div id="noticeboard_area_inner" class="article_header">
                 <h2 id="noticeboard_name_area_in_show_article_list">자유게시판</h2>
                 <button class="article_write_button" onclick="writing()">글 작성하기</button>
-            </div>  
+            </div>
             <table id="article_list_table">
                 <tr id="article_list_tr" class="show_article_list">
                     <th>번호</th>
@@ -150,5 +157,6 @@
         <script type="text/javascript" src="static/js/community/make_notice_board_modal.js"></script>
         <script type="text/javascript" src="static/js/community/show_community.js"></script>
         <script type="text/javascript" src="static/js/community/admin.js"></script>
+        <script type="text/javascript" src="static/js/community/edit_post.js"></script>
     </body>
 </html>
