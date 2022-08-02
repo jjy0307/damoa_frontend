@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="static/css/navigation.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/community/common.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/community/left_side_bar.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/community/article_list_table.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/my_page.css"/>
+
+    <title>Title</title>
+</head>
+<body>
+<div class="navigation-bar">
+    <span class="navigation-bar__footprint">damoa.life</span>
+    <div class="navigation-bar__button">
+        <div class="navigation-bar__button__signup">회원가입</div>
+        |
+        <div class="navigation-bar__button__signin">로그인</div>
+    </div>
+</div>
+<div class="all_wrap">
+    <div class="left_side">
+        <div class="community-menu">
+            <div class="community-title">
+                <p>커뮤니티 게시판</p>
+                <div class="community-sub">
+                    <p>자유 게시판 | 1,100개</p>
+                    <p>질문 게시판 | 153개</p>
+                    <p>익명 게시판 | 93개</p>
+                    <div class="community-create">
+                        <p>게시판 만들기</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right_side_column">
+        <div class="right_side">
+            <div>
+                <h2>현재 사용자 이름
+                    <span style="font-size: 12px; font-weight: normal">정보 수정을 원하시면 수정할 정보 입력 후 수정완료 버튼을 눌러주세요</span>
+                    <button style="float:right;">커뮤니티 초대</button>
+                </h2>
+                <hr>
+                <h3>현재 사용자 아이디<span style="float:right;">가입일 2022.07.07 17:30</span></h3>
+                <hr>
+                <input
+                        type="text"
+                        placeholder="수정할 이메일"
+                        id="user_id"
+                        class="account"
+                />
+                <br>
+                <input
+                        type="password"
+                        placeholder="수정할 비밀번호"
+                        id="password"
+                        class="account"
+                />
+                <br>
+                <input
+                        type="password"
+                        placeholder="수정할 비밀번호 재입력"
+                        id="password_check"
+                        class="account"
+                />
+                <br>
+                <button style="float:right;">수정 완료</button>
+            </div>
+        </div>
+        <div class="right_side">
+            <div>
+                <h2>작성한 게시판</h2>
+                <table>
+                    <tr class="show_article_list">
+                        <th>게시판</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>조회</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>자유게시판</td>
+                        <td>모든 게시판 데이터가 뜨는 공간</td>
+                        <td>07-07</td>
+                        <td>3</td>
+                        <td>
+                            <button>글 수정하기</button>
+                        </td>
+                        <td>
+                            <button>글 삭제하기</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="right_side">
+            <div>
+                <h2>작성한 댓글</h2>
+                <table>
+                    <tr class="show_article_list">
+                        <th>게시판</th>
+                        <th>댓글내용</th>
+                        <th>작성일</th>
+                        <th>조회</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>자유게시판</td>
+                        <td>모든 작성한 댓글 데이터가 뜨는 공간</td>
+                        <td>07-07</td>
+                        <td>3</td>
+                        <td>
+                            <button>댓글 수정하기</button>
+                        </td>
+                        <td>
+                            <button>댓글 삭제하기</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</body>
+</html>
