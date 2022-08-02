@@ -7,8 +7,21 @@ const personObj = JSON.parse(storage);
 username = personObj['username'];
 user_id = personObj['user_id'];
 
+
+// 글 수정 페이지로 이동
+function edit_post()  {
+    location.href = "community_main_mj_3.html";
+}
+
+
+// 글 작성 페이지로 이동
+function writing()  {
+    location.href = "community_main_mj_4.html";
+}  
+
 // 특정 게시판 클릭시 해당 게시판의 id 값 중 숫자만 불러오게 함
 function noticeboard_name(clicked_id) {
+    console.log(clicked_id)
     let noticeboard_real_id = clicked_id.split('_', 3)[2];
     // console.log(noticeboard_real_id);
 
@@ -32,7 +45,7 @@ function noticeboard_name(clicked_id) {
             for (i = 0; i < json.length; i++) {
                 let create_article_list = document.createElement('tr');
                 create_article_list.innerHTML = `<td>${i + 1}</td>
-                                                <td id="click_${json[i]['id']}" onclick="article_id(this.id); comment_id(this.id);">${json[i]['title']}</td>
+                                                <td id="click_${json[i]['id']}" onclick="article_id(this.id);">${json[i]['title']}</td>
                                                 <td>${json[i]['user_name']}</td>
                                                 <td>${json[i]['created_date'].slice(5, 10)}</td>
                                                 <td>조회수</td>`;
@@ -43,6 +56,8 @@ function noticeboard_name(clicked_id) {
 
 /* 댓글 작성하는 부분 */
 function new_comment() {
+    let comment_area = document.getElementById('comment_area');
+
     let comment_form_data = document.getElementById('comment_input_area').value;
     fetch('http://127.0.0.1:8000/article/comment/write/', {
         method: 'POST',
@@ -58,8 +73,18 @@ function new_comment() {
     })
         .then((response) => response.json())
         .then((json) => {
+            console.log(json)
             alert('댓글을 작성했습니다.');
-            window.location.reload();
+            let comment = document.createElement('div');
+                    // console.log(article_num);
+                    comment.setAttribute('class', 'comment_all_show');
+                    comment.innerHTML = `
+                        <div>${json['user_name']}</div>
+                        <div>${json['content']}</div>
+                        <div>${json['created_date'].slice(5, 10)}</div>
+                        `;
+            comment_area.append(comment)
+            // window.location.reload();     // 수정 할 부분 append로 바꿔서 보여주기 
         });
 }
 
@@ -79,7 +104,7 @@ function article_id(clicked_id) {
             article_detail.innerHTML = `
         <div class="article_header">
             <h2 id="noticeboard_name_area">${json.noticeboard_name}</h2>
-            <button class="article_write_button">글 수정하기</button>
+            <button class="article_write_button" onclick="edit_post()">글 수정하기</button>
         </div>
         <hr />
         <!-- post 시 id 설정 -->
@@ -90,7 +115,7 @@ function article_id(clicked_id) {
         <hr />
         <div id="article_author_area" class="article_writearea">
             <div>${json.user_name}</div>
-            <div class="article_font_color">조회1 댓글1 url 복사</div>
+            <div class="article_font_color">조회1 댓글1 url 복사</div>   
             <!-- 파일 다운로드 구현 -->
         </div>
         <div id="article_content_area" class="article_writearea article_font_color">${json.content}</div>
@@ -201,3 +226,6 @@ function new_noticeboard() {
             location.reload();
         });
 }
+
+
+

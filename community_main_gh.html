@@ -35,9 +35,7 @@
                 <div class="community-title">
                     <p class="">커뮤니티 게시판</p>
                     <div id="noticeboard_name" class="community-sub">
-                        <p>자유 게시판 | 1,100개</p>
-                        <p>질문 게시판 | 153개</p>
-                        <p>익명 게시판 | 93개</p>
+    
                     </div>
                     <div class="community-create">
                         <button id="modal_show">게시판 만들기</button>
@@ -52,7 +50,7 @@
                     <!-- <div class="right_side"> -->
                     <div class="article_header">
                         <h2 id="noticeboard_name_area"></h2>
-                        <button class="article_write_button">글 수정하기</button>
+                        <button type="button" class="article_write_button">글 수정하기</button>
                     </div>
                     <hr />
                     <!-- post 시 id 설정 -->
@@ -96,7 +94,10 @@
 
         <!-- show article list -->
         <div id="right_side_item" class="right_side">
-            <h2 id="noticeboard_name_area_in_show_article_list">자유게시판</h2>
+            <div id="noticeboard_area_inner" class="article_header" >
+                <h2 id="noticeboard_name_area_in_show_article_list">자유게시판</h2>
+                <button class="article_write_button" onclick="writing()">글 작성하기</button>
+            </div>  
             <table id="article_list_table">
                 <tr id="article_list_tr" class="show_article_list">
                     <th>번호</th>
