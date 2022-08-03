@@ -1,8 +1,8 @@
 // payload에서 필요한 정보 불러오기
 try {
     // community_num = 3;
-    community_num = window.location.href.split('?')[1].split('=')[1]
-    
+    community_num = window.location.href.split('?')[1].split('=')[1];
+
     let storage = localStorage.getItem('payload');
     const personObj = JSON.parse(storage);
     username = personObj['username'];
@@ -44,14 +44,19 @@ function noticeboard_name(clicked_id) {
             <th>조회</th>
         </tr>
         `;
+                console.log(json);
+                console.log(json[1]['article_set']);
+
                 for (i = 0; i < json.length; i++) {
-                    let create_article_list = document.createElement('tr');
-                    create_article_list.innerHTML = `<td>${i + 1}</td>
-                                                <td id="click_${json[i]['id']}" onclick="article_id(this.id);">${json[i]['title']}</td>
-                                                <td>${json[i]['user_name']}</td>
-                                                <td>${json[i]['created_date'].slice(5, 10)}</td>
+                    for (j = 0; j < json[1]['article_set'].length; j++) {
+                        let create_article_list = document.createElement('tr');
+                        create_article_list.innerHTML = `<td>${i + 1}</td>
+                                                <td id="click_${json[i]['article_set'][j]['id']}" onclick="article_id(this.id);">${json[i]['article_set'][j]['title']}</td>
+                                                <td>${json[i]['article_set'][j]['user_name']}</td>
+                                                <td>${json[i]['article_set'][j]['created_date'].slice(5, 10)}</td>
                                                 <td>조회수</td>`;
-                    table.append(create_article_list);
+                        table.append(create_article_list);
+                    }
                 }
             });
     } catch (error) {
@@ -205,10 +210,9 @@ function article_id(clicked_id) {
 
 // 왼쪽 사이드바에 게시판 모두 불러오기
 try {
-    fetch('http://127.0.0.1:8000/noticeboard/create/'+community_num+'/')
+    fetch('http://127.0.0.1:8000/noticeboard/create/' + community_num + '/')
         .then((response) => response.json())
         .then((json) => {
-            console.log(json)
             let noticeboard = [];
             for (i = 0; i < json.length; i++) {
                 noticeboard.push(json[i]['name']);
