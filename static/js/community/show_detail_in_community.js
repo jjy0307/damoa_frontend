@@ -17,8 +17,8 @@ function noticeboard_name(clicked_id) {
     try {
         let noticeboard_real_id = clicked_id.split('_', 4)[2];
         let noticeboard_real_name = clicked_id.split('_', 4)[3];
-
-        fetch(`http://127.0.0.1:8000/noticeboard/create/${noticeboard_real_id}`)
+        console.log(noticeboard_real_id)
+        fetch(`http://127.0.0.1:8000/noticeboard/view/${noticeboard_real_id}`)
             .then((response) => response.json())
             .then((json) => {
                 let hide_display = document.getElementById('article_and_comment_display');
@@ -37,29 +37,29 @@ function noticeboard_name(clicked_id) {
                 let article_button = document.getElementById('article_write_button_area');
                 article_button.innerHTML = `<button id="write_article_id_${noticeboard_real_id}_${noticeboard_real_name}" class="article_write_button" onclick="write_article(this.id)">글 작성하기</button>`;
                 table.innerHTML = `<tr id = "article_list_tr" class="show_article_list">
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th> 
-            <th>작성일</th>
-            <th>조회</th>
-        </tr>
-        `;
-                console.log(json);
-                console.log(json[1]['article_set']);
-
-                for (i = 0; i < json.length; i++) {
-                    for (j = 0; j < json[1]['article_set'].length; j++) {
-                        let create_article_list = document.createElement('tr');
-                        create_article_list.innerHTML = `<td>${i + 1}</td>
-                                                <td id="click_${json[i]['article_set'][j]['id']}" onclick="article_id(this.id);">${json[i]['article_set'][j]['title']}</td>
-                                                <td>${json[i]['article_set'][j]['user_name']}</td>
-                                                <td>${json[i]['article_set'][j]['created_date'].slice(5, 10)}</td>
+                                        <th>번호</th>
+                                        <th>제목</th>
+                                        <th>작성자</th> 
+                                        <th>작성일</th>
+                                        <th>조회</th>
+                                    </tr>
+                                    `;
+                const article_objects = json[0]['article_set']
+                console.log(json[0])
+                
+                console.log(article_objects)
+                for (i = 0; i < article_objects.length; i++) {
+                    let create_article_list = document.createElement('tr');
+                    create_article_list.innerHTML = `<td>${i + 1}</td>
+                                                <td id="click_${article_objects[i]['id']}" onclick="article_id(this.id);">${article_objects[i]['title']}</td>
+                                                <td>${article_objects[i]['user_name']}</td>
+                                                <td>${article_objects[i]['created_date'].slice(5, 10)}</td>
                                                 <td>조회수</td>`;
                         table.append(create_article_list);
                     }
-                }
-            });
-    } catch (error) {
+                })
+            }
+        catch (error) {
         console.error(error);
         alert('특정 게시판을 불러오는 데에 오류가 발생했습니다!');
     }
