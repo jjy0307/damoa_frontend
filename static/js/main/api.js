@@ -1,25 +1,42 @@
-async function if_logout() {
-    let make_community_btn = document.getElementById("make_community");
-    make_community_btn.remove();
+async function hit_ranking_sidebar(data) {
+    const count_tag = document.getElementById('main-ranking');
+    count_tag.innerHTML = `
+    <div class="main-ranking__title">사용자가 가장</div>
+    <div class="main-ranking__title">많은 커뮤니티는?</div>
+    `;
+    for (i=0; i<data.length; i++) {
+        const count_div = document.createElement('div');
+        count_div.classList.add('main-ranking__community');
+        count_div.innerHTML = `
+            <div class="main-ranking__community__name">${data[i].community}</div>
+            <div class="main-ranking__community__user">| ${data[i].count}명</div>
+        `
+        count_tag.append(count_div)
+    }
+}
+
+async function filter_tags(data) {
+    const tag_filter = document.getElementById('tag_filter');
+    tag_filter.innerHTML = `<option value="전체">전체</option>`;
+    for (i=0; i<data.length; i++) {
+        const tag_option = document.createElement('option');
+        tag_option.setAttribute('value', data[i])
+        tag_option.textContent = data[i]
+        tag_filter.append(tag_option)
+    }
+}
+
+async function show_by_recommendation() {
     fetch("http://127.0.0.1:8000/community/main/", {
         },
       )
       .then((response)=>(response.json()))
       .then((result)=>{
-        const hit_count = result.community_hit_count;
-        const count_tag = document.getElementById('main-ranking');
-        for (i=0; i<hit_count.length; i++) {
-            const count_div = document.createElement('div');
-            count_div.classList.add('main-ranking__community');
-            count_div.innerHTML = `
-                <div class="main-ranking__community__name">${hit_count[i].community}</div>
-                <div class="main-ranking__community__user">| ${hit_count[i].count}명</div>
-            `
-            count_tag.append(count_div)
-        }
-
+        hit_ranking_sidebar(result.community_hit_count);
+        filter_tags(result.tag);
         const community = result.community;
         const container = document.getElementById("main-container");
+        container.innerHTML = ``;
         for (i=0; i<community.length; i++) {
             const contanier_div = document.createElement('div');
             contanier_div.classList.add("main-community")
@@ -54,31 +71,10 @@ async function if_logout() {
                 tag_id.append(tag_div);
             }
         }
-
-        const tag = result.tag;
-        const tag_filter = document.getElementById('tag_filter');
-        for (i=0; i<tag.length; i++) {
-            const tag_option = document.createElement('option');
-            tag_option.setAttribute('value', tag[i])
-            tag_option.textContent = tag[i]
-            tag_filter.append(tag_option)
-        }
       })
 }
 
-
-
-async function if_login() {
-    let nav_bar_login = document.getElementById('nav_login_btn');
-    let nav_bar_logout = document.getElementById('nav_logout_btn');
-    nav_bar_login.setAttribute("style", "display:none");
-    nav_bar_logout.setAttribute("style", "display:flex");
-
-    let recommendation = document.getElementById('by_recommendation');
-    let joined = document.getElementById('by_joined');
-    recommendation.setAttribute("style", "display:none");
-    joined.setAttribute("style", "display:flex");
-
+async function show_by_joined() {
     fetch("http://127.0.0.1:8000/community/main/", {
         headers:{
             Authorization : "Bearer " + localStorage.getItem("access"),
@@ -86,21 +82,11 @@ async function if_login() {
       })
         .then((response) => response.json())
         .then((result) => {
-            const hit_count = result.community_hit_count;
-            const count_tag = document.getElementById('main-ranking');
-            for (i=0; i<hit_count.length; i++) {
-                const count_div = document.createElement('div');
-                count_div.classList.add('main-ranking__community');
-                count_div.innerHTML = `
-                    <div class="main-ranking__community__name">${hit_count[i].community}</div>
-                    <div class="main-ranking__community__user">| ${hit_count[i].count}명</div>
-                `
-                count_tag.append(count_div)
-            }
-
-
+            hit_ranking_sidebar(result.community_hit_count);
+            filter_tags(result.tag)
             const all_tag = result.all_tag;
             const all_tag_div = document.getElementsByClassName("main-community-modal__body__tags")[0]
+            all_tag_div.innerHTML = ``;
             for (i=0; i<all_tag.length; i++) {
                 const tag_span = document.createElement('span')
                 tag_span.innerHTML = `${all_tag[i]}`
@@ -114,8 +100,8 @@ async function if_login() {
             }
 
             const community = result.community;
-            console.log(result)
             const container = document.getElementById("main-container");
+            container.innerHTML = ``;
             for (i=0; i<community.length; i++) {
                 const contanier_div = document.createElement('div');
                 contanier_div.classList.add("main-community")
@@ -154,15 +140,25 @@ async function if_login() {
                     tag_id.append(tag_div);
                 }
             }
-            const tag = result.tag;
-            const tag_filter = document.getElementById('tag_filter');
-            for (i=0; i<tag.length; i++) {
-                const tag_option = document.createElement('option');
-                tag_option.setAttribute('value', tag[i])
-                tag_option.textContent = tag[i]
-                tag_filter.append(tag_option)
-            }
         })
+}
+
+async function if_logout() {
+    let make_community_btn = document.getElementById("make_community");
+    let show_joined_community = document.getElementById("by_joined");
+    make_community_btn.remove();
+    show_joined_community.remove();
+    show_by_recommendation();
+}
+
+
+
+async function if_login() {
+    let nav_bar_login = document.getElementById('nav_login_btn');
+    let nav_bar_logout = document.getElementById('nav_logout_btn');
+    nav_bar_login.setAttribute("style", "display:none");
+    nav_bar_logout.setAttribute("style", "display:flex");
+    show_by_joined();
 };
 
 window.onload = ()=> {try {

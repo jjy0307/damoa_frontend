@@ -19,65 +19,53 @@
             </div>
         </div>
         <div class="main-navigation-bar">
-            <img class="main-naviagtion-bar__img" src="static\images\test_image_1.png" />
-            <div class="main-navigation-bar__bottom">
-                <div class="main-navigation-bar__bottom__filter">
-                    <div class="main-navigation-bar__bottom__filter__byCommunity" id="by_recommendation">개설된 커뮤니티 보기</div>
-                    <div class="main-navigation-bar__bottom__filter__byCommunity" id="by_joined">가입된 커뮤니티 보기</div>
-                    |
-                    <div class="main-navigation-bar__bottom__filter__byCategory">카테고리별 보기</div>
-                </div>
-                <div class="main-navigation-bar__bottom__makeCommunity">커뮤니티 만들기</div>
+          <img
+            class="main-naviagtion-bar__img"
+            src="static\images\test_image_1.png"
+          />
+          <div class="main-navigation-bar__bottom">
+            <div class="main-navigation-bar__bottom__filter">
+              <div
+                class="main-navigation-bar__bottom__filter__byCommunity"
+                id="by_recommendation" onclick="show_by_recommendation()"
+              >
+                추천 커뮤니티 보기
+              </div>
+              <div
+                class="main-navigation-bar__bottom__filter__byCommunity"
+                id="by_joined" onclick="show_by_joined()"
+              >
+                | 가입된 커뮤니티 보기
+              </div>
+              |
+              <div class="main-navigation-bar__bottom__filter__byCategory">
+                <form>
+                  태그로 선택하기
+                  <select
+                    general
+                    id="tag_filter"
+                    onchange="tag_filter_change(this)"
+                  >
+                    <option value="전체">전체</option>
+                  </select>
+                </form>
+              </div>
             </div>
+            <div
+              class="main-navigation-bar__bottom__makeCommunity"
+              id="make_community"
+            >
+              커뮤니티 만들기
+            </div>
+            <div onclick="handleMypage()">
+              마이페이지
+            </div>
+          </div>
         </div>
       </div>
       <div class="navigation-bar__button" id="nav_logout_btn">
         <div class="navigation-bar__button__logout" onclick="handleLogout()">
           로그아웃
-        </div>
-      </div>
-    </div>
-    <div class="main-navigation-bar">
-      <img
-        class="main-naviagtion-bar__img"
-        src="static\images\test_image_1.png"
-      />
-      <div class="main-navigation-bar__bottom">
-        <div class="main-navigation-bar__bottom__filter">
-          <div
-            class="main-navigation-bar__bottom__filter__byCommunity"
-            id="by_recommendation"
-          >
-            개설된 커뮤니티 보기
-          </div>
-          <div
-            class="main-navigation-bar__bottom__filter__byCommunity"
-            id="by_joined"
-          >
-            가입된 커뮤니티 보기
-          </div>
-          |
-          <div class="main-navigation-bar__bottom__filter__byCategory">
-            <form>
-              테그로 선택하기
-              <select
-                general
-                id="tag_filter"
-                onchange="tag_filter_change(this)"
-              >
-                <option value="전체">전체</option>
-              </select>
-            </form>
-          </div>
-        </div>
-        <div
-          class="main-navigation-bar__bottom__makeCommunity"
-          id="make_community"
-        >
-          커뮤니티 만들기
-        </div>
-        <div onclick="handleMypage()">
-          마이페이지
         </div>
       </div>
     </div>
