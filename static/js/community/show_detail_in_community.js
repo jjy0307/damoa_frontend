@@ -17,7 +17,7 @@ function noticeboard_name(clicked_id) {
     try {
         let noticeboard_real_id = clicked_id.split('_', 4)[2];
         let noticeboard_real_name = clicked_id.split('_', 4)[3];
-        console.log(noticeboard_real_id)
+        console.log(noticeboard_real_id);
         fetch(`http://127.0.0.1:8000/noticeboard/view/${noticeboard_real_id}`)
             .then((response) => response.json())
             .then((json) => {
@@ -44,10 +44,10 @@ function noticeboard_name(clicked_id) {
                                         <th>조회</th>
                                     </tr>
                                     `;
-                const article_objects = json[0]['article_set']
-                console.log(json[0])
-                
-                console.log(article_objects)
+                const article_objects = json[0]['article_set'];
+                console.log(json[0]);
+
+                console.log(article_objects);
                 for (i = 0; i < article_objects.length; i++) {
                     let create_article_list = document.createElement('tr');
                     create_article_list.innerHTML = `<td>${i + 1}</td>
@@ -55,11 +55,10 @@ function noticeboard_name(clicked_id) {
                                                 <td>${article_objects[i]['user_name']}</td>
                                                 <td>${article_objects[i]['created_date'].slice(5, 10)}</td>
                                                 <td>조회수</td>`;
-                        table.append(create_article_list);
-                    }
-                })
-            }
-        catch (error) {
+                    table.append(create_article_list);
+                }
+            });
+    } catch (error) {
         console.error(error);
         alert('특정 게시판을 불러오는 데에 오류가 발생했습니다!');
     }
