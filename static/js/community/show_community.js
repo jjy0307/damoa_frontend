@@ -21,7 +21,6 @@ function writing()  {
 
 // 특정 게시판 클릭시 해당 게시판의 id 값 중 숫자만 불러오게 함
 function noticeboard_name(clicked_id) {
-    console.log(clicked_id)
     let noticeboard_real_id = clicked_id.split('_', 3)[2];
     // console.log(noticeboard_real_id);
 
@@ -77,7 +76,6 @@ function new_comment() {
     })
         .then((response) => response.json())
         .then((json) => {
-            console.log(json)
             alert('댓글을 작성했습니다.');
             let comment = document.createElement('div');
                     // console.log(article_num);
@@ -99,115 +97,128 @@ function article_id(clicked_id) {
     article_show.setAttribute('style', 'display:flex');
     article_hide.setAttribute('style', 'display:none');
 
-    /* 글의 디테일한 부분, 댓글 목록 가져오는 부분 */
-    fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
-        .then((response) => response.json())
-        .then((json) => {
-            // console.log(json);
-            let article_detail = document.getElementById('article_and_comment_display');
-            article_detail.innerHTML = `
-        <div class="article_header">
-            <h2 id="noticeboard_name_area">${json.noticeboard_name}</h2>
-            <button class="article_write_button" onclick="edit_post()">글 수정하기</button>
-        </div>
-        <hr />
-        <!-- post 시 id 설정 -->
-        <div class="article_writearea">
-            <div id="article_title_area" class="article_writearea_child">${json.title}</div>
-            <div id="article_date_area" class="article_writearea_child_right">${json.created_date.slice(2, 10)}</div>
-        </div>
-        <hr />
-        <div id="article_author_area" class="article_writearea">
-            <div>${json.user_name}</div>
-            <div class="article_font_color">조회1 댓글1 url 복사</div>   
-            <!-- 파일 다운로드 구현 -->
-        </div>
-        <div id="article_content_area" class="article_writearea article_font_color">${json.content}</div>
-            <div>
-            <p>파일이 존재합니다 : ${json.file.slice(62, 76)}...</p>
-            <a href=" ${json.file}" download>
-                파일 다운로드하기
-            </a>
-            </div>
-            <div id="article_image_area" class="article_wrapimage"><!-- 이미지가 들어가는 곳입니다. --></div>
-                <h2>댓글</h2>
-                <hr />
-                <!-- comment get -->
-                <div>
-                    <div id="comment_area"></div>
-                    <!-- comment post -->
-                    <div class="comment_write">
-                        <div id="current_user_name" class="comment_nickname">${username}</div>
-                        <input id="comment_input_area" class="comment_writearea" type="text" name="comment" placeholder="댓글이 작성되는 곳입니다." />
-                        <input class="comment_submit" type="submit" value="작성" onclick="new_comment()" />
-                    </div>
-                </div>    
-            </div>`;
+       /* 글의 디테일한 부분, 댓글 목록 가져오는 부분 */
+       fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
+       .then((response) => response.json())
+       .then((json) => {
+           let article_detail = document.getElementById('article_and_comment_display');
+           article_detail.innerHTML = `
+       <div class="article_header">
+           <h2 id="noticeboard_name_area">${json.noticeboard_name}</h2>
+           <button class="article_write_button" onclick="edit_post()">글 수정하기</button>
+       </div>
+       <hr />
+       <!-- post 시 id 설정 -->
+       <div class="article_writearea">
+           <div id="article_title_area" class="article_writearea_child">${json.title}</div>
+           <div id="article_date_area" class="article_writearea_child_right">${json.created_date.slice(2, 10)}</div>
+       </div>
+       <hr />
+       <div id="article_author_area" class="article_writearea">
+           
+           <!-- 파일 다운로드 구현 -->
+       </div>
+       <div id="article_content_area" class="article_writearea article_font_color">${json.content}</div>
+           <div>
+           <p>파일이 존재합니다 : ${json.file.slice(62, 76)}...</p>
+           <a href=" ${json.file}" download>
+               파일 다운로드하기
+           </a>
+           </div>
+           <div id="article_image_area" class="article_wrapimage"><!-- 이미지가 들어가는 곳입니다. --></div>
+               <h2>댓글</h2>
+               <hr />
+               <!-- comment get -->
+               <div>
+                   <div id="comment_area"></div>
+                   <!-- comment post -->
+                   <div class="comment_write">
+                       <div id="current_user_name" class="comment_nickname">${username}</div>
+                       <input id="comment_input_area" class="comment_writearea" type="text" name="comment" placeholder="댓글이 작성되는 곳입니다." />
+                       <input class="comment_submit" type="submit" value="작성" onclick="new_comment()" />
+                   </div>
+               </div>    
+           </div>`;
+       
+       fetch(`http://127.0.0.1:8000/article/${article_num}/write/`)
+           .then((response) => response.json())
+           .then((json) => {
+               console.log(json.user_name);
+               let name = json.user_name;
+               let article_detail = document.getElementById('article_author_area');
+               article_detail.innerHTML = `<div>${name}</div>`
+       });    
 
-            //get comment
-            return fetch('http://127.0.0.1:8000/article/comment/write/');
-        })
-        .then((response) => response.json())
-        .then((json) => {
-            // console.log(json);
-            let comment_area = document.getElementById('comment_area');
 
-            for (i = 0; i < json.length; i++) {
-                // console.log(json[i]['article']);
-                let current_article = json[i]['article'];
-                if (current_article == `${article_num}`) {
-                    let make_comment = document.createElement('div');
-                    // console.log(article_num);
-                    make_comment.setAttribute('class', 'comment_all_show');
-                    make_comment.innerHTML = `
-                        <div>${json[i]['user_name']}</div>
-                        <div>${json[i]['content']}</div>
-                        <div>${json[i]['created_date'].slice(5, 10)}</div>
-                        `;
-                    comment_area.appendChild(make_comment);
-                }
-            }
-        });
+       fetch(`http://127.0.0.1:8000/article/comment/write/${article_num}`)
+           .then((response) => response.json())
+           .then((json) => {
+            let comment = json.length;
+               let article_detail = document.getElementById('article_author_area');
+               article_detail.innerHTML = `<div class="article_font_color">조회 댓글${comment}개 url 복사</div> `
+       });   
 
-    // 댓글에 현재 로그인된 사용자 이름 띄우기
-    let currnet_user_area = document.getElementById('current_user_name');
-    currnet_user_area.innerHTML = username;
 
-    // 이미지 보여주기
-    fetch(`http://127.0.0.1:8000/article/images/`)
-        .then((response) => response.json())
-        .then((json) => {
-            let image_area = document.getElementById('article_image_area');
-            for (i = 0; i < json.length; i++) {
-                if (article_num == json[i]['article_id']) {
-                    let make_image = document.createElement('div');
-                    make_image.innerHTML = `<img src= ${json[i]['image_url']} class=article_show_image></img>`;
-                    image_area.appendChild(make_image);
-                }
-            }
-        });
+           //get comment
+           return fetch('http://127.0.0.1:8000/article/comment/write/');
+       })
+       .then((response) => response.json())
+       .then((json) => {
+           let comment_area = document.getElementById('comment_area');
+           for (i = 0; i < json.length; i++) {
+               let current_article = json[i]['article'];
+               if (current_article == `${article_num}`) {
+                   let make_comment = document.createElement('div');
+                   make_comment.setAttribute('class', 'comment_all_show');
+                   make_comment.innerHTML = `
+                       <div>${json[i]['user_name']}</div>
+                       <div>${json[i]['content']}</div>
+                       <div>${json[i]['created_date'].slice(5, 10)}</div>
+                       `;
+                   comment_area.appendChild(make_comment);
+               }
+           }
+       });
+
+   // 댓글에 현재 로그인된 사용자 이름 띄우기
+   let currnet_user_area = document.getElementById('current_user_name');
+   currnet_user_area.innerHTML = username;
+
+   // 이미지 보여주기
+   fetch(`http://127.0.0.1:8000/article/images/`)
+       .then((response) => response.json())
+       .then((json) => {
+           let image_area = document.getElementById('article_image_area');
+           for (i = 0; i < json.length; i++) {
+               if (article_num == json[i]['article_id']) {
+                   let make_image = document.createElement('div');
+                   make_image.innerHTML = `<img src= ${json[i]['image_url']} class=article_show_image></img>`;
+                   image_area.appendChild(make_image);
+               }
+           }
+       });
 }
 
 // get noticeboard
 fetch('http://127.0.0.1:8000/noticeboard/create/')
-    .then((response) => response.json())
-    .then((json) => {
-        let noticeboard = [];
-        for (i = 0; i < json.length; i++) {
-            noticeboard.push(json[i]['name']);
-        }
+   .then((response) => response.json())
+   .then((json) => {
+       let noticeboard = [];
+       for (i = 0; i < json.length; i++) {
+           noticeboard.push(json[i]['name']);
+       }
 
-        let tag_area = document.getElementById('noticeboard_name');
+       let tag_area = document.getElementById('noticeboard_name');
 
-        for (i = 0; i < noticeboard.length; i++) {
-            let make_noticeboard = document.createElement('button');
-            make_noticeboard.setAttribute('id', `noticeboard_name_${json[i]['id']}`);
-            make_noticeboard.setAttribute('class', 'community_noticeboard_button');
-            make_noticeboard.setAttribute('onclick', `noticeboard_name(this.id)`);
-            make_noticeboard.innerHTML = noticeboard[i];
-            tag_area.appendChild(make_noticeboard);
-        }
-    });
+       for (i = 0; i < noticeboard.length; i++) {
+           let make_noticeboard = document.createElement('button');
+           make_noticeboard.setAttribute('id', `noticeboard_name_${json[i]['id']}`);
+           make_noticeboard.setAttribute('class', 'community_noticeboard_button');
+           make_noticeboard.setAttribute('onclick', `noticeboard_name(this.id)`);
+           make_noticeboard.innerHTML = noticeboard[i] + " | " + json[i]['article_set'].length + "개";
+           tag_area.appendChild(make_noticeboard);
+       }
+   });
 
 // post noticeboard
 function new_noticeboard() {
