@@ -28,24 +28,25 @@ function dataURLtoBlob(dataurl) {
   }
   
   function downloadImg(imgSrc) {
-    var image = new Image();
-    image.crossOrigin = "anonymous";
-    image.src = imgSrc;
-    var fileName = image.src.split("/").pop();
-    image.onload = function() {
-      var canvas = document.createElement('canvas');
-      canvas.width = this.width;
-      canvas.height = this.height;
-      canvas.getContext('2d').drawImage(this, 0, 0);
-      if (typeof window.navigator.msSaveBlob !== 'undefined') {
-        window.navigator.msSaveBlob(dataURLtoBlob(canvas.toDataURL()), fileName);
-      } else {
-        var link = document.createElement('a');
-        link.href = canvas.toDataURL();
-        link.download = fileName;
-        link.click();
-      }
-    };
+    alert('아직 준비중인 기능입니다!');
+    // var image = new Image();
+    // image.crossOrigin = "anonymous";
+    // image.src = imgSrc;
+    // var fileName = image.src.split("/").pop();
+    // image.onload = function() {
+    //   var canvas = document.createElement('canvas');
+    //   canvas.width = this.width;
+    //   canvas.height = this.height;
+    //   canvas.getContext('2d').drawImage(this, 0, 0);
+    //   if (typeof window.navigator.msSaveBlob !== 'undefined') {
+    //     window.navigator.msSaveBlob(dataURLtoBlob(canvas.toDataURL()), fileName);
+    //   } else {
+    //     var link = document.createElement('a');
+    //     link.href = canvas.toDataURL();
+    //     link.download = fileName;
+    //     link.click();
+    //   }
+    // };
   }
 
 // payload에서 필요한 정보 불러오기
@@ -187,7 +188,7 @@ function article_id(clicked_id) {
         <div id="article_content_area" class="article_writearea article_font_color">${json.content}</div>
             <div>
             <p>파일이 존재합니다 : ${json.file.slice(62, 76)}...</p>
-            <button onclick="downloadImg"('${json.file}');>파일 다운로드</button>
+            <button onclick="downloadImg()";>파일 다운로드</button>
             </div>
             <div id="article_image_area" class="article_wrapimage"><!-- 이미지가 들어가는 곳입니다. --></div>
                 <h2>댓글</h2>
