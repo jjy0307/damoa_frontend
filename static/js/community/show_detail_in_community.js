@@ -67,10 +67,6 @@ function noticeboard_name(clicked_id) {
     try {
         let noticeboard_real_id = clicked_id.split('_', 4)[2];
         let noticeboard_real_name = clicked_id.split('_', 4)[3];
-<<<<<<< HEAD
-=======
-        console.log(noticeboard_real_id);
->>>>>>> 7da58008118179ecdeb34fcd43d0ca021c5f0e03
         fetch(`http://127.0.0.1:8000/noticeboard/view/${noticeboard_real_id}`)
             .then((response) => response.json())
             .then((json) => {
