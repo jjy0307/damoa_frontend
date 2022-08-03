@@ -1,3 +1,53 @@
+// URL 복사 하는 부분
+function clip(){
+
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+
+// 파일 다운로드 하는 부분
+function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {
+      type: mime
+    });
+  }
+  
+  function downloadImg(imgSrc) {
+    var image = new Image();
+    image.crossOrigin = "anonymous";
+    image.src = imgSrc;
+    var fileName = image.src.split("/").pop();
+    image.onload = function() {
+      var canvas = document.createElement('canvas');
+      canvas.width = this.width;
+      canvas.height = this.height;
+      canvas.getContext('2d').drawImage(this, 0, 0);
+      if (typeof window.navigator.msSaveBlob !== 'undefined') {
+        window.navigator.msSaveBlob(dataURLtoBlob(canvas.toDataURL()), fileName);
+      } else {
+        var link = document.createElement('a');
+        link.href = canvas.toDataURL();
+        link.download = fileName;
+        link.click();
+      }
+    };
+  }
+
 // payload에서 필요한 정보 불러오기
 try {
     // community_num = 3;
@@ -17,10 +67,10 @@ function noticeboard_name(clicked_id) {
     try {
         let noticeboard_real_id = clicked_id.split('_', 4)[2];
         let noticeboard_real_name = clicked_id.split('_', 4)[3];
-        console.log(noticeboard_real_id)
         fetch(`http://127.0.0.1:8000/noticeboard/view/${noticeboard_real_id}`)
             .then((response) => response.json())
             .then((json) => {
+                console.log(json)
                 let hide_display = document.getElementById('article_and_comment_display');
                 let hide_display_mod = document.getElementById('article_mod_wrap_area');
                 let hide_display_all_article = document.getElementById('noticeboard_all');
@@ -30,7 +80,6 @@ function noticeboard_name(clicked_id) {
                 let show_display = document.getElementById('right_side_item');
                 show_display.setAttribute('style', 'display:flex');
                 let table = document.getElementById('article_list_table');
-
                 let h2 = document.getElementById('noticeboard_name_area_in_show_article_list');
                 h2.innerHTML = noticeboard_real_name;
 
@@ -117,6 +166,7 @@ function article_id(clicked_id) {
         fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
             .then((response) => response.json())
             .then((json) => {
+                console.log(json);
                 let article_detail = document.getElementById('article_and_comment_display');
                 article_detail.innerHTML = `
         <div id = "article_head" class="article_header">
@@ -131,15 +181,14 @@ function article_id(clicked_id) {
         <hr />
         <div id="article_author_area" class="article_writearea">
             <div>${json.user_name}</div>
-            <div class="article_font_color">조회1 댓글1 url 복사</div>   
+            <div class="article_font_color" >조회${json.count} 댓글${json.comment_count}</div>  
+            <span onclick="clip(); return false;">URL 주소복사</span>
             <!-- 파일 다운로드 구현 -->
         </div>
         <div id="article_content_area" class="article_writearea article_font_color">${json.content}</div>
             <div>
             <p>파일이 존재합니다 : ${json.file.slice(62, 76)}...</p>
-            <a href=" ${json.file}" download>
-                파일 다운로드하기
-            </a>
+            <button onclick="downloadImg"('${json.file}');>파일 다운로드</button>
             </div>
             <div id="article_image_area" class="article_wrapimage"><!-- 이미지가 들어가는 곳입니다. --></div>
                 <h2>댓글</h2>
@@ -164,6 +213,8 @@ function article_id(clicked_id) {
                 }
                 //get comment
                 return fetch('http://127.0.0.1:8000/article/comment/write/');
+
+                
             })
             .then((response) => response.json())
             .then((json) => {
@@ -184,6 +235,7 @@ function article_id(clicked_id) {
                     }
                 }
             });
+        
 
         // 댓글에 현재 로그인된 사용자 이름 띄우기
         let currnet_user_area = document.getElementById('current_user_name');
@@ -259,3 +311,24 @@ function new_noticeboard() {
         alert('게시판 만들기에서 오류가 발생했습니다!');
     }
 }
+
+
+// fetch('http://127.0.0.1:8000/noticeboard/create/')
+//    .then((response) => response.json())
+//    .then((json) => {
+//        let noticeboard = [];
+//        for (i = 0; i < json.length; i++) {
+//            noticeboard.push(json[i]['name']);
+//        }
+
+//        let tag_area = document.getElementById('noticeboard_name');
+
+//        for (i = 0; i < noticeboard.length; i++) {
+//            let make_noticeboard = document.createElement('button');
+//            make_noticeboard.setAttribute('id', `noticeboard_name_${json[i]['id']}`);
+//            make_noticeboard.setAttribute('class', 'community_noticeboard_button');
+//            make_noticeboard.setAttribute('onclick', `noticeboard_name(this.id)`);
+//            make_noticeboard.innerHTML = noticeboard[i] + " | " + json[i]['article_set'].length + "개";
+//            tag_area.appendChild(make_noticeboard);
+//        }
+//    });
