@@ -4,18 +4,25 @@ function tag_filter_change(tag) {
     for (i=0; i<communitys.length; i++) {
         const community = communitys[i]
         const community_tags = community.children[1].children[2].children
+        console.log(community)
+        console.log(community_tags.length)
         if (filter === '전체') {
             community.setAttribute('style', 'display:flex');
         } else {
-            for (j=0; j<community_tags.length; j++) {
-                const community_tag = community_tags[j].innerHTML.split('# ')[1]
-                if (filter === community_tag) {
-                    community.setAttribute('style', 'display:flex');
-                    break;
-                } else {
-                    community.setAttribute('style', 'display:none');
+            if (community_tags.length > 0) {
+                for (j=0; j<community_tags.length; j++) {
+                    const community_tag = community_tags[j].innerHTML.split('# ')[1]
+                    if (filter === community_tag) {
+                        community.setAttribute('style', 'display:flex');
+                        break;
+                    } else {
+                        community.setAttribute('style', 'display:none');
+                    }
                 }
+            } else {
+                community.setAttribute('style', 'display:none');
             }
+            
         }
     }
 }

@@ -25,14 +25,11 @@
     <div class="left_side">
         <div class="community-menu">
             <div class="community-title">
-                <p>커뮤니티 게시판</p>
+                <p>회원 정보</p>
                 <div class="community-sub">
-                    <p>자유 게시판 | 1,100개</p>
-                    <p>질문 게시판 | 153개</p>
-                    <p>익명 게시판 | 93개</p>
-                    <div class="community-create">
-                        <p>게시판 만들기</p>
-                    </div>
+                    <p>개인 정보 / 가입된 커뮤니티</p>
+                    <p>작성한 글</p>
+                    <p>작성한 댓글</p>
                 </div>
             </div>
         </div>
@@ -41,8 +38,7 @@
         <div class="right_side">
             <div>
                 <h2>현재 사용자 이름
-                    <span style="font-size: 12px; font-weight: normal">정보 수정을 원하시면 수정할 정보 입력 후 수정완료 버튼을 눌러주세요</span>
-                    <button style="float:right;">커뮤니티 초대</button>
+                    <span style="font-size: 12px; font-weight: normal">정보 수정을 원하시면 수정할 정보 입력 후 수정완료 버튼을 눌러주세요</span>                    
                 </h2>
                 <hr>
                 <h3>현재 사용자 아이디<span style="float:right;">가입일 2022.07.07 17:30</span></h3>
@@ -73,9 +69,27 @@
         </div>
         <div class="right_side">
             <div>
-                <h2>작성한 게시판</h2>
+                <h2>가입된 커뮤니티</h2>
                 <table>
                     <tr class="show_article_list">
+                        <th>커뮤니티</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>OO커뮤니티</td>                        
+                        <td>
+                            <button>탈퇴하기</button>
+                        </td>                        
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="right_side">
+            <div>
+                <h2>작성한 글</h2>
+                <table>
+                    <tr class="show_article_list">
+                        <th>커뮤니티</th>
                         <th>게시판</th>
                         <th>제목</th>
                         <th>작성일</th>
@@ -84,6 +98,7 @@
                         <th></th>
                     </tr>
                     <tr>
+                        <td>OO커뮤니티</td>
                         <td>자유게시판</td>
                         <td>모든 게시판 데이터가 뜨는 공간</td>
                         <td>07-07</td>
@@ -103,18 +118,18 @@
                 <h2>작성한 댓글</h2>
                 <table>
                     <tr class="show_article_list">
+                        <th>커뮤니티</th>
                         <th>게시판</th>
                         <th>댓글내용</th>
                         <th>작성일</th>
-                        <th>조회</th>
                         <th></th>
                         <th></th>
                     </tr>
                     <tr>
+                        <td>OO커뮤니티</td>
                         <td>자유게시판</td>
                         <td>모든 작성한 댓글 데이터가 뜨는 공간</td>
                         <td>07-07</td>
-                        <td>3</td>
                         <td>
                             <button>댓글 수정하기</button>
                         </td>
@@ -132,4 +147,5 @@
 </div>
 </div>
 </body>
+<script type="text/javascript" src="static/js/my_page.js"></script>
 </html>

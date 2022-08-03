@@ -48,6 +48,10 @@
     margin-right : 15px;
 }
 
+#by_joined {
+ margin-left: 1px;   
+}
+
 .main-community-container {
     margin-top: 350px;
     width: 70%;
@@ -182,10 +186,6 @@
 
 .main-ranking__community:last-child {
     margin-bottom: 20px;
-}
-
-#by_joined {
-    display:none
 }
 
 
