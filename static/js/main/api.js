@@ -6,6 +6,18 @@ async function if_logout() {
       )
       .then((response)=>(response.json()))
       .then((result)=>{
+        const hit_count = result.community_hit_count;
+        const count_tag = document.getElementById('main-ranking');
+        for (i=0; i<hit_count.length; i++) {
+            const count_div = document.createElement('div');
+            count_div.classList.add('main-ranking__community');
+            count_div.innerHTML = `
+                <div class="main-ranking__community__name">${hit_count[i].community}</div>
+                <div class="main-ranking__community__user">| ${hit_count[i].count}명</div>
+            `
+            count_tag.append(count_div)
+        }
+
         const community = result.community;
         const container = document.getElementById("main-container");
         for (i=0; i<community.length; i++) {
@@ -18,7 +30,7 @@ async function if_logout() {
                 src="${community[i].image}"
                 />
                 <div class="main-community__info">
-                <div class="main-community__info__name">${community[i].name}</div>
+                <div class="main-community__info__name" onclick="location.href='http://127.0.0.1:5500/community_main_gh.html?community=${community[i].community}';">${community[i].name}</div>
                 <div class="main-community__info__discription">
                     ${community[i].introduction}
                 </div>
@@ -74,6 +86,19 @@ async function if_login() {
       })
         .then((response) => response.json())
         .then((result) => {
+            const hit_count = result.community_hit_count;
+            const count_tag = document.getElementById('main-ranking');
+            for (i=0; i<hit_count.length; i++) {
+                const count_div = document.createElement('div');
+                count_div.classList.add('main-ranking__community');
+                count_div.innerHTML = `
+                    <div class="main-ranking__community__name">${hit_count[i].community}</div>
+                    <div class="main-ranking__community__user">| ${hit_count[i].count}명</div>
+                `
+                count_tag.append(count_div)
+            }
+
+
             const all_tag = result.all_tag;
             const all_tag_div = document.getElementsByClassName("main-community-modal__body__tags")[0]
             for (i=0; i<all_tag.length; i++) {
@@ -89,6 +114,7 @@ async function if_login() {
             }
 
             const community = result.community;
+            console.log(result)
             const container = document.getElementById("main-container");
             for (i=0; i<community.length; i++) {
                 const contanier_div = document.createElement('div');
@@ -100,7 +126,7 @@ async function if_login() {
                     src="${community[i].community_info.image}"
                     />
                     <div class="main-community__info">
-                    <div class="main-community__info__name">${community[i].community_info.name}</div>
+                    <div class="main-community__info__name" onclick="location.href='http://127.0.0.1:5500/community_main_gh.html?community=${community[i].community}';">${community[i].community_info.name}</div>
                     <div class="main-community__info__discription">
                         ${community[i].community_info.introduction}
                     </div>
