@@ -52,6 +52,5 @@ try {
             }
         });
 } catch (error) {
-    console.error(error);
     alert('모든 게시판 보기 시 오류가 발생했습니다!');
 }

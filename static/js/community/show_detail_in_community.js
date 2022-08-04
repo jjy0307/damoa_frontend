@@ -311,24 +311,3 @@ function new_noticeboard() {
         alert('게시판 만들기에서 오류가 발생했습니다!');
     }
 }
-
-
-// fetch('http://127.0.0.1:8000/noticeboard/create/')
-//    .then((response) => response.json())
-//    .then((json) => {
-//        let noticeboard = [];
-//        for (i = 0; i < json.length; i++) {
-//            noticeboard.push(json[i]['name']);
-//        }
-
-//        let tag_area = document.getElementById('noticeboard_name');
-
-//        for (i = 0; i < noticeboard.length; i++) {
-//            let make_noticeboard = document.createElement('button');
-//            make_noticeboard.setAttribute('id', `noticeboard_name_${json[i]['id']}`);
-//            make_noticeboard.setAttribute('class', 'community_noticeboard_button');
-//            make_noticeboard.setAttribute('onclick', `noticeboard_name(this.id)`);
-//            make_noticeboard.innerHTML = noticeboard[i] + " | " + json[i]['article_set'].length + "개";
-//            tag_area.appendChild(make_noticeboard);
-//        }
-//    });
