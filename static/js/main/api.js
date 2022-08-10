@@ -144,6 +144,11 @@ async function show_by_joined() {
 }
 
 async function if_logout() {
+    let nav_bar_login = document.getElementById('nav_login_btn');
+    let nav_bar_logout = document.getElementById('nav_logout_btn');
+    nav_bar_login.setAttribute("style", "display:flex");
+    nav_bar_logout.setAttribute("style", "display:none");
+
     let make_community_btn = document.getElementById("make_community");
     let show_joined_community = document.getElementById("by_joined");
     make_community_btn.remove();
