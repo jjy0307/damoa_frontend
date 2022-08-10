@@ -1,3 +1,46 @@
+async function show_by_recommendation_detail(result) {
+    hit_ranking_sidebar(result.community_hit_count);
+    filter_tags(result.tag);
+    const community = result.community;
+    const container = document.getElementById("main-container");
+    container.innerHTML = ``;
+    for (i=0; i<community.length; i++) {
+        const contanier_div = document.createElement('div');
+        contanier_div.classList.add("main-community")
+        contanier_div.innerHTML =   
+        `
+            <img
+            class="main-community-thumbnail"
+            src="${community[i].image}"
+            />
+            <div class="main-community__info">
+            <div class="main-community__info__name" onclick="location.href='http://127.0.0.1:5500/community_main_gh.html?community=${community[i].community}';">${community[i].name}</div>
+            <div class="main-community__info__discription">
+                ${community[i].introduction}
+            </div>
+            <div class="main-community__info__tags" id="tag_${community[i].name}">
+            </div>
+            <div class="main-community__info__else">
+                <div class="main-community__info__public">공개 커뮤니티</div>
+                |
+                <div class="main-community__info__number">회원 수 ${community[i].user_num}</div>
+            </div>
+            </div>
+        `
+
+        container.append(contanier_div);
+
+        for (j=0; j<community[i].tag.length; j++) {
+            const tag_id = document.getElementById("tag_"+community[i].name)
+            const tag_div = document.createElement('div');
+            tag_div.classList.add("main-community__info__tag");
+            tag_div.append('# '+community[i].tag[j].name);
+            tag_id.append(tag_div);
+        }
+    }
+}
+
+
 async function hit_ranking_sidebar(data) {
     const count_tag = document.getElementById('main-ranking');
     count_tag.innerHTML = `
@@ -26,56 +69,29 @@ async function filter_tags(data) {
     }
 }
 
-async function show_by_recommendation() {
+async function show_by_recommendation_logout() {
     fetch("http://127.0.0.1:8000/community/main/", {
-        },
-      )
+        })
       .then((response)=>(response.json()))
       .then((result)=>{
-        hit_ranking_sidebar(result.community_hit_count);
-        filter_tags(result.tag);
-        const community = result.community;
-        const container = document.getElementById("main-container");
-        container.innerHTML = ``;
-        for (i=0; i<community.length; i++) {
-            const contanier_div = document.createElement('div');
-            contanier_div.classList.add("main-community")
-            contanier_div.innerHTML =   
-            `
-                <img
-                class="main-community-thumbnail"
-                src="${community[i].image}"
-                />
-                <div class="main-community__info">
-                <div class="main-community__info__name" onclick="location.href='http://127.0.0.1:5500/community_main_gh.html?community=${community[i].community}';">${community[i].name}</div>
-                <div class="main-community__info__discription">
-                    ${community[i].introduction}
-                </div>
-                <div class="main-community__info__tags" id="tag_${community[i].name}">
-                </div>
-                <div class="main-community__info__else">
-                    <div class="main-community__info__public">공개 커뮤니티</div>
-                    |
-                    <div class="main-community__info__number">회원 수 ${community[i].user_num}</div>
-                </div>
-                </div>
-            `
+        show_by_recommendation_detail(result);
+      })
+}
 
-            container.append(contanier_div);
-
-            for (j=0; j<community[i].tag.length; j++) {
-                const tag_id = document.getElementById("tag_"+community[i].name)
-                const tag_div = document.createElement('div');
-                tag_div.classList.add("main-community__info__tag");
-                tag_div.append('# '+community[i].tag[j].name);
-                tag_id.append(tag_div);
-            }
-        }
+async function show_by_recommendation_logined() {
+    fetch("http://127.0.0.1:8000/community/main/my_recommendation/", {
+        headers:{
+            Authorization : "Bearer " + localStorage.getItem("access"),
+        }, 
+        })
+        .then((response)=>(response.json()))
+        .then((result)=>{
+            show_by_recommendation_detail(result);
       })
 }
 
 async function show_by_joined() {
-    fetch("http://127.0.0.1:8000/community/main/", {
+    fetch("http://127.0.0.1:8000/community/main/my_community/", {
         headers:{
             Authorization : "Bearer " + localStorage.getItem("access"),
         },
@@ -153,7 +169,10 @@ async function if_logout() {
     let show_joined_community = document.getElementById("by_joined");
     make_community_btn.remove();
     show_joined_community.remove();
-    show_by_recommendation();
+
+    let show_button = document.getElementById('by_recommendation');
+    show_button.setAttribute("onclick", "show_by_recommendation_logout")
+    show_by_recommendation_logout();
 }
 
 
