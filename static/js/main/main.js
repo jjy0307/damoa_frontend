@@ -4,8 +4,6 @@ function tag_filter_change(tag) {
     for (i=0; i<communitys.length; i++) {
         const community = communitys[i]
         const community_tags = community.children[1].children[2].children
-        console.log(community)
-        console.log(community_tags.length)
         if (filter === '전체') {
             community.setAttribute('style', 'display:flex');
         } else {
