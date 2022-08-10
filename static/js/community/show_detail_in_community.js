@@ -64,55 +64,55 @@ try {
 }
 
 // 특정 게시판 클릭시 작동
-function noticeboard_name(clicked_id) {
-    try {
-        let noticeboard_real_id = clicked_id.split('_', 4)[2];
-        let noticeboard_real_name = clicked_id.split('_', 4)[3];
-        fetch(`http://127.0.0.1:8000/noticeboard/view/${noticeboard_real_id}`)
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json)
-                let hide_display = document.getElementById('article_and_comment_display');
-                let hide_display_mod = document.getElementById('article_mod_wrap_area');
-                let hide_display_all_article = document.getElementById('noticeboard_all');
-                hide_display.setAttribute('style', 'display:none');
-                hide_display_mod.setAttribute('style', 'display:none');
-                hide_display_all_article.setAttribute('style', 'display:none');
-                let show_display = document.getElementById('right_side_item');
-                show_display.setAttribute('style', 'display:flex');
-                let table = document.getElementById('article_list_table');
-                let h2 = document.getElementById('noticeboard_name_area_in_show_article_list');
-                h2.innerHTML = noticeboard_real_name;
+// function noticeboard_name(clicked_id) {
+//     try {
+//         let noticeboard_real_id = clicked_id.split('_', 4)[2];
+//         let noticeboard_real_name = clicked_id.split('_', 4)[3];
+//         fetch(`http://127.0.0.1:8000/noticeboard/view/${noticeboard_real_id}`)
+//             .then((response) => response.json())
+//             .then((json) => {
+//                 console.log(json)
+//                 let hide_display = document.getElementById('article_and_comment_display');
+//                 let hide_display_mod = document.getElementById('article_mod_wrap_area');
+//                 let hide_display_all_article = document.getElementById('noticeboard_all');
+//                 hide_display.setAttribute('style', 'display:none');
+//                 hide_display_mod.setAttribute('style', 'display:none');
+//                 hide_display_all_article.setAttribute('style', 'display:none');
+//                 let show_display = document.getElementById('right_side_item');
+//                 show_display.setAttribute('style', 'display:flex');
+//                 let table = document.getElementById('article_list_table');
+//                 let h2 = document.getElementById('noticeboard_name_area_in_show_article_list');
+//                 h2.innerHTML = noticeboard_real_name;
 
-                let article_button = document.getElementById('article_write_button_area');
-                article_button.innerHTML = `<button id="write_article_id_${noticeboard_real_id}_${noticeboard_real_name}" class="article_write_button" onclick="write_article(this.id)">글 작성하기</button>`;
-                table.innerHTML = `<tr id = "article_list_tr" class="show_article_list">
-                                        <th>번호</th>
-                                        <th>제목</th>
-                                        <th>작성자</th> 
-                                        <th>작성일</th>
-                                        <th>조회</th>
-                                    </tr>
-                                    `;
-                const article_objects = json[0]['article_set'];
-                console.log(json[0]);
+//                 let article_button = document.getElementById('article_write_button_area');
+//                 article_button.innerHTML = `<button id="write_article_id_${noticeboard_real_id}_${noticeboard_real_name}" class="article_write_button" onclick="write_article(this.id)">글 작성하기</button>`;
+//                 table.innerHTML = `<tr id = "article_list_tr" class="show_article_list">
+//                                         <th>번호</th>
+//                                         <th>제목</th>
+//                                         <th>작성자</th> 
+//                                         <th>작성일</th>
+//                                         <th>조회</th>
+//                                     </tr>
+//                                     `;
+//                 const article_objects = json[0]['article_set'];
+//                 console.log(json[0]);
 
-                console.log(article_objects);
-                for (i = 0; i < article_objects.length; i++) {
-                    let create_article_list = document.createElement('tr');
-                    create_article_list.innerHTML = `<td>${i + 1}</td>
-                                                <td id="click_${article_objects[i]['id']}" onclick="article_id(this.id);">${article_objects[i]['title']}</td>
-                                                <td>${article_objects[i]['user_name']}</td>
-                                                <td>${article_objects[i]['created_date'].slice(5, 10)}</td>
-                                                <td>조회수</td>`;
-                    table.append(create_article_list);
-                }
-            });
-    } catch (error) {
-        console.error(error);
-        alert('특정 게시판을 불러오는 데에 오류가 발생했습니다!');
-    }
-}
+//                 console.log(article_objects);
+//                 for (i = 0; i < article_objects.length; i++) {
+//                     let create_article_list = document.createElement('tr');
+//                     create_article_list.innerHTML = `<td>${i + 1}</td>
+//                                                 <td id="click_${article_objects[i]['id']}" onclick="article_id(this.id);">${article_objects[i]['title']}</td>
+//                                                 <td>${article_objects[i]['user_name']}</td>
+//                                                 <td>${article_objects[i]['created_date'].slice(5, 10)}</td>
+//                                                 <td>조회수</td>`;
+//                     table.append(create_article_list);
+//                 }
+//             });
+//     } catch (error) {
+//         console.error(error);
+//         alert('특정 게시판을 불러오는 데에 오류가 발생했습니다!');
+//     }
+// }
 
 // 댓글 작성
 function new_comment() {
@@ -185,7 +185,7 @@ function article_id(clicked_id) {
             <span onclick="clip(); return false;">URL 주소복사</span>
             <!-- 파일 다운로드 구현 -->
         </div>
-        <div id="article_content_area" class="article_writearea article_font_color">${json.content}</div>
+        <div id="article_content_area">${json.content}</div>
             <div>
             <button onclick="downloadImg()";>파일 다운로드</button>
             </div>
@@ -203,6 +203,17 @@ function article_id(clicked_id) {
                     </div>
                 </div>    
             </div>`;
+
+                let quillEditor = new Quill(
+                    '#article_content_area',
+                    {
+                        readOnly: true,
+                        theme:'snow',
+                        "modules": {
+                            "toolbar": false
+                        }
+                    }
+                );
 
                 if (user_id == json.user) {
                     let article_head = document.getElementById('article_head');
