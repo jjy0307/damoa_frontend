@@ -1,11 +1,13 @@
 // 작성한 게시글 post하기
 async function postArticle(e) {
     const title = document.getElementById('article_title').value;
-    const content = document.getElementById('article_content').value;
+    // const content = document.getElementById('article_content').value;
+    const content = document.getElementById('article_content').getElementsByClassName('ql-editor')[0].innerHTML;
     const noticeboard = e.id.split('_')[3];
     const file = document.getElementById('article_file').files[0];
     const image = document.getElementById('article_image').files;
     const formdata = new FormData();
+
     for (i=0; i<image.length; i++) {
         formdata.append('image_'+i, image[i])
     }
