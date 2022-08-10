@@ -1,72 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>main</title>
-        <link rel="stylesheet" type="text/css" href="static\css\navigation.css" />
-        <link rel="stylesheet" type="text/css" href="static\css\main.css" />
-    </head>
-    <body>
-        <div class="navigation-bar">
-            <span class="navigation-bar__footprint" onclick="handleMain()">damoa.life</span>
-            <div class="navigation-bar__button" id="nav_login_btn">
-                <div class="navigation-bar__button__signup" onclick="handleSignUp()">회원가입</div>
-                |
-                <div class="navigation-bar__button__signin" onclick="handleLogin()">로그인</div>
-            </div>
-            <div class="navigation-bar__button" id="nav_logout_btn">
-                <div class="navigation-bar__button__logout" onclick="handleLogout()">로그아웃</div>
-            </div>
-        </div>
-        <div class="main-navigation-bar">
-          <img
-            class="main-naviagtion-bar__img"
-            src="static\images\test_image_1.png"
-          />
-          <div class="main-navigation-bar__bottom">
-            <div class="main-navigation-bar__bottom__filter">
-              <div
-                class="main-navigation-bar__bottom__filter__byCommunity"
-                id="by_recommendation" onclick="show_by_recommendation()"
+  <head>
+    <meta charset="UTF-8" />
+    <title>main</title>
+    <link rel="stylesheet" type="text/css" href="static\css\navigation.css" />
+    <link rel="stylesheet" type="text/css" href="static\css\main.css" />
+  </head>
+  <body>
+    <nav
+      class="uk-navbar-container uk-margin white-background"
+      style="background-color: #ffffff; margin-bottom: 0px"
+      uk-navbar
+    >
+      <div class="uk-navbar-center">
+        <a
+          class="uk-navbar-item uk-logo"
+          style="font-size: 30px; font-weight: 600"
+          href="#"
+          onclick="handleMain()"
+          >Damoa Life</a
+        >
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav" id="nav_login_btn">
+          <li href="#" onclick="handleSignUp()"><a>회원가입</a></li>
+          <li href="#" onclick="handleLogin()"><a>로그인</a></li>
+        </ul>
+        <ul class="uk-navbar-nav" id="nav_logout_btn">
+          <li href="#" onclick="handleMypage()"><a>마이페이지</a></li>
+          <li href="#" onclick="handleLogout()"><a>로그아웃</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div>
+      <div class="main-navigation-bar__bottom">
+        <div class="main-navigation-bar__bottom__filter">
+          <button
+            class="uk-button uk-button-default"
+            style="border: none"
+            id="by_recommendation"
+            onclick="show_by_recommendation()"
+          >
+            추천 커뮤니티 보기
+          </button>
+          <button
+            class="uk-button uk-button-default"
+            style="border: none"
+            id="by_joined"
+            onclick="show_by_joined()"
+          >
+            가입된 커뮤니티 보기
+          </button>
+          <div class="main-navigation-bar__bottom__filter__byCategory">
+            <form>
+              <span class="uk-text-small uk-text-normal uk-text-bolder"
+                >태그로 선택하기</span
               >
-                추천 커뮤니티 보기
-              </div>
-              <div
-                class="main-navigation-bar__bottom__filter__byCommunity"
-                id="by_joined" onclick="show_by_joined()"
+              <select
+                general
+                id="tag_filter"
+                onchange="tag_filter_change(this)"
               >
-                | 가입된 커뮤니티 보기
-              </div>
-              |
-              <div class="main-navigation-bar__bottom__filter__byCategory">
-                <form>
-                  태그로 선택하기
-                  <select
-                    general
-                    id="tag_filter"
-                    onchange="tag_filter_change(this)"
-                  >
-                    <option value="전체">전체</option>
-                  </select>
-                </form>
-              </div>
-            </div>
-            <div
-              class="main-navigation-bar__bottom__makeCommunity"
-              id="make_community"
-            >
-              커뮤니티 만들기
-            </div>
-            <div onclick="handleMypage()">
-              마이페이지
-            </div>
+                <option value="전체">전체</option>
+              </select>
+            </form>
           </div>
         </div>
-      </div>
-      <div class="navigation-bar__button" id="nav_logout_btn">
-        <div class="navigation-bar__button__logout" onclick="handleLogout()">
-          로그아웃
-        </div>
+        <button
+          class="uk-button uk-button-default"
+          style="border: none"
+          id="make_community"
+        >
+          커뮤니티 만들기
+        </button>
       </div>
     </div>
 
@@ -149,4 +155,14 @@
   <script type="text/javascript" src="static/js/main/api.js"></script>
   <script type="text/javascript" src="static/js/main/main.js"></script>
   <script type="text/javascript" src="static/js/navbar.js"></script>
+
+  <!-- UIkit CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css"
+  />
+
+  <!-- UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit-icons.min.js"></script>
 </html>
