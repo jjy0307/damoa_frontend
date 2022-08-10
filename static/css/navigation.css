@@ -43,3 +43,7 @@
     display: none;
     margin-right: 20px;
 }
+
+.navigation-bar__button__logout {
+    margin-left: 5px;
+}
