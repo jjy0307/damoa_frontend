@@ -187,7 +187,6 @@ function article_id(clicked_id) {
         </div>
         <div id="article_content_area" class="article_writearea article_font_color">${json.content}</div>
             <div>
-            <p>파일이 존재합니다 : ${json.file.slice(62, 76)}...</p>
             <button onclick="downloadImg()";>파일 다운로드</button>
             </div>
             <div id="article_image_area" class="article_wrapimage"><!-- 이미지가 들어가는 곳입니다. --></div>
@@ -238,52 +237,26 @@ function article_id(clicked_id) {
         
 
         // 댓글에 현재 로그인된 사용자 이름 띄우기
-        let currnet_user_area = document.getElementById('current_user_name');
-        currnet_user_area.innerHTML = username;
+        // let currnet_user_area = document.getElementById('current_user_name');
+        // currnet_user_area.innerHTML = username;
 
-        // 이미지 보여주기
-        fetch(`http://127.0.0.1:8000/article/images/`)
-            .then((response) => response.json())
-            .then((json) => {
-                let image_area = document.getElementById('article_image_area');
-                for (i = 0; i < json.length; i++) {
-                    if (article_num == json[i]['article_id']) {
-                        let make_image = document.createElement('div');
-                        make_image.innerHTML = `<img src= ${json[i]['image_url']} class=article_show_image></img>`;
-                        image_area.appendChild(make_image);
-                    }
-                }
-            });
+        // // 이미지 보여주기
+        // fetch(`http://127.0.0.1:8000/article/images/`)
+        //     .then((response) => response.json())
+        //     .then((json) => {
+        //         let image_area = document.getElementById('article_image_area');
+        //         for (i = 0; i < json.length; i++) {
+        //             if (article_num == json[i]['article_id']) {
+        //                 let make_image = document.createElement('div');
+        //                 make_image.innerHTML = `<img src= ${json[i]['image_url']} class=article_show_image></img>`;
+        //                 image_area.appendChild(make_image);
+        //             }
+        //         }
+        //     });
     } catch (error) {
         console.error(error);
         alert('한 개의 글 디테일한 부분 가져오기에서 오류가 발생했습니다!');
     }
-}
-
-// 왼쪽 사이드바에 게시판 모두 불러오기
-try {
-    fetch('http://127.0.0.1:8000/noticeboard/create/' + community_num + '/')
-        .then((response) => response.json())
-        .then((json) => {
-            let noticeboard = [];
-            for (i = 0; i < json.length; i++) {
-                noticeboard.push(json[i]['name']);
-            }
-
-            let tag_area = document.getElementById('noticeboard_name');
-
-            for (i = 0; i < noticeboard.length; i++) {
-                let make_noticeboard = document.createElement('button');
-                make_noticeboard.setAttribute('id', `noticeboard_name_${json[i]['id']}_${json[i]['name']}`);
-                make_noticeboard.setAttribute('class', 'community_noticeboard_button');
-                make_noticeboard.setAttribute('onclick', `noticeboard_name(this.id)`);
-                make_noticeboard.innerHTML = noticeboard[i];
-                tag_area.appendChild(make_noticeboard);
-            }
-        });
-} catch (error) {
-    console.error(error);
-    alert('왼쪽 사이드바에 게시판 모두 불러오기에서 오류가 발생했습니다!');
 }
 
 // 게시판 만들기
