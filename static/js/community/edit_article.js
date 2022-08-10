@@ -2,7 +2,7 @@
 async function edit_article(clicked_id) {
     try {
         article_num = clicked_id.split('_', 4)[3];
-        fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
+        await fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
             .then((response) => response.json())
             .then((json) => {
                 console.log(json)
@@ -82,11 +82,6 @@ async function edit_article_post(clicked_id) {
         const content = document.getElementById('edit_article_content').getElementsByClassName('ql-editor')[0].innerHTML;
         const file = document.getElementById('edit_article_file').files[0];
         const formdata = new FormData();
-        console.log(article_num)
-        console.log(title)
-        console.log(content)
-        console.log(file)
-        console.log(noticeboard_num)
         formdata.append('article', article_num);
         formdata.append('noticeboard', noticeboard_num)
         formdata.append('title', title);
