@@ -106,89 +106,39 @@ async function load_response_signin_community() {
     }
 }
 
-// [처리 함수]
 // 승인 요청한 사람이, 승인을 취소하는 작업
-async function cancel_request_signin_community(item) {
-    const requestId = item.dataset.requestId;
-
-    const formdata = new FormData();
-    formdata.append('request_id', requestId);    
-    
-    // [TODO]
-    // 가입 승인 취소 요청
-    const response = await fetch('http://127.0.0.1:8000/user/login/', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-        },
-        body: formdata
-    });
-
-    response_json = await response.json();
-
-    // 작업 성공시 해당 아이템을 Table에서 삭제
-    if (response.status == 200) {
-        const table = document.GetElementById("request_signin_table");
-        table.remove(item);
-    } else {
-        alert('확인 할 수 없는 요청입니다.');
-    }
-}
-
-// 커뮤니티 주인이 승인 요청을 취소하는 작업
-async function cancel_response_signin_community(item) {
-    const requestId = item.dataset.requestId;
-
+async function delete_request_signin(item) {
+    const requestId = item.split('request_signin_')[1]
     const formdata = new FormData();
     formdata.append('request_id', requestId);
-
-    // [TODO]
-    // 가입 승인 취소 요청
-    const response = await fetch('http://127.0.0.1:8000/user/login/', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-        },
-        body: formdata
+    const response = await fetch('http://127.0.0.1:8000/community/invitation/request/', {
+        method: 'DELETE',
+        body:formdata,
     });
-
-    response_json = await response.json();
-
-    // 작업 성공시 해당 아이템을 Table에서 삭제
     if (response.status == 200) {
-        const table = document.GetElementById("response_signin_table");
-        table.remove(item);
+        const table = document.getElementById("tr_request_signin_"+requestId);
+        table.remove();
     } else {
         alert('확인 할 수 없는 요청입니다.');
     }
 }
 
 // 커뮤니티 주인이 승인 요청을 승인하는 작업
-async function accept_response_signin_community(item) {
-    const requestId = item.dataset.requestId;
-
+async function response_signin(item) {
+    const request_method = item.split('response_signin_')[1].split('_')[0]
+    const requestId = item.split('response_signin_')[1].split('_')[1];
     const formdata = new FormData();
+    formdata.append('request_method', request_method);
     formdata.append('request_id', requestId);
 
-    // [TODO]
-    // 가입 승인 허락 요청
-    const response = await fetch('http://127.0.0.1:8000/user/login/', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-        },
-        body: formdata
+    const response = await fetch('http://127.0.0.1:8000/community/invitation/request/', {
+        method: 'PUT',
+        body: formdata,
     });
 
-    response_json = await response.json();
-
-    // 작업 성공시 해당 아이템을 Table에서 삭제
     if (response.status == 200) {
-        const table = document.GetElementById("response_signin_table");
-        table.remove(item);
+        const table = document.getElementById("response_signin_"+requestId);
+        table.remove();
     } else {
         alert('확인 할 수 없는 요청입니다.');
     }
@@ -217,6 +167,9 @@ async function get_mypage_details() {
                                             </td>                       
                                             `
             joined_community.append(joined_community_info)
+            if (result.userandcommunity_set[i].is_admin == false) {
+                continue;
+            }
 
             for (j=0; j<result.userandcommunity_set[i].community_request.length; j++) {
                 const response_signin = document.getElementById("response_signin_table")
@@ -224,16 +177,23 @@ async function get_mypage_details() {
                 if (community_request.user === result.user_id) {
                     continue;
                 }
+                if (community_request.reject == true) {
+                    continue;
+                }
+                if (community_request.accept == true) {
+                    continue;
+                }
                 let response_signin_info = document.createElement('tr')
+                response_signin_info.setAttribute('id', 'response_signin_'+community_request.id)
                 response_signin_info.innerHTML = `
                                                 <td>${community_request.community}</td>
                                                 <td>${community_request.user}</td>
                                                 <td>${community_request.date.slice(0, 10)}</td>
                                                 <td>
-                                                    <button id="response_signin_accept_${community_request.id}" onclick="accept_response_signin(this.id)">승인</button>
+                                                    <button id="response_signin_accept_${community_request.id}" onclick="response_signin(this.id)">승인</button>
                                                 </td>
                                                 <td>
-                                                    <button id="response_signin_decline_${community_request.id}" onclick="decline_response_signin(this.id)">취소</button>
+                                                    <button id="response_signin_decline_${community_request.id}" onclick="response_signin(this.id)">취소</button>
                                                 </td>
                                                 `
                 response_signin.append(response_signin_info)
@@ -279,13 +239,21 @@ async function get_mypage_details() {
 
         const request_signin = document.getElementById("request_signin_table")
         for (i=0; i<result.userandcommunityinvitation_set.length; i++) {
+            let request_result = '대기중'
+            if (result.userandcommunityinvitation_set[i].reject === true) {
+                request_result = '거절됨'
+            } else if (result.userandcommunityinvitation_set[i].reject === true) {
+                request_result = '승인됨'
+            }
             if (result.userandcommunityinvitation_set[i].invited === true) {
                 let request_signin_info = document.createElement('tr')
+                request_signin_info.setAttribute('id', 'tr_request_signin_'+result.userandcommunityinvitation_set[i].id)
                 request_signin_info.innerHTML = `
                                                 <td>${result.userandcommunityinvitation_set[i].community_name}</td>
                                                 <td>${result.userandcommunityinvitation_set[i].date.slice(0, 10)}</td>
+                                                <td>${request_result}</td>
                                                 <td>
-                                                    <button id="request_signin_${result.userandcommunityinvitation_set[i].id}" onclick="delete_request_signin(this.id)">신청 취소</button>
+                                                    <button id="request_signin_${result.userandcommunityinvitation_set[i].id}" onclick="delete_request_signin(this.id)">삭제하기</button>
                                                 </td>
                                                 `
                 request_signin.append(request_signin_info)
