@@ -53,26 +53,36 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="all_wrap">
-      <div class="navigation-bar">
-        <span class="navigation-bar__footprint" onclick="handleMain()"
-          >damoa.life</span
+    <nav
+      class="uk-navbar-container uk-margin white-background"
+      style="background-color: #ffffff; margin-bottom: 0px"
+      uk-navbar
+    >
+      <div class="uk-navbar-center">
+        <a
+          class="uk-navbar-item uk-logo"
+          style="font-size: 30px; font-weight: 600"
+          href="#"
+          onclick="handleMain()"
+          >Damoa Life</a
         >
-        <div class="navigation-bar__button" id="nav_login_btn">
-          <div class="navigation-bar__button__signup" onclick="handleSignUp()">
-            회원가입
-          </div>
-          |
-          <div class="navigation-bar__button__signin" onclick="handleLogin()">
-            로그인
-          </div>
-        </div>
-        <div class="navigation-bar__button" id="nav_logout_btn">
-          <div class="navigation-bar__button__logout" onclick="handleLogout()">
-            로그아웃
-          </div>
-        </div>
       </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav" id="nav_login_btn">
+          <li href="#" onclick="handleSignUp()"><a>회원가입</a></li>
+          <li href="#" onclick="handleLogin()"><a>로그인</a></li>
+        </ul>
+        <ul class="uk-navbar-nav" id="nav_logout_btn">
+          <li href="#" onclick="handleMypage()"><a>마이페이지</a></li>
+          <li href="#" onclick="handleLogout()"><a>로그아웃</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div>
+      <div
+        class="main-navigation-bar__bottom"
+        style="border-bottom: 1px solid #cccccc"
+      ></div>
 
       <div class="community-menu">
         <div class="community-title">
@@ -261,5 +271,14 @@
       src="static/js/community/write_article_post.js"
     ></script>
     <script type="text/javascript" src="static/js/is_login.js"></script>
+    <!-- UIkit CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css"
+    />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit-icons.min.js"></script>
   </body>
 </html>
