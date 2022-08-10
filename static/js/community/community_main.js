@@ -3,7 +3,6 @@ async function community_mainpage() {
     fetch(`http://127.0.0.1:8000/noticeboard/create/${community_num}/`)
         .then((response) => response.json())
         .then((json) => {
-            console.log(json)
             // 옆 사이드 바
             let tag_area = document.getElementById('left_nav_bar_noticeboard_name');
             let noticeboard = [];
@@ -14,7 +13,7 @@ async function community_mainpage() {
                 let make_noticeboard = document.createElement('button');
                 make_noticeboard.setAttribute('id', `noticeboard_name_${json[i]['id']}_${json[i]['name']}`);
                 make_noticeboard.setAttribute('class', 'community_noticeboard_button');
-                make_noticeboard.setAttribute('onclick', `noticeboard_name(this.id)`);
+                make_noticeboard.setAttribute('onclick', `load_individual_noticeboard(this.id)`);
                 make_noticeboard.innerHTML = noticeboard[i];
                 tag_area.appendChild(make_noticeboard);
             }
