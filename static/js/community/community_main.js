@@ -1,15 +1,15 @@
-try {
+async function community_mainpage() {
     const community_num = window.location.href.split('?')[1].split('=')[1]
     fetch(`http://127.0.0.1:8000/noticeboard/create/${community_num}/`)
         .then((response) => response.json())
         .then((json) => {
+            console.log(json)
+            // 옆 사이드 바
+            let tag_area = document.getElementById('left_nav_bar_noticeboard_name');
             let noticeboard = [];
             for (i = 0; i < json.length; i++) {
                 noticeboard.push(json[i]['name']);
             }
-
-            let tag_area = document.getElementById('noticeboard_name');
-
             for (i = 0; i < noticeboard.length; i++) {
                 let make_noticeboard = document.createElement('button');
                 make_noticeboard.setAttribute('id', `noticeboard_name_${json[i]['id']}_${json[i]['name']}`);
@@ -19,7 +19,7 @@ try {
                 tag_area.appendChild(make_noticeboard);
             }
 
-
+            // 게시글 전체 불러오기
             let noticeboard_all = document.getElementById('noticeboard_all');
 
             for (i = 0; i < json.length; i++) {
@@ -57,17 +57,35 @@ try {
                     }
                     for (j = 0; j < len; j++) {
                         let noticeboard_tr = document.createElement('tr');
-                        noticeboard_tr.innerHTML = `<td>${json[i]['article_set'][j]['id']}</td>
-                                                        <td>${json[i]['article_set'][j]['title']}</td>
-                                                        <td>${json[i]['article_set'][j]['user']}</td>
-                                                        <td>${json[i]['article_set'][j]['created_date'].slice(5, 10)}</td>
-                                                        <td>3</td>`;
+                        noticeboard_tr.innerHTML = `
+                                                    <td>${json[i]['article_set'][j]['id']}</td>
+                                                    <td id='click_${json[i]['article_set'][j]['id']}' onclick="article_id(this.id)">${json[i]['article_set'][j]['title']}</td>
+                                                    <td>${json[i]['article_set'][j]['user']}</td>
+                                                    <td>${json[i]['article_set'][j]['created_date'].slice(5, 10)}</td>
+                                                    <td>3</td>
+                                                    `;
                         noticeboard_list.append(noticeboard_tr);
                     }
                 }
             }
-        });    
-} catch (error) {
-    console.error(error);
-    alert('왼쪽 사이드바에 게시판 모두 불러오기에서 오류가 발생했습니다!');
-}
+        })
+};
+community_mainpage();
+// try {
+//     window.onload = function onpage_load() {
+//         community_mainpage();
+//     }
+// } catch {
+//     console.log('aaa')
+// };
+
+// window.onLoad = () => {
+//     community_mainpage();
+//     console.log('aaa\\\\')
+//     try {
+//         community_mainpage();
+//         console.log('aaa')
+//     } catch (error) {
+//         console.log('')
+//     }
+// }
