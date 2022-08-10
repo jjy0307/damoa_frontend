@@ -22,7 +22,7 @@ hr {
     font-size: 13px;
 }
 .article_writearea {
-    display: flex;
+    display: block;
     padding: 5px;
 }
 .article_writearea_child {
