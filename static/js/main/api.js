@@ -130,7 +130,7 @@ async function show_by_joined() {
                     src="${community[i].community_info.image}"
                     />
                     <div class="main-community__info">
-                    <div class="main-community__info__name" onclick="location.href=${front_server} + '/community?community=${community[i].community}';">${community[i].community_info.name}</div>
+                    <div class="main-community__info__name" onclick="location.href='${front_server}/community?community=${community[i].community}';">${community[i].community_info.name}</div>
                     <div class="main-community__info__discription">
                         ${community[i].community_info.introduction}
                     </div>
