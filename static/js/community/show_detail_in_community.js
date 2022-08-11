@@ -1,4 +1,4 @@
-let backend_server = 'http://3.39.1.228:8000'
+// let backend_server = 'http://3.39.1.228:8000'
 
 // URL 복사 하는 부분
 function clip(){
@@ -53,7 +53,7 @@ function new_comment() {
         let comment_area = document.getElementById('comment_area');
 
         let comment_form_data = document.getElementById('comment_input_area').value;
-        fetch(backend_server + '/article/comment/write/', {
+        fetch('http://3.39.1.228:8000/article/comment/write/', {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('access'),
@@ -96,7 +96,7 @@ function article_id(clicked_id) {
         article_show.setAttribute('style', 'display:flex');
         article_hide.setAttribute('style', 'display:none');
 
-        fetch(backend_server + `/article/${article_num}/write`)
+        fetch(`http://3.39.1.228:8000/article/${article_num}/write`)
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
@@ -155,7 +155,7 @@ function article_id(clicked_id) {
                 <button id="mod_article_num_${json.id}" class="article_write_button" onclick="edit_article(this.id)">글 수정하기</button>`;
                 }
                 //get comment
-                return fetch(backend_server + '/article/comment/write/');
+                return fetch('http://3.39.1.228:8000/article/comment/write/');
 
                 
             })
@@ -189,7 +189,7 @@ function new_noticeboard() {
     try {
         let noticeboard_form_data = document.getElementById('modal_input_text').value;
 
-        fetch(backend_server + '/noticeboard/create/', {
+        fetch('http://3.39.1.228:8000/noticeboard/create/', {
             method: 'POST',
             body: JSON.stringify({
                 community: community_num,

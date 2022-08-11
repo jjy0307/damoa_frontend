@@ -1,9 +1,9 @@
-let backend_server = 'http://3.39.1.228:8000'
+// let backend_server = 'http://3.39.1.228:8000'
 // 글 수정 페이지로 이동 및 불러오기
 async function edit_article(clicked_id) {
     try {
         article_num = clicked_id.split('_', 4)[3];
-        await fetch(backend_server + `/article/${article_num}/write`)
+        await fetch(`http://3.39.1.228:8000/article/${article_num}/write`)
             .then((response) => response.json())
             .then((json) => {
                 console.log(json)
@@ -89,7 +89,7 @@ async function edit_article_post(clicked_id) {
         formdata.append('content', content);
         formdata.append('file', file);
         formdata.append('user_id', localStorage.getItem('payload'));
-        await fetch(backend_server + '/article/write/', {
+        await fetch('http://3.39.1.228:8000/article/write/', {
             method: 'PUT',
             body: formdata,
         })
