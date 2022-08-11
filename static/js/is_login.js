@@ -1,3 +1,5 @@
+let backend_server = 'http://3.39.1.228:8000'
+
 async function if_logout() {
     let make_community_btn = document.getElementById("make_community");
     let show_joined_community = document.getElementById("by_joined");
@@ -35,7 +37,7 @@ window.onload = ()=> {try {
         };
 
         // 다시 인증 받은 accessToken을 localStorage에 저장하자.
-        requestRefreshToken("http://127.0.0.1:8000/user/refresh/").then((data)=>{
+        requestRefreshToken(backend_server + "/user/refresh/").then((data)=>{
             // 새롭게 발급 받은 accessToken을 localStorage에 저장
             const accessToken = data.access;
             localStorage.setItem("access", accessToken);

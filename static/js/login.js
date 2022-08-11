@@ -1,7 +1,7 @@
 async function login() {
     user_id = document.getElementById('user_id').value;
     password = document.getElementById('password').value;
-    const response = await fetch('http://127.0.0.1:8000/user/login/', {
+    const response = await fetch(backend_server + '/user/login/', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -61,7 +61,7 @@ window.onload = () => {
         };
 
         // 다시 인증 받은 accessToken을 localStorage에 저장하자.
-        requestRefreshToken('http://127.0.0.1:8000/user/refresh/').then((data) => {
+        requestRefreshToken(backend_server + '/user/refresh/').then((data) => {
             // 새롭게 발급 받은 accessToken을 localStorage에 저장
             const accessToken = data.access;
             localStorage.setItem('access', accessToken);

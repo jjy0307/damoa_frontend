@@ -1,3 +1,4 @@
+let backend_server = 'http://3.39.1.228:8000'
 // 작성한 게시글 post하기
 async function postArticle(e) {
     const title = document.getElementById('article_title').value;
@@ -16,7 +17,7 @@ async function postArticle(e) {
     formdata.append('file', file);
     formdata.append('noticeboard', noticeboard);
     formdata.append('user_id', localStorage.getItem('payload'));
-    await fetch('http://127.0.0.1:8000/article/write/', {
+    await fetch(backend_server + '/article/write/', {
         method: 'POST',
         body: formdata,
     })

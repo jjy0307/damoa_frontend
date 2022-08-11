@@ -1,3 +1,5 @@
+let backend_server = 'http://3.39.1.228:8000'
+
 async function show_by_recommendation_detail(result) {
     hit_ranking_sidebar(result.community_hit_count);
     filter_tags(result.tag);
@@ -70,7 +72,7 @@ async function filter_tags(data) {
 }
 
 async function show_by_recommendation_logout() {
-    fetch("http://127.0.0.1:8000/community/main/", {
+    fetch(backend_server + "/community/main/", {
         })
       .then((response)=>(response.json()))
       .then((result)=>{
@@ -79,7 +81,7 @@ async function show_by_recommendation_logout() {
 }
 
 async function show_by_recommendation_logined() {
-    fetch("http://127.0.0.1:8000/community/main/my_recommendation/", {
+    fetch(backend_server + "/community/main/my_recommendation/", {
         headers:{
             Authorization : "Bearer " + localStorage.getItem("access"),
         }, 
@@ -91,7 +93,7 @@ async function show_by_recommendation_logined() {
 }
 
 async function show_by_joined() {
-    fetch("http://127.0.0.1:8000/community/main/my_community/", {
+    fetch(backend_server + "/community/main/my_community/", {
         headers:{
             Authorization : "Bearer " + localStorage.getItem("access"),
         },
@@ -203,7 +205,7 @@ window.onload = ()=> {try {
               return response.json();
         };
 
-        requestRefreshToken("http://127.0.0.1:8000/user/refresh/").then((data)=>{
+        requestRefreshToken(backend_server + "/user/refresh/").then((data)=>{
             const accessToken = data.access;
             localStorage.setItem("access", accessToken);
             if_login();
@@ -236,7 +238,7 @@ async function create_community() {
     formdata.append("tags", community_tags)
     formdata.append("is_public", community_isPublic)
     formdata.append("user_id", localStorage.getItem("payload"))
-    fetch("http://127.0.0.1:8000/community/main/create", {
+    fetch(backend_server + "/community/main/create", {
         method: "POST",
         body: formdata
         })

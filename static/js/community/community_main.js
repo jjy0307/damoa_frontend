@@ -1,6 +1,8 @@
+let backend_server = 'http://3.39.1.228:8000'
+
 async function community_mainpage() {
     const community_num = window.location.href.split('?')[1].split('=')[1]
-    fetch(`http://127.0.0.1:8000/noticeboard/create/${community_num}/`)
+    fetch(backend_server + `/noticeboard/create/${community_num}/`)
         .then((response) => response.json())
         .then((json) => {
             // 옆 사이드 바
@@ -70,21 +72,3 @@ async function community_mainpage() {
         })
 };
 community_mainpage();
-// try {
-//     window.onload = function onpage_load() {
-//         community_mainpage();
-//     }
-// } catch {
-//     console.log('aaa')
-// };
-
-// window.onLoad = () => {
-//     community_mainpage();
-//     console.log('aaa\\\\')
-//     try {
-//         community_mainpage();
-//         console.log('aaa')
-//     } catch (error) {
-//         console.log('')
-//     }
-// }

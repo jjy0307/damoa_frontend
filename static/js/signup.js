@@ -1,3 +1,6 @@
+let backend_server = 'http://3.39.1.228:8000'
+let front_server =  'http://43.200.24.208'
+
 async function submit() {
     user_id = document.getElementById("user_id").value
     username = document.getElementById("username").value
@@ -9,7 +12,7 @@ async function submit() {
         return;
     }
 
-    fetch("http://127.0.0.1:8000/user/signup/", {
+    fetch(backend_server + "/user/signup/", {
         method: "POST",
         headers:{
             Accept:"application/json",
@@ -32,7 +35,7 @@ async function submit() {
                 throw new Error('wrong username')
             }
             alert('회원 가입이 완료 되었습니다')
-            window.location.href = 'http://127.0.0.1:5500/login.html'
+            window.location.href = front_server + '/login.html'
         })
         .catch((err)=>{console.log(err)
         })
@@ -56,7 +59,7 @@ window.onload = ()=>{
                 return response.json();
         };
 
-        requestRefreshToken("http://127.0.0.1:8000/user/refresh/").then((data)=>{
+        requestRefreshToken(backend_server + "/user/refresh/").then((data)=>{
             const accessToken = data.access;
             localStorage.setItem("access", accessToken);
         });

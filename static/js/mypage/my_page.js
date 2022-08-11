@@ -1,117 +1,11 @@
-//http://127.0.0.1:8000/community/main/mypage/
-//http://127.0.0.1:8000/article/mypage/
-
-// 가입 신청 대기 목록 아이템 HTML 받기
-function get_request_signin_item(requestId, community_name, date) {
-    return `
-        <tr data-request-id="${requestId}">
-            <td>${community_name}</td>
-            <td>${date}</td>
-            <td><button onclick="cancel_request_signin_community(this);">신청 취소</button></td>
-        <tr>
-    `;
-}
-
-// 가입 요청 대기 목록 아이템 HTML 받기
-function get_response_signin_item(requestId, community_name, user_name, date) {
-    return `
-        <tr data-request-id="${requestId}">
-            <td>${community_name}</td>
-            <td>${user_name}</td>
-            <td>${date}</td>
-            <td><button onclick="accept_response_signin_community(this);">승인</button></td>
-            <td><button onclick="cancel_response_signin_community(this);">취소</button></td>
-        <tr>
-    `;
-}
-
-// [목록 불러오기]
-// 가입 신청 대기 목록 불러오기
-async function load_request_signin_community() {
-    // User의 인증 정보
-    const user_id = localStorage.getItem('payload');
-
-    // [TODO]
-    // 해당 유저가 가입을 신청해서 대기 중인 요청들의 정보를 가져옴
-    const response = await fetch('http://127.0.0.1:8000/user/login/', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            user_id: user_id
-        }),
-    });
-
-    response_json = await response.json();
-
-    // 해당 정보들을 보여줄 Table
-    const table = document.GetElementById("request_signin_table");
-
-    // [TODO]
-    // 아이템 목록을 서버의 결과로 부터 받아옴
-    // const item_list = response_json.
-    const item_list = [];
-
-    // 아이템을 차례대로 추가
-    for(i = 0; i < item_list.length; i++) {
-        let item_content = item_list[i];
-        table.append(
-            get_request_signin_item(
-                item_content.requestId, 
-                item_content.communityName,
-                item_content.date
-            )
-        );
-    }
-}
-
-// 가입 요청 대기 목록 불러오기
-async function load_response_signin_community() {
-    const user_id = localStorage.getItem('payload');
-
-    // [TODO]
-    // 해당 유저가 주인인 커뮤니티에 가입 승인을 요청한 목록 정보를 가져옴
-    const response = await fetch('http://127.0.0.1:8000/user/login/', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            user_id: user_id
-        }),
-    });
-
-    response_json = await response.json();
-
-    // 해당 정보들을 보여줄 Table
-    const table = document.GetElementById("response_signin_table");
-    
-    // [TODO]
-    // 아이템 목록을 서버의 결과로 부터 받아옴
-    const item_list = [];
-    
-    // 아이템을 차례대로 추가
-    for(i = 0; i < item_list.length; i++) {
-        let item_content = item_list[i];
-        table.append(
-            get_response_signin_item(
-                item_content.requestId, 
-                item_content.communityName,
-                item_content.date
-            )
-        );
-    }
-}
+let backend_server = 'http://3.39.1.228:8000'
 
 // 승인 요청한 사람이, 승인을 취소하는 작업
 async function delete_request_signin(item) {
     const requestId = item.split('request_signin_')[1]
     const formdata = new FormData();
     formdata.append('request_id', requestId);
-    const response = await fetch('http://127.0.0.1:8000/community/invitation/request/', {
+    const response = await fetch(backend_server + '/community/invitation/request/', {
         method: 'DELETE',
         body:formdata,
     });
@@ -131,7 +25,7 @@ async function response_signin(item) {
     formdata.append('request_method', request_method);
     formdata.append('request_id', requestId);
 
-    const response = await fetch('http://127.0.0.1:8000/community/invitation/request/', {
+    const response = await fetch(backend_server + '/community/invitation/request/', {
         method: 'PUT',
         body: formdata,
     });
@@ -145,7 +39,7 @@ async function response_signin(item) {
 }
 
 async function get_mypage_details() {
-    await fetch(`http://127.0.0.1:8000/user/mypage`, {
+    await fetch(backend_server + `/user/mypage`, {
         headers:{
             Authorization : "Bearer " + localStorage.getItem("access"),
         },
@@ -204,7 +98,7 @@ async function get_mypage_details() {
         for (i=0; i<result.article_set.length; i++) {
             let written_article_info = document.createElement("tr")
             written_article_info.innerHTML = `
-                                            <td>${result.article_set[i].communit_name}</td>
+                                            <td>${result.article_set[i].community_name}</td>
                                             <td>${result.article_set[i].noticeboard_name}</td>
                                             <td>${result.article_set[i].title}</td>
                                             <td>${result.article_set[i].created_date.slice(0, 10)}</td>
@@ -300,7 +194,7 @@ window.onload = ()=> {try {
         };
 
         // 다시 인증 받은 accessToken을 localStorage에 저장하자.
-        requestRefreshToken("http://127.0.0.1:8000/user/refresh/").then((data)=>{
+        requestRefreshToken(backend_server + "/user/refresh/").then((data)=>{
             // 새롭게 발급 받은 accessToken을 localStorage에 저장
             const accessToken = data.access;
             localStorage.setItem("access", accessToken);

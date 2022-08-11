@@ -1,7 +1,9 @@
+let backend_server = 'http://3.39.1.228:8000'
+
 async function load_individual_noticeboard(clicked_id) {
     let noticeboard_real_id = clicked_id.split('_', 4)[2];
     let noticeboard_real_name = clicked_id.split('_', 4)[3];
-    fetch(`http://127.0.0.1:8000/noticeboard/view/${noticeboard_real_id}`)
+    fetch(backend_server + `/noticeboard/view/${noticeboard_real_id}`)
         .then((response) => response.json())
         .then((json) => {
             console.log(json)

@@ -1,3 +1,5 @@
+let backend_server = 'http://3.39.1.228:8000'
+
 // URL 복사 하는 부분
 function clip(){
 
@@ -29,24 +31,6 @@ function dataURLtoBlob(dataurl) {
   
   function downloadImg(imgSrc) {
     alert('아직 준비중인 기능입니다!');
-    // var image = new Image();
-    // image.crossOrigin = "anonymous";
-    // image.src = imgSrc;
-    // var fileName = image.src.split("/").pop();
-    // image.onload = function() {
-    //   var canvas = document.createElement('canvas');
-    //   canvas.width = this.width;
-    //   canvas.height = this.height;
-    //   canvas.getContext('2d').drawImage(this, 0, 0);
-    //   if (typeof window.navigator.msSaveBlob !== 'undefined') {
-    //     window.navigator.msSaveBlob(dataURLtoBlob(canvas.toDataURL()), fileName);
-    //   } else {
-    //     var link = document.createElement('a');
-    //     link.href = canvas.toDataURL();
-    //     link.download = fileName;
-    //     link.click();
-    //   }
-    // };
   }
 
 // payload에서 필요한 정보 불러오기
@@ -63,64 +47,13 @@ try {
     alert('payload에서 필요한 정보를 불러오는 데에 오류가 발생했습니다!');
 }
 
-// 특정 게시판 클릭시 작동
-// function noticeboard_name(clicked_id) {
-//     try {
-//         let noticeboard_real_id = clicked_id.split('_', 4)[2];
-//         let noticeboard_real_name = clicked_id.split('_', 4)[3];
-//         fetch(`http://127.0.0.1:8000/noticeboard/view/${noticeboard_real_id}`)
-//             .then((response) => response.json())
-//             .then((json) => {
-//                 console.log(json)
-//                 let hide_display = document.getElementById('article_and_comment_display');
-//                 let hide_display_mod = document.getElementById('article_mod_wrap_area');
-//                 let hide_display_all_article = document.getElementById('noticeboard_all');
-//                 hide_display.setAttribute('style', 'display:none');
-//                 hide_display_mod.setAttribute('style', 'display:none');
-//                 hide_display_all_article.setAttribute('style', 'display:none');
-//                 let show_display = document.getElementById('right_side_item');
-//                 show_display.setAttribute('style', 'display:flex');
-//                 let table = document.getElementById('article_list_table');
-//                 let h2 = document.getElementById('noticeboard_name_area_in_show_article_list');
-//                 h2.innerHTML = noticeboard_real_name;
-
-//                 let article_button = document.getElementById('article_write_button_area');
-//                 article_button.innerHTML = `<button id="write_article_id_${noticeboard_real_id}_${noticeboard_real_name}" class="article_write_button" onclick="write_article(this.id)">글 작성하기</button>`;
-//                 table.innerHTML = `<tr id = "article_list_tr" class="show_article_list">
-//                                         <th>번호</th>
-//                                         <th>제목</th>
-//                                         <th>작성자</th> 
-//                                         <th>작성일</th>
-//                                         <th>조회</th>
-//                                     </tr>
-//                                     `;
-//                 const article_objects = json[0]['article_set'];
-//                 console.log(json[0]);
-
-//                 console.log(article_objects);
-//                 for (i = 0; i < article_objects.length; i++) {
-//                     let create_article_list = document.createElement('tr');
-//                     create_article_list.innerHTML = `<td>${i + 1}</td>
-//                                                 <td id="click_${article_objects[i]['id']}" onclick="article_id(this.id);">${article_objects[i]['title']}</td>
-//                                                 <td>${article_objects[i]['user_name']}</td>
-//                                                 <td>${article_objects[i]['created_date'].slice(5, 10)}</td>
-//                                                 <td>조회수</td>`;
-//                     table.append(create_article_list);
-//                 }
-//             });
-//     } catch (error) {
-//         console.error(error);
-//         alert('특정 게시판을 불러오는 데에 오류가 발생했습니다!');
-//     }
-// }
-
 // 댓글 작성
 function new_comment() {
     try {
         let comment_area = document.getElementById('comment_area');
 
         let comment_form_data = document.getElementById('comment_input_area').value;
-        fetch('http://127.0.0.1:8000/article/comment/write/', {
+        fetch(backend_server + '/article/comment/write/', {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('access'),
@@ -163,7 +96,7 @@ function article_id(clicked_id) {
         article_show.setAttribute('style', 'display:flex');
         article_hide.setAttribute('style', 'display:none');
 
-        fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
+        fetch(backend_server + `/article/${article_num}/write`)
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
@@ -222,7 +155,7 @@ function article_id(clicked_id) {
                 <button id="mod_article_num_${json.id}" class="article_write_button" onclick="edit_article(this.id)">글 수정하기</button>`;
                 }
                 //get comment
-                return fetch('http://127.0.0.1:8000/article/comment/write/');
+                return fetch(backend_server + '/article/comment/write/');
 
                 
             })
@@ -245,25 +178,6 @@ function article_id(clicked_id) {
                     }
                 }
             });
-        
-
-        // 댓글에 현재 로그인된 사용자 이름 띄우기
-        // let currnet_user_area = document.getElementById('current_user_name');
-        // currnet_user_area.innerHTML = username;
-
-        // // 이미지 보여주기
-        // fetch(`http://127.0.0.1:8000/article/images/`)
-        //     .then((response) => response.json())
-        //     .then((json) => {
-        //         let image_area = document.getElementById('article_image_area');
-        //         for (i = 0; i < json.length; i++) {
-        //             if (article_num == json[i]['article_id']) {
-        //                 let make_image = document.createElement('div');
-        //                 make_image.innerHTML = `<img src= ${json[i]['image_url']} class=article_show_image></img>`;
-        //                 image_area.appendChild(make_image);
-        //             }
-        //         }
-        //     });
     } catch (error) {
         console.error(error);
         alert('한 개의 글 디테일한 부분 가져오기에서 오류가 발생했습니다!');
@@ -275,7 +189,7 @@ function new_noticeboard() {
     try {
         let noticeboard_form_data = document.getElementById('modal_input_text').value;
 
-        fetch('http://127.0.0.1:8000/noticeboard/create/', {
+        fetch(backend_server + '/noticeboard/create/', {
             method: 'POST',
             body: JSON.stringify({
                 community: community_num,
