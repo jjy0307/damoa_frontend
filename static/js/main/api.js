@@ -16,7 +16,7 @@ async function show_by_recommendation_detail(result) {
             src="${community[i].image}"
             />
             <div class="main-community__info">
-            <div class="main-community__info__name" onclick="location.href=${front_server}+ '/community?community=${community[i].community}';">${community[i].name}</div>
+            <div class="main-community__info__name" onclick="location.href='${front_server}/community?community=${community[i].community}';">${community[i].name}</div>
             <div class="main-community__info__discription">
                 ${community[i].introduction}
             </div>
