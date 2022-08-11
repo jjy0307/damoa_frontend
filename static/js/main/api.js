@@ -16,7 +16,7 @@ async function show_by_recommendation_detail(result) {
             src="${community[i].image}"
             />
             <div class="main-community__info">
-            <div class="main-community__info__name" onclick="location.href='http://127.0.0.1:5500/community_main_gh.html?community=${community[i].community}';">${community[i].name}</div>
+            <div class="main-community__info__name" onclick="location.href='http://127.0.0.1:5500/community?community=${community[i].community}';">${community[i].name}</div>
             <div class="main-community__info__discription">
                 ${community[i].introduction}
             </div>
@@ -130,7 +130,7 @@ async function show_by_joined() {
                     src="${community[i].community_info.image}"
                     />
                     <div class="main-community__info">
-                    <div class="main-community__info__name" onclick="location.href='http://127.0.0.1:5500/community_main_gh.html?community=${community[i].community}';">${community[i].community_info.name}</div>
+                    <div class="main-community__info__name" onclick="location.href='http://127.0.0.1:5500/community?community=${community[i].community}';">${community[i].community_info.name}</div>
                     <div class="main-community__info__discription">
                         ${community[i].community_info.introduction}
                     </div>

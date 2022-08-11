@@ -35,7 +35,7 @@ async function submit() {
                 throw new Error('wrong username')
             }
             alert('회원 가입이 완료 되었습니다')
-            window.location.href = front_server + '/login.html'
+            window.location.href = front_server + '/login'
         })
         .catch((err)=>{console.log(err)
         })
@@ -44,7 +44,7 @@ async function submit() {
 window.onload = ()=>{
     const payload = JSON.parse(localStorage.getItem("payload"));
     if (payload.exp > (Date.now() / 1000)){
-        window.location.replace(`main.html`);
+        window.location.replace(front_server + `main`);
     } else {
         const requestRefreshToken = async (url) => {
                 const response = await fetch(url, {

@@ -5,20 +5,20 @@ async function handleLogout() {
     localStorage.removeItem('access');
     alert('로그아웃 되었습니다.');
     location.reload();
-    window.location.replace(`main.html`);
+    window.location.replace(`http://43.200.24.208/main`);
 }
 
 async function handleLogin() {
-    window.location.replace(`login.html`);
+    window.location.replace(`http://43.200.24.208/login`);
 }
 
 async function handleSignUp() {
-    window.location.replace(`signup.html`);
+    window.location.replace(`http://43.200.24.208/signup`);
 }
 
 async function handleMain() {
-    window.location.replace(`main.html`);
+    window.location.replace(`http://43.200.24.208/main`);
 }
 async function handleMypage() {
-    window.location.replace(`my_page.html`);
+    window.location.replace(`http://43.200.24.208/mypage`);
 }
