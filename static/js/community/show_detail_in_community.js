@@ -1,4 +1,4 @@
-// let backend_server = 'http://3.39.1.228:8000'
+// let backend_server = 'http://127.0.0.1:8000'
 
 // URL 복사 하는 부분
 function clip(){
@@ -53,7 +53,7 @@ function new_comment() {
         let comment_area = document.getElementById('comment_area');
 
         let comment_form_data = document.getElementById('comment_input_area').value;
-        fetch('http://3.39.1.228:8000/article/comment/write/', {
+        fetch('http://127.0.0.1:8000/article/comment/write/', {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('access'),
@@ -96,7 +96,7 @@ function article_id(clicked_id) {
         article_show.setAttribute('style', 'display:flex');
         article_hide.setAttribute('style', 'display:none');
 
-        fetch(`http://3.39.1.228:8000/article/${article_num}/write`)
+        fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
@@ -113,10 +113,7 @@ function article_id(clicked_id) {
         </div>
         <hr />
         <div id="article_author_area" class="article_writearea">
-            <div>${json.user_name}</div>
             <div class="article_font_color" >조회${json.count} 댓글${json.comment_count}</div>  
-            <span onclick="clip(); return false;">URL 주소복사</span>
-            <!-- 파일 다운로드 구현 -->
         </div>
         <div id="article_content_area">${json.content}</div>
             <div>
@@ -155,7 +152,7 @@ function article_id(clicked_id) {
                 <button id="mod_article_num_${json.id}" class="article_write_button" onclick="edit_article(this.id)">글 수정하기</button>`;
                 }
                 //get comment
-                return fetch('http://3.39.1.228:8000/article/comment/write/');
+                return fetch('http://127.0.0.1:8000/article/comment/write/');
 
                 
             })
@@ -189,7 +186,7 @@ function new_noticeboard() {
     try {
         let noticeboard_form_data = document.getElementById('modal_input_text').value;
 
-        fetch('http://3.39.1.228:8000/noticeboard/create/', {
+        fetch('http://127.0.0.1:8000/noticeboard/create/', {
             method: 'POST',
             body: JSON.stringify({
                 community: community_num,
