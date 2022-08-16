@@ -1,12 +1,62 @@
-let backend_server = 'http://3.39.1.228:8000'
-let front_server = "http://43.200.24.208"
+let backend_server = 'http://127.0.0.1:8000'
+let front_server_community = "http://127.0.0.1:5500/community_main_gh.html"
+
+async function community_signin_delete(item) {
+    const community_name = item.split('community_sigin_button_')[1]
+    const formdata = new FormData();
+    formdata.append('request_name', community_name)
+    
+    const response = await fetch(backend_server + '/community/invitation/request/', {
+        headers:{
+            Authorization : "Bearer " + localStorage.getItem("access"),
+        },
+        method: 'DELETE',
+        body: formdata,
+    });
+
+    if (response.status == 200) {
+        const community_button = document.getElementById('community_sigin_button_'+community_name)
+        community_button.innerText = '가입 신청하기'
+    }
+}
+
+
+async function community_signin(item) {
+    if (document.getElementById(item).innerText === '가입 요청 취소') {
+        community_signin_delete(item)
+    } else {
+            const community_name = item.split('community_sigin_button_')[1]
+            const formdata = new FormData();
+            formdata.append('request_name', community_name)
+            
+            const response = await fetch(backend_server + '/community/invitation/request/', {
+                headers:{
+                    Authorization : "Bearer " + localStorage.getItem("access"),
+                },
+                method: 'POST',
+                body: formdata,
+            });
+
+            if (response.status == 200) {
+                const community_button = document.getElementById('community_sigin_button_'+community_name)
+                community_button.innerText = '가입 신청 취소'
+            }
+    }
+}
+
 async function show_by_recommendation_detail(result) {
     hit_ranking_sidebar(result.community_hit_count);
     filter_tags(result.tag);
     const community = result.community;
     const container = document.getElementById("main-container");
+    const user_id = JSON.parse(localStorage.getItem('payload'))['user_id']
     container.innerHTML = ``;
     for (i=0; i<community.length; i++) {
+        console.log(community)
+        let button_text = '가입 신청하기'
+        if (community[i].invitation.includes(user_id)) {
+            button_text = '가입 요청 취소'
+        }
         const contanier_div = document.createElement('div');
         contanier_div.classList.add("main-community")
         contanier_div.innerHTML =   
@@ -16,7 +66,7 @@ async function show_by_recommendation_detail(result) {
             src="${community[i].image}"
             />
             <div class="main-community__info">
-            <div class="main-community__info__name" onclick="location.href='${front_server}/community?community=${community[i].community}';">${community[i].name}</div>
+            <div class="main-community__info__name" onclick="location.href='${front_server_community}?community=${community[i].community}';">${community[i].name}</div>
             <div class="main-community__info__discription">
                 ${community[i].introduction}
             </div>
@@ -27,6 +77,7 @@ async function show_by_recommendation_detail(result) {
                 |
                 <div class="main-community__info__number">회원 수 ${community[i].user_num}</div>
             </div>
+            <button class="uk-button uk-button-primary uk-button-small uk-width-1-2" id="community_sigin_button_${community[i].name}" onclick="community_signin(this.id)">${button_text}</button>
             </div>
         `
 
@@ -130,7 +181,7 @@ async function show_by_joined() {
                     src="${community[i].community_info.image}"
                     />
                     <div class="main-community__info">
-                    <div class="main-community__info__name" onclick="location.href='${front_server}/community?community=${community[i].community}';">${community[i].community_info.name}</div>
+                    <div class="main-community__info__name" onclick="location.href='${front_server_community}?community=${community[i].community}';">${community[i].community_info.name}</div>
                     <div class="main-community__info__discription">
                         ${community[i].community_info.introduction}
                     </div>
