@@ -1,4 +1,4 @@
-let backend_server = 'http://3.39.1.228:8000'
+let backend_server = 'http://127.0.0.1:8000'
 
 async function community_mainpage() {
     const community_num = window.location.href.split('?')[1].split('=')[1]
