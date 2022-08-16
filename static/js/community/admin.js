@@ -1,9 +1,9 @@
-// let backend_server = 'http://3.39.1.228:8000'
+// let backend_server = 'http://127.0.0.1:8000'
 
 //admin 접근 가능, 신고된 게시글 보여주기
 function admin_articles() {
     try {
-        fetch('http://3.39.1.228:8000/article/admin/')
+        fetch('http://127.0.0.1:8000/article/admin/')
             .then((response) => response.json())
             .then((json) => {
                 let hide_display = document.getElementById('article_and_comment_display');
@@ -44,7 +44,7 @@ function admin_articles() {
 //admin 접근 가능, 신고된 댓글 보여주기
 function admin_comments() {
     try {
-        fetch('http://3.39.1.228:8000/article/comment/admin/')
+        fetch('http://127.0.0.1:8000/article/comment/admin/')
             .then((response) => response.json())
             .then((json) => {
                 let hide_display = document.getElementById('article_and_comment_display');
@@ -83,7 +83,7 @@ function admin_comments() {
 function article_yes_delete(delete_id) {
     try {
         select_one = delete_id.id.split('_', 3)[2];
-        fetch(`http://3.39.1.228:8000/article/${select_one}/write/delete/`, {
+        fetch(`http://127.0.0.1:8000/article/${select_one}/write/delete/`, {
             method: 'DELETE',
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('access'),
@@ -105,7 +105,7 @@ function article_no_delete(delete_id) {
         let title_display = document.getElementById(`article_click_${select_one}`).innerHTML;
         let content_display = document.getElementById(`article_click_2_${select_one}`).innerHTML;
 
-        fetch(`http://3.39.1.228:8000/article/${select_one}/write/put/`, {
+        fetch(`http://127.0.0.1:8000/article/${select_one}/write/put/`, {
             method: 'PUT',
             body: JSON.stringify({
                 title: title_display,
@@ -131,7 +131,7 @@ function comment_yes_delete(delete_id) {
     try {
         select_one = delete_id.id.split('_', 3)[2];
 
-        fetch(`http://3.39.1.228:8000/article/comment/${select_one}/write/delete/`, {
+        fetch(`http://127.0.0.1:8000/article/comment/${select_one}/write/delete/`, {
             method: 'DELETE',
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('access'),
@@ -153,7 +153,7 @@ function comment_no_delete(delete_id) {
         let content_display = document.getElementById(`comment_click_${select_one}`).innerHTML;
         let article_display = document.getElementById(`comment_click_2_${select_one}`).innerHTML;
 
-        fetch(`http://3.39.1.228:8000/article/comment/${select_one}/write/put/`, {
+        fetch(`http://127.0.0.1:8000/article/comment/${select_one}/write/put/`, {
             method: 'PUT',
             body: JSON.stringify({
                 article: article_display,
