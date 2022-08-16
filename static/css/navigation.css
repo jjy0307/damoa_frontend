@@ -44,6 +44,10 @@
     margin-right: 20px;
 }
 
+#nav_login_btn {
+    margin-right: 20px;
+}
+
 .navigation-bar__button__logout {
     margin-left: 5px;
 }
