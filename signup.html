@@ -6,18 +6,24 @@
     <link rel="stylesheet" type="text/css" href="static/css/signin.css" />
   </head>
   <body>
-    <nav class="nav">
-      <p
-        style="
-          color: white;
-          font-size: 20px;
-          margin-left: 20px;
-          font-weight: bold;
-        "
-        onclick="handleMain()"
-      >
-        damoa.life
-      </p>
+    <nav
+      class="uk-navbar-container uk-margin white-background"
+      style="
+        background-color: #ffffff;
+        margin-bottom: 0px;
+        border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+      "
+      uk-navbar
+    >
+      <div class="uk-navbar-center">
+        <a
+          class="uk-navbar-item uk-logo"
+          style="font-size: 30px; font-weight: 600"
+          href="#"
+          onclick="handleMain()"
+          >Damoa Life</a
+        >
+      </div>
     </nav>
     <div class="box">
       <div>
@@ -57,4 +63,13 @@
   </body>
   <script type="text/javascript" src="static/js/signup.js"></script>
   <script type="text/javascript" src="static/js/navbar.js"></script>
+  <!-- UIkit CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css"
+  />
+
+  <!-- UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit-icons.min.js"></script>
 </html>
