@@ -1,12 +1,11 @@
-// let backend_server = 'http://3.39.1.228:8000'
+// let backend_server = 'http://127.0.0.1:8000'
 // 글 수정 페이지로 이동 및 불러오기
 async function edit_article(clicked_id) {
     try {
         article_num = clicked_id.split('_', 4)[3];
-        await fetch(`http://3.39.1.228:8000/article/${article_num}/write`)
+        await fetch(`http://127.0.0.1:8000/article/${article_num}/write`)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json)
                 let hide_display = document.getElementById('article_and_comment_display');
                 hide_display.setAttribute('style', 'display:none');
                 let show_display = document.getElementById('article_mod_wrap_area');
@@ -17,7 +16,7 @@ async function edit_article(clicked_id) {
                 let article_mod_area = document.getElementById('article_mod_area');
                 article_mod_area.innerHTML = `
                 <div class="article_header">
-                    <h2>${json.noticeboard_name}</h2>
+                    <h2>${json.noticeboard_name} 게시판</h2>
                     <button id="article_mod_fin_${json.id}_${json.noticeboard_id}" class="article_write_button" onclick="edit_article_post(this.id)">수정 완료</button>
                 </div>
                 <hr />
@@ -29,18 +28,8 @@ async function edit_article(clicked_id) {
                 <div class="article_mod_content">
                     <div id = "edit_article_content">${json.content}</div>
                 </div>   
-                <div class ="article_mod_image_wrap_area">
-                    <div id="article_mod_image_area" class="article_wrapimage"></div>
-                    <form>
-                        <input id="edit_article_images" type="file" accept="image/*" multiple />
-                    </form>
-                </div>
                 <hr />
                 <div class="article_mod_file_area">
-                    <div> 파일 이름 : ${0}</div>
-                        <a href=" ${0}" download>
-                            파일 미리보기
-                        </a>
                     <form>
                         <input id="edit_article_file" type="file" />
                     </form>
@@ -89,7 +78,7 @@ async function edit_article_post(clicked_id) {
         formdata.append('content', content);
         formdata.append('file', file);
         formdata.append('user_id', localStorage.getItem('payload'));
-        await fetch('http://3.39.1.228:8000/article/write/', {
+        await fetch('http://127.0.0.1:8000/article/write/', {
             method: 'PUT',
             body: formdata,
         })
