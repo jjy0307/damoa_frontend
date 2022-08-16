@@ -1,5 +1,5 @@
 let backend_server = 'http://3.39.1.228:8000'
-let front_server =  'http://43.200.24.208'
+let front_server = "http://43.200.24.208"
 
 async function submit() {
     user_id = document.getElementById("user_id").value
@@ -35,7 +35,10 @@ async function submit() {
                 throw new Error('wrong username')
             }
             alert('회원 가입이 완료 되었습니다')
-            window.location.href = front_server + '/login'
+
+            // [IP 변경]
+            // window.location.href = front_server + '/login'
+            window.location.href = 'http://127.0.0.1:5500/login.html';
         })
         .catch((err)=>{console.log(err)
         })
@@ -44,7 +47,9 @@ async function submit() {
 window.onload = ()=>{
     const payload = JSON.parse(localStorage.getItem("payload"));
     if (payload.exp > (Date.now() / 1000)){
-        window.location.replace(front_server + `main`);
+        // [IP 변경]
+        // window.location.href = front_server + '/main'
+        window.location.href = 'http://127.0.0.1:5500/main.html';
     } else {
         const requestRefreshToken = async (url) => {
                 const response = await fetch(url, {
