@@ -1,4 +1,107 @@
-let backend_server = 'http://3.39.1.228:8000'
+let backend_server = 'http://127.0.0.1:8000'
+
+async function comment_update(item) {
+    alert('준비중입니다')
+}
+
+async function comment_delete(item) {
+    const comment_id = item.split('comment_delete_')[1]
+    const formdata = new FormData();
+    formdata.append('request_id', comment_id);
+    const response = await fetch(backend_server + '/article/comment/write/', {
+        headers:{
+            Authorization : "Bearer " + localStorage.getItem("access"),
+        },
+        method: 'DELETE',
+        body:formdata,
+    })
+
+    if (response.status == 200) {
+        const table = document.getElementById('written_comment_info_'+comment_id);
+        table.remove();
+    } else {
+        alert('잘못된 요청입니다');
+    }
+}
+
+
+
+async function article_update(item) {
+    alert('준비중입니다')
+}
+
+async function article_delete(item) {
+    const article_id = item.split('article_delete_')[1]
+    const formdata = new FormData();
+    formdata.append('request_id', article_id);
+    const response = await fetch(backend_server + '/article/write/', {
+        headers:{
+            Authorization : "Bearer " + localStorage.getItem("access"),
+        },
+        method: 'DELETE',
+        body:formdata,
+    })
+
+    if (response.status == 200) {
+        const table = document.getElementById('written_article_info_'+article_id);
+        table.remove();
+    } else {
+        alert('잘못된 요청입니다');
+    }
+
+}
+
+async function withdraw_community(item) {
+    const community_id = item.split('community_wihtdraw_')[1]
+    const formdata = new FormData();
+    formdata.append('request_id', community_id);
+    const response = await fetch(backend_server + '/community/mypage/', {
+        headers:{
+            Authorization : "Bearer " + localStorage.getItem("access"),
+        },
+        method: 'DELETE',
+        body:formdata,
+    })
+
+    if (response.status == 200) {
+        const table = document.getElementById('delete_community_tag_'+community_id);
+        table.remove();
+    } else {
+        alert('잘못된 요청입니다');
+    }
+}
+
+
+async function update_password_api(item) {
+    const formdata = new FormData();
+    formdata.append('password', item);
+    const response = await fetch(backend_server + '/user/signup/', {
+        headers:{
+            Authorization : "Bearer " + localStorage.getItem("access"),
+        },
+        method: 'PUT',
+        body:formdata,
+    })
+
+    if (response.status == 200) {
+        alert('성공적으로 바꼈습니다')
+        window.location.reload()
+    } else {
+        alert('현재 비밀번호와 같습니다');
+    }
+
+}
+
+function update_password() {
+    const changed_password = document.getElementById("password").value
+    const changed_password_check = document.getElementById("password_check").value
+    if (changed_password !== changed_password_check) {
+        alert('변경할 비밀번호와 재입력된 비밀번호가 맞지 않습니다')
+    } else {
+        update_password_api(changed_password)
+    }
+}
+
 
 // 승인 요청한 사람이, 승인을 취소하는 작업
 async function delete_request_signin(item) {
@@ -46,6 +149,7 @@ async function get_mypage_details() {
     })
     .then((response) => response.json())
     .then((result) => {
+        console.log(result)
         const username = document.getElementById('mypage_username')
         username.innerText = result.username
         const user_id = document.getElementById("mypage_user_id")
@@ -54,17 +158,18 @@ async function get_mypage_details() {
         const joined_community = document.getElementById("mypage_joined_community")
         for (i=0; i<result.userandcommunity_set.length; i++) {
             let joined_community_info = document.createElement('tr')
+            joined_community_info.setAttribute('id', 'delete_community_tag_'+result.userandcommunity_set[i].community)
             joined_community_info.innerHTML = `
                                             <td>${result.userandcommunity_set[i].community_name}</td>                        
                                             <td>
-                                                <button id="community_wihtdraw_${result.userandcommunity_set[i].community}">탈퇴하기</button>
+                                                <button id="community_wihtdraw_${result.userandcommunity_set[i].community}" onclick="withdraw_community(this.id)">탈퇴하기</button>
                                             </td>                       
                                             `
             joined_community.append(joined_community_info)
             if (result.userandcommunity_set[i].is_admin == false) {
                 continue;
             }
-
+        
             for (j=0; j<result.userandcommunity_set[i].community_request.length; j++) {
                 const response_signin = document.getElementById("response_signin_table")
                 const community_request = result.userandcommunity_set[i].community_request[j]
@@ -97,6 +202,7 @@ async function get_mypage_details() {
         const written_article = document.getElementById("mypage_written_article")
         for (i=0; i<result.article_set.length; i++) {
             let written_article_info = document.createElement("tr")
+            written_article_info.setAttribute('id', 'written_article_info_'+result.article_set[i].id)
             written_article_info.innerHTML = `
                                             <td>${result.article_set[i].community_name}</td>
                                             <td>${result.article_set[i].noticeboard_name}</td>
@@ -104,10 +210,10 @@ async function get_mypage_details() {
                                             <td>${result.article_set[i].created_date.slice(0, 10)}</td>
                                             <td>${result.article_set[i].count}</td>
                                             <td>
-                                                <button id="article_update_${result.article_set[i].id}">글 수정하기</button>
+                                                <button id="article_update_${result.article_set[i].id}" onclick="article_update(this.id)">글 수정하기</button>
                                             </td>
                                             <td>
-                                                <button id="article_delete_${result.article_set[i].id}">글 삭제하기</button>
+                                                <button id="article_delete_${result.article_set[i].id}" onclick="article_delete(this.id)">글 삭제하기</button>
                                             </td>
                                             `
             written_article.append(written_article_info)
@@ -116,16 +222,17 @@ async function get_mypage_details() {
         const written_comment = document.getElementById("mypage_written_comment")
         for (i=0; i<result.comment_set.length; i++) {
             let written_comment_info = document.createElement('tr')
+            written_comment_info.setAttribute('id', 'written_comment_info_'+result.comment_set[i].id)
             written_comment_info.innerHTML = `
                                             <td>${result.comment_set[i].community_name}</td>
                                             <td>${result.comment_set[i].noticeboard_name}</td>
                                             <td>${result.comment_set[i].content}</td>
                                             <td>${result.comment_set[i].created_date.slice(0, 10)}</td>
                                             <td>
-                                                <button id="comment_update_${result.comment_set[i].id}">댓글 수정하기</button>
+                                                <button id="comment_update_${result.comment_set[i].id}" onclick="comment_update(this.id)">댓글 수정하기</button>
                                             </td>
                                             <td>
-                                                <button id="comment_delete_${result.comment_set[i].id}">댓글 삭제하기</button>
+                                                <button id="comment_delete_${result.comment_set[i].id}" onclick="comment_delete(this.id)">댓글 삭제하기</button>
                                             </td>
                                             `
             written_comment.append(written_comment_info)
@@ -136,10 +243,10 @@ async function get_mypage_details() {
             let request_result = '대기중'
             if (result.userandcommunityinvitation_set[i].reject === true) {
                 request_result = '거절됨'
-            } else if (result.userandcommunityinvitation_set[i].reject === true) {
+            } else if (result.userandcommunityinvitation_set[i].accept === true) {
                 request_result = '승인됨'
             }
-            if (result.userandcommunityinvitation_set[i].invited === true) {
+            if (result.userandcommunityinvitation_set[i].invited === false) {
                 let request_signin_info = document.createElement('tr')
                 request_signin_info.setAttribute('id', 'tr_request_signin_'+result.userandcommunityinvitation_set[i].id)
                 request_signin_info.innerHTML = `
