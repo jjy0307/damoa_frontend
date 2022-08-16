@@ -11,6 +11,7 @@
     min-height: 300px;
     position: fixed;
     padding: 1%;
+    margin-top: 50px;
 }
 
 .community-title {
@@ -19,8 +20,9 @@
 }
 
 .community-sub {
-    margin-top: 40px;
     font-size: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 .community-create {
@@ -29,6 +31,7 @@
 }
 
 .community_noticeboard_button {
+    height: 30px;
     margin: 3%;
     font-size: 15px;
     border: none;
@@ -41,9 +44,7 @@
     color: black;
     background-color: white;
     letter-spacing: 1px;
-    transform: scale(1);
     cursor: pointer;
-    /* transition: 0.1s; */
 }
 .community_noticeboard_button:active {
     transform: scale(1.2);
@@ -61,6 +62,7 @@
     background-color: rgb(117, 168, 243);
     border-radius: 10px;
     color: rgb(255, 255, 255);
+    margin-bottom: 10px;
 }
 
 .admin_item:hover {
